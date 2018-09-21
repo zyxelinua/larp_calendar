@@ -1,0 +1,35 @@
+.navbar {
+    margin: 0 -15px;
+    border-radius: 8px;
+}
+
+.sub-header {
+    padding: 10px;
+    margin: 0 5px;
+}
+
+.page-footer{
+    margin: 0 -15px;
+}
+
+/*pagination*/
+.page-item.active .page-link{
+    border-color: black;
+}
+
+.alert {
+    margin: 0 -15px;
+}
+
+.event-img {
+    width: 50%;
+    float: left;
+}
+
+.brand-bg {
+    /*background-color: #420080;*/
+}
+
+.brand-txt {
+    /*color: #28004d;*/
+}
