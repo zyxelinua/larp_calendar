@@ -47,4 +47,22 @@ class EventCategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findList($limit, $offset)
+    {
+        return $this->createQueryBuilder('category')
+            ->select('category')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countItems()
+    {
+        return $this->createQueryBuilder('category')
+            ->select('count(category.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

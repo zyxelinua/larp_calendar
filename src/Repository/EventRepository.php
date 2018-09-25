@@ -52,9 +52,39 @@ class EventRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('event')
             ->andWhere('event.status = :val')
-            ->setParameter('val', 'approved')
+            ->setParameter('val', Event::STATUS_APPROVED)
             ->orderBy('event.publishDate', 'DESC')
             ->setMaxResults($numberOfItems)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return integer
+     */
+    public function countItems()
+    {
+        return $this->createQueryBuilder('event')
+            ->select('count(event.id)')
+            ->andWhere('event.status = :val')
+            ->setParameter('val', Event::STATUS_APPROVED)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @param $limit
+     * @param $offset
+     */
+    public function findList($limit, $offset)
+    {
+        return $this->createQueryBuilder('event')
+            ->andWhere('event.beginningDate >= :today')
+            ->andWhere('event.status = :val')
+            ->setParameters(array('today'=> date('Y-m-d'), 'val' => Event::STATUS_APPROVED))
+            ->orderBy('event.beginningDate', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
     }

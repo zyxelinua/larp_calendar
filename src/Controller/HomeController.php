@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Event;
+use App\Repository\EventRepository;
 
 class HomeController extends BaseController
 {
@@ -16,8 +17,8 @@ class HomeController extends BaseController
      * @Template("home.html.twig")
      *
      */
-    public function home()
+    public function home(EventRepository $eventRepository)
     {
-        return ['new_events' => $this->getDoctrine()->getRepository(Event::class)->findLatest(self::ITEMS_ON_HOMEPAGE)];
+        return ['new_events' => $eventRepository->findLatest(self::ITEMS_ON_HOMEPAGE)];
     }
 }
