@@ -1,6 +1,5 @@
 .navbar {
     margin: 0 -15px;
-    border-radius: 8px;
 }
 
 .sub-header {
@@ -26,10 +25,10 @@
     float: left;
 }
 
-.brand-bg {
+/*.brand-bg {*/
     /*background-color: #420080;*/
-}
+/*}*/
 
-.brand-txt {
+/*.brand-txt {*/
     /*color: #28004d;*/
-}
+/*}*/

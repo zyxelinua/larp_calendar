@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block heading %} Upcoming events {% endblock %}
+
+{% block content %}
+    {% if events %}
+        {% for event in events %}
+            <div class="card my-2">
+                <h4 class="card-title brand-txt">{{event.beginningDate|date("d/m/Y")}}-{{event.endDate|date("d/m/Y")}} {{event.name}}</h4>
+
+
+                        <div class="card-body px-2 d-flex flex-column">
+
+                            <p class="card-text m-2">{{event.shortDescription}}</p>
+                            <a href="#" class="btn btn-dark bg-dark align-self-end">See more</a>
+                        </div>
+                    </div>
+
+
+        {% endfor %}
+    {% else %}
+        There is no data currently.
+    {% endif %}
+
+    {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+
+
+{% endblock %}

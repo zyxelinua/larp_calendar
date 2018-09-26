@@ -49,8 +49,8 @@ class AppFixtures extends Fixture
         $run1->setShortDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
                 Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
                 All of you.');
-        $run1->setBeginningDate((new \DateTime("October 01, 2018")));
-        $run1->setEndDate(new \DateTime("October 04, 2018"));
+        $run1->setBeginningDate((new \DateTime("November 01, 2018")));
+        $run1->setEndDate(new \DateTime("November 04, 2018"));
         $run1->setLocation('beautiful castle');
         $run1->setCountry($poland);
         $run1->setCategory($historical);
@@ -179,6 +179,23 @@ class AppFixtures extends Fixture
         $run8->setOrganizerContact('cool_mg@gmail.com');
         $run8->setPublishDate(new \DateTime("September 01, 2018"));
         $manager->persist($run8);
+
+        $runPast = new Event;
+        $runPast->setName('Cool larp run past');
+        $runPast->setShortDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
+                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
+                All of you.');
+        $runPast->setBeginningDate((new \DateTime("May 01, 2018")));
+        $runPast->setEndDate(new \DateTime("May 04, 2018"));
+        $runPast->setLocation('beautiful castle');
+        $runPast->setCountry($poland);
+        $runPast->setCategory($historical);
+        $runPast->setType($larp);
+        $runPast->setStatus('approved');
+        $runPast->setOrganizers('cool MG');
+        $runPast->setOrganizerContact('cool_mg@gmail.com');
+        $runPast->setPublishDate(new \DateTime("April 01, 2018"));
+        $manager->persist($runPast);
 
         $manager->flush();
     }
