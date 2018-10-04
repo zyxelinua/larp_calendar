@@ -75,18 +75,16 @@ class CategoryController extends BaseController
             $id = $content['id'];
             $newName = $content['name'];
             $category = $eventCategoryRepository->find($id);
-                if ($category) {
-                    $category->setName($newName);
-                    $this->saveEntity($category);
+            if ($category) {
+                $category->setName($newName);
+                $this->saveEntity($category);
 
-                    return new Response($category->getName());
-                } else {
-                    throw $this->createNotFoundException('Category doesn\'t exist');
-                }
-        }
-        else {
+                return new Response($category->getName());
+            } else {
+                throw $this->createNotFoundException('Category doesn\'t exist');
+            }
+        } else {
             throw new BadRequestHttpException('Not valid request', null, 400);
         }
     }
 }
-

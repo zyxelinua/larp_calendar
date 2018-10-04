@@ -22,7 +22,7 @@
             <div class="container-fluid">
                 {% block navbar %}
                     <nav class="navbar navbar-light bg-white">
-                        <h1 class=" brand-txt header"> LARP Calendar</h1>
+                        <h1 class=" header"> LARP Calendar</h1>
 
                         <ul class="navbar nav navbar-light justify-content-end" >
                             <li class="nav-item active">
@@ -37,7 +37,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="#">Add event</a>
+                                <a class="nav-link text-dark" href="{{ path('new_event') }}">Add event</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="#">About project</a>
@@ -61,7 +61,7 @@
 
                 {% block page_heading %}
                     <div class="row " >
-                        <h2 class="sub-header text-center brand-txt">{% block heading %}{% endblock %}</h2>
+                        <h2 class="sub-header text-center">{% block heading %}{% endblock %}</h2>
                     </div>
                 {% endblock %}
 

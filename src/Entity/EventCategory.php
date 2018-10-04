@@ -25,7 +25,7 @@ class EventCategory
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="categories")
      */
     private $events;
 
@@ -79,29 +79,6 @@ class EventCategory
     public function getEvents(): Collection
     {
         return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-            // set the owning side to null (unless already changed)
-            if ($event->getCategory() === $this) {
-                $event->setCategory(null);
-            }
-        }
-
-        return $this;
     }
 
     /**

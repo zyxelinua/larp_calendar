@@ -79,10 +79,10 @@ class EventRepository extends ServiceEntityRepository
     public function findList($limit, $offset)
     {
         return $this->createQueryBuilder('event')
-            ->andWhere('event.beginningDate >= :today')
+            ->andWhere('event.startDate >= :today')
             ->andWhere('event.status = :val')
             ->setParameters(array('today'=> date('Y-m-d'), 'val' => Event::STATUS_APPROVED))
-            ->orderBy('event.beginningDate', 'ASC')
+            ->orderBy('event.startDate', 'ASC')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery()

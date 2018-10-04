@@ -27,19 +27,14 @@ class Event
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\Column(type="text")
      */
-    private $shortDescription;
-
-    /**
-     * @ORM\Column(type="string",nullable=true)
-     */
-    private $longDescription;
+    private $description;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $beginningDate;
+    private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
@@ -104,9 +99,10 @@ class Event
     private $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="EventCategory", inversedBy="events")
+     * @ORM\ManyToMany(targetEntity="EventCategory", inversedBy="events")
+     * @ORM\JoinTable(name="event_event_category")
      */
-    private $category;
+    private $categories;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -157,38 +153,26 @@ class Event
         return $this;
     }
 
-    public function getShortDescription(): ?string
+    public function getDescription(): ?string
     {
-        return $this->shortDescription;
+        return $this->description;
     }
 
-    public function setShortDescription(string $shortDescription): self
+    public function setDescription(?string $description): self
     {
-        $this->shortDescription = $shortDescription;
+        $this->description = $description;
 
         return $this;
     }
 
-    public function getLongDescription(): ?string
+    public function getStartDate(): ?\DateTimeInterface
     {
-        return $this->longDescription;
+        return $this->startDate;
     }
 
-    public function setLongDescription(?string $longDescription): self
+    public function setStartDate(\DateTimeInterface $startDate): self
     {
-        $this->longDescription = $longDescription;
-
-        return $this;
-    }
-
-    public function getBeginningDate(): ?\DateTimeInterface
-    {
-        return $this->beginningDate;
-    }
-
-    public function setBeginningDate(\DateTimeInterface $beginningDate): self
-    {
-        $this->beginningDate = $beginningDate;
+        $this->startDate = $startDate;
 
         return $this;
     }
@@ -217,7 +201,7 @@ class Event
         return $this;
     }
 
-    public function getCountry(): ?string
+    public function getCountry(): ?Country
     {
         return $this->country;
     }
@@ -337,14 +321,17 @@ class Event
         return $this;
     }
 
-    public function getCategory(): ?EventCategory
+    /**
+     * @return EventCategory[]
+     */
+    public function getCategories()
     {
-        return $this->category;
+        return $this->categories;
     }
 
-    public function setCategory(?EventCategory $category): self
+    public function setCategories($categories): self
     {
-        $this->category = $category;
+        $this->categories = $categories;
 
         return $this;
     }

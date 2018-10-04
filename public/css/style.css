@@ -20,15 +20,14 @@
     margin: 0 -15px;
 }
 
-.event-img {
-    width: 50%;
-    float: left;
+.brand-bg {
+    background-color: #420080;
 }
 
-/*.brand-bg {*/
-    /*background-color: #420080;*/
-/*}*/
+.brand-txt {
+    color: #28004d;
+}
 
-/*.brand-txt {*/
-    /*color: #28004d;*/
-/*}*/
+.event-img {
+    width: 18rem;
+}

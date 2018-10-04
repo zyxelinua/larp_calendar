@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Form\EventFormType;
 use App\Repository\EventRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +11,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Event;
 use App\Entity\EventCategory;
 use App\Entity\EventType;
-
 
 class EventController extends BaseController
 {
@@ -22,7 +22,6 @@ class EventController extends BaseController
      */
     public function listEvent(Request $request, EventRepository $eventRepository)
     {
-
         $page = $request->query->get('page', 1);
         $offset = ($page-1)*self::ITEMS_PER_PAGE;
 
@@ -34,6 +33,28 @@ class EventController extends BaseController
                 'page' => $page,
                 'pageCount' => ceil($countItems / self::ITEMS_PER_PAGE)
             ];
+    }
+
+    /**
+     * @Route("event/add", name="new_event")
+     * @Template("event/event_add.html.twig")
+     */
+    public function addEvent(Request $request)
+    {
+        $event = new Event;
+        $form = $this->createForm(EventFormType::class, $event);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $event = $form->getData();
+
+            $this->saveEntity($event);
+
+            $this->addNoticeFlash('Event created and is pending approval by administrator"');
+            return $this->redirectToRoute('home');
+        }
+
+        return ['form' => $form->createView()] ;
     }
 
     /**
