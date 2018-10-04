@@ -1,16 +1,16 @@
 <div class="col-6">
     <div class="card my-2">
-        <h4 class="card-header text-center brand-txt">{{event.name}}</h4>
+        <h4 class="card-header text-center">{{event.name}}</h4>
         <div class="row no-gutters">
             <div class="col-auto">
                 {#ToDo: replace with src="{{ asset(event.picture) }}"#}
-                <img class="img-fluid my-2 ml-2" src="/images/default-event-picture.jpg" alt="{{ event.name }}" style="width: 18rem;">
+                <img class="img-fluid event-img my-2 ml-2" src="/images/default-event-picture.jpg" alt="{{ event.name }}">
             </div>
             <div class="col ">
                 <div class="card-body px-2 d-flex flex-column">
 
-                    <p class="card-text m-2">{{event.shortDescription}}</p>
-                    <a href="#" class="btn btn-dark bg-dark align-self-end">See more</a>
+                    <p class="card-text m-2">{{event.description}}</p>
+                    <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-dark bg-dark align-self-end">See more</a>
                 </div>
             </div>
         </div>

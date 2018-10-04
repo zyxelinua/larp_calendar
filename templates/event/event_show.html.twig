@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block heading %}
+    {% if event %}
+        {{ event.name }}
+    {% else %}
+        Please specify valid event.
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if event %}
+
+        {#ToDo: replace with src="{{ asset(event.picture) }}"#}
+        <img class="img-fluid event-img mr-3 my-2 " src="/images/default-event-picture.jpg" alt="{{ event.name }}" align="left">
+
+        {%  if event.status == "cancelled" %}
+            <h4 class="p-2">
+                <span class="badge badge-danger">Cancelled!</span>
+            </h4>
+        {% endif %}
+
+        <h4 class="text-muted p-2">
+            {{ event.startDate | date("d/m/Y") }}
+            {% if event.startDate != event.endDate %}
+                 - {{ event.endDate | date("d/m/Y") }}
+            {% endif %}
+            <span class="badge badge-primary float-right brand-bg"> {{ event.type.name | upper }} </span>
+        </h4>
+        <h4 class="text-muted p-2">
+            {% if event.location %}
+                {{ event.location }},
+            {% endif %}
+            {{ event.country.name }}
+            {% if event.categories %}
+                <span class="badge bg-white float-right ">
+                    {% for category in event.categories%}
+                        {% if loop.last %}
+                            {{ category.name }}
+                        {% else %}
+                            {{ category.name }},
+                        {% endif %}
+                    {% endfor %}
+                </span>
+            {% endif %}
+        </h4>
+
+        <p class="p-2">{{event.description}}</p>
+
+        {% if event.organizers %}
+            <p class="p-1"> <strong> Organizers:</strong> {{ event.organizers }} </p>
+        {% endif %}
+
+        {% if (event.priceMin or event.priceMax) %}
+            <p class="p-1">
+                <strong>Tickets price: </strong>
+                {% if event.priceMin %}
+                    {{ event.priceMin }}
+                    {% if event.priceMax and event.priceMax != event.priceMin %}
+                        - {{ event.priceMax }}
+                    {% endif %}
+                {% else %}
+                    {{ event.priceMax }}
+                {% endif %}
+                 {{ event.priceCurrency }}
+            </p>
+        {% endif %}
+
+        {% if (event.contactSite or event.contactFB or event.contactOther) %}
+            <h5 class="p-1">Learn more: </h5>
+                {% if event.contactSite %}
+                    <p><a href="http://{{ event.contactSite }}" class="text-dark"> {{ event.name}} site </a></p>
+                {% endif %}
+                {% if event.contactFB %}
+                    <p><a href="{{ event.contactFB }}" class="text-dark"> <span class="fa fa-facebook-square" ></span> {{ event.name}} on Facebook </a></p>
+                {% endif %}
+                {% if event.contactOther %}
+                     {{ event.contactOther }}
+                {% endif %}
+
+        {% endif %}
+
+    {% endif %}
+{% endblock %}
