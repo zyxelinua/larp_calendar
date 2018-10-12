@@ -5,12 +5,11 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CountryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\GenreRepository")
  */
-class Country
+class Genre
 {
     /**
      * @ORM\Id()
@@ -25,7 +24,7 @@ class Country
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="country")
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="genre")
      */
     private $events;
 
@@ -33,28 +32,6 @@ class Country
     {
         $this->events = new ArrayCollection();
     }
-
-    /**
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
-     */
-    private $slug;
-
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
 
     public function getId(): ?int
     {
@@ -85,7 +62,7 @@ class Country
     {
         if (!$this->events->contains($event)) {
             $this->events[] = $event;
-            $event->setCountry($this);
+            $event->setGenre($this);
         }
 
         return $this;
@@ -96,35 +73,11 @@ class Country
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
             // set the owning side to null (unless already changed)
-            if ($event->getCountry() === $this) {
-                $event->setCountry(null);
+            if ($event->getGenre() === $this) {
+                $event->setGenre(null);
             }
         }
 
         return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 }

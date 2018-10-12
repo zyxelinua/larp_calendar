@@ -8,11 +8,12 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\EventType;
-use App\Entity\EventCategory;
-use App\Entity\Country;
+use App\Entity\Subgenre;
+use App\Entity\Region;
 
 class EventFormType extends AbstractType
 {
@@ -33,21 +34,20 @@ class EventFormType extends AbstractType
             ->add('endDate', DateType::class)
             ->add('location', TextType::class)
             ->add(
-                'country',
+                'region',
                 EntityType::class,
                 [
-                    'class' => Country::class,
+                    'class' => Region::class,
                     'choice_label' => 'name'
                 ]
             )
             ->add('priceMin', IntegerType::class)
             ->add('priceMax', IntegerType::class)
-            ->add('priceCurrency', TextType::class)
             ->add(
-                'categories',
+                'subgenres',
                 EntityType::class,
                 [
-                    'class' => EventCategory::class,
+                    'class' => Subgenre::class,
                     'choice_label' => 'name',
                     'multiple' => true
                 ]
@@ -57,6 +57,7 @@ class EventFormType extends AbstractType
             ->add('contactSite', TextType::class)
             ->add('contactFB', TextType::class)
             ->add('contactOther', TextType::class)
+            ->add('picture', FileType::class, array('label' => 'Add picture'))
             ->add('save', SubmitType::class)
         ;
     }

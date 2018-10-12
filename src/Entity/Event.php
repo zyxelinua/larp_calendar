@@ -2,34 +2,21 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Constraints as CustomAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  */
-class Event
+class Event extends News
 {
     const STATUS_APPROVED = 'approved';
     const STATUS_PENDING = 'pending';
     const STATUS_CANCELLED = 'cancelled';
-
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $description;
 
     /**
      * @ORM\Column(type="datetime")
@@ -47,10 +34,11 @@ class Event
     private $location;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Country", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Region", inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\NotBlank()
      */
-    private $country;
+    private $region;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -63,9 +51,34 @@ class Event
     private $priceMax;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="EventType", inversedBy="events")     *
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\NotBlank()
      */
-    private $priceCurrency;
+    private $type;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Subgenre", inversedBy="events")
+     * @ORM\JoinTable(name="event_subgenres")
+     */
+    private $subgenres;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Genre", inversedBy="events")
+     * @ORM\JoinColumn(nullable=true)
+     * @Assert\NotBlank()
+     */
+    private $genre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Settlement", inversedBy="events")
+     */
+    private $settlement;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Weapon", inversedBy="events")
+     */
+    private $weapons;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -90,80 +103,83 @@ class Event
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $contactVK;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $contactTelegram;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $contactOther;
 
     /**
-     * @ORM\ManyToOne(targetEntity="EventType", inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $type;
+    private $mixDeskRuntimeGM;
 
     /**
-     * @ORM\ManyToMany(targetEntity="EventCategory", inversedBy="events")
-     * @ORM\JoinTable(name="event_event_category")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $categories;
+    private $mixDeskOpenness;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $status;
+    private $mixdeskPlayerPressure;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $publishDate;
+    private $mixDeskCharCreation;
 
-    public function getId(): ?int
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mixDeskMetatechniques;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mixDeskStoryEngine;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mixDeskCommunicationStyle;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mixDeskBleedIn;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mixDeskLoyaltyToSetting;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mixDeskRepresentaionOfTheme;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $mixDeskScenography;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $picture;
+
+    public function __construct()
     {
-        return $this->id;
+        $this->weapons = new ArrayCollection();
     }
 
-    /**
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
-     */
-    private $slug;
-
-    /**
-     * @var \DateTime $created
-     *
-     * @Gedmo\Timestampable(on="create")
-     * @ORM\Column(type="datetime")
-     */
-    private $created;
-
-    /**
-     * @var \DateTime $updated
-     *
-     * @Gedmo\Timestampable(on="update")
-     * @ORM\Column(type="datetime")
-     */
-    private $updated;
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 
     public function getStartDate(): ?\DateTimeInterface
     {
@@ -201,14 +217,14 @@ class Event
         return $this;
     }
 
-    public function getCountry(): ?Country
+    public function getRegion(): ?Region
     {
-        return $this->country;
+        return $this->region;
     }
 
-    public function setCountry(?Country $country): self
+    public function setRegion(?Region $region): self
     {
-        $this->country = $country;
+        $this->region = $region;
 
         return $this;
     }
@@ -233,18 +249,6 @@ class Event
     public function setPriceMax(?int $priceMax): self
     {
         $this->priceMax = $priceMax;
-
-        return $this;
-    }
-
-    public function getPriceCurrency(): ?string
-    {
-        return $this->priceCurrency;
-    }
-
-    public function setPriceCurrency(?string $priceCurrency): self
-    {
-        $this->priceCurrency = $priceCurrency;
 
         return $this;
     }
@@ -322,65 +326,235 @@ class Event
     }
 
     /**
-     * @return EventCategory[]
+     * @return Subgenre[]
      */
-    public function getCategories()
+    public function getSubgenres()
     {
-        return $this->categories;
+        return $this->subgenres;
     }
 
-    public function setCategories($categories): self
+    public function setSubgenres($subgenres): self
     {
-        $this->categories = $categories;
+        $this->subgenres = $subgenres;
 
         return $this;
     }
 
-    public function getStatus(): ?string
+    public function getGenre(): ?Genre
     {
-        return $this->status;
+        return $this->genre;
     }
 
-    public function setStatus(string $status): self
+    public function setGenre(?Genre $genre): self
     {
-        $this->status = $status;
+        $this->genre = $genre;
 
         return $this;
     }
 
-    public function getPublishDate(): ?\DateTimeInterface
+    public function getSettlement(): ?Settlement
     {
-        return $this->publishDate;
+        return $this->settlement;
     }
 
-    public function setPublishDate(\DateTimeInterface $publishDate): self
+    public function setSettlement(?Settlement $settlement): self
     {
-        $this->publishDate = $publishDate;
+        $this->settlement = $settlement;
 
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return Collection|Weapon[]
      */
-    public function getCreated()
+    public function getWeapon(): Collection
     {
-        return $this->created;
+        return $this->weapons;
     }
 
-    /**
-     * @return \DateTime
-     */
-    public function getUpdated()
+    public function addWeapon(Weapon $weapon): self
     {
-        return $this->updated;
+        if (!$this->weapons->contains($weapon)) {
+            $this->weapons[] = $weapon;
+        }
+
+        return $this;
     }
 
-    /**
-     * @return string
-     */
-    public function getSlug()
+    public function removeWeapon(Weapon $weapon): self
     {
-        return $this->slug;
+        if ($this->weapons->contains($weapon)) {
+            $this->weapons->removeElement($weapon);
+        }
+
+        return $this;
+    }
+
+    public function getContactVK(): ?string
+    {
+        return $this->contactVK;
+    }
+
+    public function setContactVK(?string $contactVK): self
+    {
+        $this->contactVK = $contactVK;
+
+        return $this;
+    }
+
+    public function getContactTelegram(): ?string
+    {
+        return $this->contactTelegram;
+    }
+
+    public function setContactTelegram(?string $contactTelegram): self
+    {
+        $this->contactTelegram = $contactTelegram;
+
+        return $this;
+    }
+
+    public function getMixDeskRuntimeGM(): ?int
+    {
+        return $this->mixDeskRuntimeGM;
+    }
+
+    public function setMixDeskRuntimeGM(?int $mixDeskRuntimeGM): self
+    {
+        $this->mixDeskRuntimeGM = $mixDeskRuntimeGM;
+
+        return $this;
+    }
+
+    public function getMixDeskOpenness(): ?int
+    {
+        return $this->mixDeskOpenness;
+    }
+
+    public function setMixDeskOpenness(?int $mixDeskOpenness): self
+    {
+        $this->mixDeskOpenness = $mixDeskOpenness;
+
+        return $this;
+    }
+
+    public function getMixdeskPlayerPressure(): ?int
+    {
+        return $this->mixdeskPlayerPressure;
+    }
+
+    public function setMixdeskPlayerPressure(?int $mixdeskPlayerPressure): self
+    {
+        $this->mixdeskPlayerPressure = $mixdeskPlayerPressure;
+
+        return $this;
+    }
+
+    public function getMixDeskCharCreation(): ?int
+    {
+        return $this->mixDeskCharCreation;
+    }
+
+    public function setMixDeskCharCreation(?int $mixDeskCharCreation): self
+    {
+        $this->mixDeskCharCreation = $mixDeskCharCreation;
+
+        return $this;
+    }
+
+    public function getMixDeskMetatechniques(): ?int
+    {
+        return $this->mixDeskMetatechniques;
+    }
+
+    public function setMixDeskMetatechniques(?int $mixDeskMetatechniques): self
+    {
+        $this->mixDeskMetatechniques = $mixDeskMetatechniques;
+
+        return $this;
+    }
+
+    public function getMixDeskStoryEngine(): ?int
+    {
+        return $this->mixDeskStoryEngine;
+    }
+
+    public function setMixDeskStoryEngine(?int $mixDeskStoryEngine): self
+    {
+        $this->mixDeskStoryEngine = $mixDeskStoryEngine;
+
+        return $this;
+    }
+
+    public function getMixDeskCommunicationStyle(): ?int
+    {
+        return $this->mixDeskCommunicationStyle;
+    }
+
+    public function setMixDeskCommunicationStyle(?int $mixDeskCommunicationStyle): self
+    {
+        $this->mixDeskCommunicationStyle = $mixDeskCommunicationStyle;
+
+        return $this;
+    }
+
+    public function getMixDeskBleedIn(): ?int
+    {
+        return $this->mixDeskBleedIn;
+    }
+
+    public function setMixDeskBleedIn(?int $mixDeskBleedIn): self
+    {
+        $this->mixDeskBleedIn = $mixDeskBleedIn;
+
+        return $this;
+    }
+
+    public function getMixDeskLoyaltyToSetting(): ?int
+    {
+        return $this->mixDeskLoyaltyToSetting;
+    }
+
+    public function setMixDeskLoyaltyToSetting(?int $mixDeskLoyaltyToSetting): self
+    {
+        $this->mixDeskLoyaltyToSetting = $mixDeskLoyaltyToSetting;
+
+        return $this;
+    }
+
+    public function getMixDeskRepresentaionOfTheme(): ?int
+    {
+        return $this->mixDeskRepresentaionOfTheme;
+    }
+
+    public function setMixDeskRepresentaionOfTheme(?int $mixDeskRepresentaionOfTheme): self
+    {
+        $this->mixDeskRepresentaionOfTheme = $mixDeskRepresentaionOfTheme;
+
+        return $this;
+    }
+
+    public function getMixDeskScenography(): ?int
+    {
+        return $this->mixDeskScenography;
+    }
+
+    public function setMixDeskScenography(?int $mixDeskScenography): self
+    {
+        $this->mixDeskScenography = $mixDeskScenography;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
     }
 }

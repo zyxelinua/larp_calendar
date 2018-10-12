@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\NewsRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,8 +18,8 @@ class HomeController extends BaseController
      * @Template("home.html.twig")
      *
      */
-    public function home(EventRepository $eventRepository)
+    public function home(NewsRepository $newsRepository)
     {
-        return ['new_events' => $eventRepository->findLatest(self::ITEMS_ON_HOMEPAGE)];
+        return ['new_events' => $newsRepository->findLatest(self::ITEMS_ON_HOMEPAGE)];
     }
 }

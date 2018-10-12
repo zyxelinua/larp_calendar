@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EventCategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RegionRepository")
  */
-class EventCategory
+class Region
 {
     /**
      * @ORM\Id()
@@ -25,9 +25,14 @@ class EventCategory
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="categories")
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="region")
      */
     private $events;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
 
     /**
      * @Gedmo\Slug(fields={"name"})
@@ -50,11 +55,6 @@ class EventCategory
      * @ORM\Column(type="datetime")
      */
     private $updated;
-
-    public function __construct()
-    {
-        $this->events = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -79,6 +79,29 @@ class EventCategory
     public function getEvents(): Collection
     {
         return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setCountry($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getCountry() === $this) {
+                $event->setCountry(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
