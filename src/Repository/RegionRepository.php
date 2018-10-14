@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\Country;
+use App\Entity\Region;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Country|null find($id, $lockMode = null, $lockVersion = null)
- * @method Country|null findOneBy(array $criteria, array $orderBy = null)
- * @method Country[]    findAll()
- * @method Country[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Region|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Region|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Region[]    findAll()
+ * @method Region[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CountryRepository extends ServiceEntityRepository
+class RegionRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Country::class);
+        parent::__construct($registry, Region::class);
     }
 
 //    /**

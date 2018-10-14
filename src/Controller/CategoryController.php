@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Repository\EventCategoryRepository;
+use App\Repository\SubgenreRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use App\Entity\EventCategory;
+use App\Entity\Subgenre;
 use App\Form\EventCategoryType;
 
 class CategoryController extends BaseController
@@ -20,7 +20,7 @@ class CategoryController extends BaseController
      * @Route("/admin/category/list", name="list_categories")
      * @Template("admin/category/category_list.html.twig")
      */
-    public function listCategory(Request $request, EventCategoryRepository $eventCategoryRepository)
+    public function listCategory(Request $request, SubgenreRepository $eventCategoryRepository)
     {
         $page = $request->query->get('page', 1);
         $limit = self::ITEMS_PER_PAGE;
@@ -42,7 +42,7 @@ class CategoryController extends BaseController
      */
     public function addCategory(Request $request)
     {
-        $category = new EventCategory;
+        $category = new Subgenre;
         $form = $this->createForm(EventCategoryType::class, $category);
         $form->handleRequest($request);
 
@@ -68,7 +68,7 @@ class CategoryController extends BaseController
      *  }
      * )
      */
-    public function editCategoryTitle(Request $request, EventCategoryRepository $eventCategoryRepository)
+    public function editCategoryTitle(Request $request, SubgenreRepository $eventCategoryRepository)
     {
         $content = json_decode($request->getContent(), true);
         if (in_array('id', $content) && in_array('name', $content)) {

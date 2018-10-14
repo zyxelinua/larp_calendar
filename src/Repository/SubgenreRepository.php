@@ -2,21 +2,21 @@
 
 namespace App\Repository;
 
-use App\Entity\EventCategory;
+use App\Entity\Subgenre;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method EventCategory|null find($id, $lockMode = null, $lockVersion = null)
- * @method EventCategory|null findOneBy(array $criteria, array $orderBy = null)
- * @method EventCategory[]    findAll()
- * @method EventCategory[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Subgenre|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Subgenre|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Subgenre[]    findAll()
+ * @method Subgenre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EventCategoryRepository extends ServiceEntityRepository
+class SubgenreRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, EventCategory::class);
+        parent::__construct($registry, Subgenre::class);
     }
 
 //    /**

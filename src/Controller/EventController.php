@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use App\Entity\Event;
-use App\Entity\EventCategory;
+use App\Entity\Subgenre;
 use App\Entity\EventType;
 
 class EventController extends BaseController

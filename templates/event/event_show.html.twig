@@ -31,14 +31,14 @@
             {% if event.location %}
                 {{ event.location }},
             {% endif %}
-            {{ event.country.name }}
-            {% if event.categories %}
+            {{ event.region.name }}
+            {% if event.subgenres %}
                 <span class="badge bg-white float-right ">
-                    {% for category in event.categories%}
+                    {% for subgenre in event.subgenres%}
                         {% if loop.last %}
-                            {{ category.name }}
+                            {{ subgenre.name }}
                         {% else %}
-                            {{ category.name }},
+                            {{ subgenre.name }},
                         {% endif %}
                     {% endfor %}
                 </span>
@@ -62,7 +62,7 @@
                 {% else %}
                     {{ event.priceMax }}
                 {% endif %}
-                 {{ event.priceCurrency }}
+                 UAH
             </p>
         {% endif %}
 
