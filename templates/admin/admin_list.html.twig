@@ -1,0 +1,40 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{%block heading %}  {% endblock %}
+
+{% block content %}
+    <div class="row " >
+        {% if entities %}
+            <div class="col-5" >
+                <div class="table-responsive pt-2">
+                    <table class="table table-striped">
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr data-entity-id="{{entity.id}}">
+                                <td>
+                                    <span class="entity-name"> {{entity.name}} </span>
+                                    <input class="input-name" type='text' style="display: none;" value="{{ entity.name }}"/>
+                                    <a href="{{ path(deletePath, {'id': entity.id}) }}" class="entity-delete btn btn-dark text-light float-right mx-1" role="button"  ><span class="fa fa-trash-o text-white" aria-hidden="true"></span> Delete</a>
+                                    <a class="entity-edit btn btn-dark text-light float-right mx-1" data-edit-path="{{ path(editPath) }}" role="button" ><span class="fa fa-pencil text-white" aria-hidden="true"></span> Edit</a>
+                                    <a class="entity-save btn btn-dark text-light float-right mx-1" role="button" style="display: none;" ><span class="fa fa-check text-white" aria-hidden="true"></span> Save</a>
+                                    <a class="entity-cancel btn btn-dark text-light float-right mx-1" role="button" style="display: none;" ><span class="fa fa-times text-white" aria-hidden="true"></span> Cancel</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% else %}
+            Сейчас в базе нет этих данных.
+        {% endif %}
+    </div>
+
+    {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/admin_list_script.js"></script>
+{% endblock %}

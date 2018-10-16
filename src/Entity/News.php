@@ -137,5 +137,4 @@ abstract class News
 
         return $this;
     }
-
 }
