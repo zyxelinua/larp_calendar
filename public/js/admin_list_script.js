@@ -40,5 +40,5 @@ $(".entity-edit").click(function () {
 });
 
 $(".entity-delete").click(function () {
-    return confirm('Are you sure?');
+    return confirm('Вы уверены, что хотите удалить эту запись?');
 });

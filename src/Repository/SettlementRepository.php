@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Settlement[]    findAll()
  * @method Settlement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SettlementRepository extends ServiceEntityRepository
+class SettlementRepository extends AdminEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
