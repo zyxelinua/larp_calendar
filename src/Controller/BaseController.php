@@ -25,4 +25,11 @@ class BaseController extends Controller
         $entityManager->persist($entity);
         $entityManager->flush();
     }
+
+    public function removeEntity($entity)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($entity);
+        $entityManager->flush();
+    }
 }

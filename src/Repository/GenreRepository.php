@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Genre[]    findAll()
  * @method Genre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class GenreRepository extends ServiceEntityRepository
+class GenreRepository extends AdminEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
