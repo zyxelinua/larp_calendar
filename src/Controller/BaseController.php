@@ -19,6 +19,11 @@ class BaseController extends Controller
         $this->addFlash('notice', $message);
     }
 
+    public function addSuccessFlash($message)
+    {
+        $this->addFlash('success', $message);
+    }
+
     public function saveEntity($entity)
     {
         $entityManager = $this->getDoctrine()->getManager();

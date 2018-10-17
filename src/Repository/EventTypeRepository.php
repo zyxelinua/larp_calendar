@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method EventType[]    findAll()
  * @method EventType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class EventTypeRepository extends ServiceEntityRepository
+class EventTypeRepository extends AdminEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {

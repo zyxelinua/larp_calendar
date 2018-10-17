@@ -12,7 +12,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Subgenre[]    findAll()
  * @method Subgenre[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SubgenreRepository extends ServiceEntityRepository
+class SubgenreRepository extends AdminEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
@@ -47,22 +47,4 @@ class SubgenreRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    public function findList($limit, $offset)
-    {
-        return $this->createQueryBuilder('category')
-            ->select('category')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function countItems()
-    {
-        return $this->createQueryBuilder('category')
-            ->select('count(category.id)')
-            ->getQuery()
-            ->getSingleScalarResult();
-    }
 }

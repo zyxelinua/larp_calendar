@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use App\Form\GenreType;
+use App\Form\AdminEntityType;
 
 class GenreController extends BaseController
 {
@@ -18,7 +18,7 @@ class GenreController extends BaseController
 
     /**
      * @Route("/admin/genre/list", name="list_genres")
-     * @Template("admin/genre/genre_list.html.twig")
+     * @Template("admin/genre/list.html.twig")
      */
     public function listGenre(Request $request, GenreRepository $genreRepository)
     {
@@ -40,12 +40,12 @@ class GenreController extends BaseController
 
     /**
      * @Route("/admin/genre/add", name="new_genre")
-     * @Template("admin/genre/genre_add.html.twig")
+     * @Template("admin/genre/add.html.twig")
      */
     public function addCategory(Request $request)
     {
         $genre = new Genre;
-        $form = $this->createForm(GenreType::class, $genre);
+        $form = $this->createForm(AdminEntityType::class, $genre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -53,7 +53,7 @@ class GenreController extends BaseController
 
             $this->saveEntity($genre);
 
-            $this->addNoticeFlash(sprintf('Successfully saved new genre "%s"', $genre->getName()));
+            $this->addSuccessFlash(sprintf('Successfully saved new genre "%s"', $genre->getName()));
             return $this->redirectToRoute('list_genres');
         }
 
@@ -99,7 +99,7 @@ class GenreController extends BaseController
             $this->addNoticeFlash('This genre has associated events and can not be deleted');
         } else {
             $this->removeEntity($genre);
-            $this->addNoticeFlash('Successfully deleted genre');
+            $this->addSuccessFlash('Successfully deleted genre');
         }
         return $this->redirectToRoute('list_genres');
     }
