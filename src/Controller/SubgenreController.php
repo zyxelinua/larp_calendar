@@ -42,7 +42,7 @@ class SubgenreController extends BaseController
      * @Route("/admin/subgenre/add", name="new_subgenre")
      * @Template("admin/subgenre/add.html.twig")
      */
-    public function addCategory(Request $request)
+    public function addSubgenre(Request $request)
     {
         $subgenre = new Subgenre;
         $form = $this->createForm(AdminEntityType::class, $subgenre);

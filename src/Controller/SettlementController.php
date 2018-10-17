@@ -42,7 +42,7 @@ class SettlementController extends BaseController
      * @Route("/admin/settlement/add", name="new_settlement")
      * @Template("admin/settlement/add.html.twig")
      */
-    public function addCategory(Request $request)
+    public function addSettlement(Request $request)
     {
         $settlement = new Settlement;
         $form = $this->createForm(AdminEntityType::class, $settlement);

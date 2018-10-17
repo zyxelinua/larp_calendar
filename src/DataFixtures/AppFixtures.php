@@ -103,6 +103,8 @@ class AppFixtures extends Fixture
         $run1->setPriceMax(200);
         $run1->setContactSite('www.google.com');
         $run1->setContactFB('www.google.com');
+        $run1->setContactVK('www.google.com');
+        $run1->setContactTelegram('www.google.com');
         $run1->setContactOther('telegram channel @coollarp');
         $manager->persist($run1);
 
@@ -146,6 +148,7 @@ class AppFixtures extends Fixture
         $run3->setPriceMax(200);
         $run3->setContactFB('www.google.com');
         $run3->setContactOther('telegram channel @coollarp');
+        $run3->setPicture('default-event-picture.jpg');
         $manager->persist($run3);
 
         $run4 = new Event;
@@ -190,7 +193,7 @@ class AppFixtures extends Fixture
         $manager->persist($run5);
 
         $run6 = new Event;
-        $run6->setName('Cool larp run 6');
+        $run6->setName('Классная игра 6');
         $run6->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
                 Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
                 All of you.');
@@ -220,7 +223,7 @@ class AppFixtures extends Fixture
         $run7->setSubgenres([$alt_historical]);
         $run7->setGenre($history);
         $run7->setType($larp);
-        $run7->setStatus('approved');
+        $run7->setStatus('cancelled');
         $run7->setOrganizers('cool MG');
         $run7->setOrganizerContact('cool_mg@gmail.com');
         $run7->setPublishDate(new \DateTime("October 01, 2018"));
@@ -228,7 +231,7 @@ class AppFixtures extends Fixture
         $manager->persist($run7);
 
         $run8 = new Event;
-        $run8->setName('Cool larp run 8');
+        $run8->setName(' run 8');
         $run8->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
                 Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
                 All of you.');

@@ -3,60 +3,60 @@
 {% block navbar %}
 
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top ">
+    <nav class="navbar navbar-expand-sm brand-bg navbar-dark fixed-top ">
         <h1 class=" header text-light mx-3"> Ролендарь админка</h1>
         <ul class="navbar-nav justify-content-end">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Событие</a>
+                <a class="nav-link dropdown-toggle text-light text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Событие</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('list_events') }}">Список</a>
                     <a class="dropdown-item" href="{{ path('new_event') }}">Добавить</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Формат</a>
+                <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Формат</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('list_eventTypes') }}">Список</a>
                     <a class="dropdown-item" href="{{ path('new_eventType') }}">Добавить</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Жанр</a>
+                <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Жанр</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('list_genres') }}">Список</a>
                     <a class="dropdown-item" href="{{ path('new_genre') }}">Добавить</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Поджанр</a>
+                <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Поджанр</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('list_subgenres') }}">Список</a>
                     <a class="dropdown-item" href="{{ path('new_subgenre') }}">Добавить</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Поселение</a>
+                <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Поселение</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('list_settlements') }}">Список</a>
                     <a class="dropdown-item" href="{{ path('new_settlement') }}">Добавить</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Оружие</a>
+                <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Оружие</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('list_weapons') }}">Список</a>
                     <a class="dropdown-item" href="{{ path('new_weapon') }}">Добавить</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Статья</a>
+                <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Статья</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ path('list_articles') }}">Список</a>
+                    <a class="dropdown-item" href="{{ path('admin_list_articles') }}">Список</a>
                     <a class="dropdown-item" href="{{ path('new_article') }}">Добавить</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Автор</a>
+                <a class="nav-link dropdown-toggle text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Автор</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ path('list_authors') }}">Список</a>
                     <a class="dropdown-item" href="{{ path('new_author') }}">Добавить</a>
@@ -64,7 +64,7 @@
             </li>
         </ul>
 
-        <a href="{{ path('home') }}" class="btn btn-rounded btn-light float-right mx-2" ><span class="fa fa-home text-dark" aria-hidden="true"></span> На главную</a>
+        <a href="{{ path('home') }}" class="btn btn-rounded btn-light float-right mx-2 brand-txt" ><span class="fa fa-home " aria-hidden="true"></span> На главную</a>
 
     </nav>
 

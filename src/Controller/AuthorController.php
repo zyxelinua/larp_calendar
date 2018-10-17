@@ -42,7 +42,7 @@ class AuthorController extends BaseController
      * @Route("/admin/author/add", name="new_author")
      * @Template("admin/author/add.html.twig")
      */
-    public function addCategory(Request $request)
+    public function addAuthor(Request $request)
     {
         $author = new author;
         $form = $this->createForm(AdminEntityType::class, $author);
@@ -70,7 +70,7 @@ class AuthorController extends BaseController
      *  }
      * )
      */
-    public function editauthorTitle(Request $request, AuthorRepository $authorRepository)
+    public function editAuthorTitle(Request $request, AuthorRepository $authorRepository)
     {
         $content = json_decode($request->getContent(), true);
         if (isset($content['id']) && isset($content['name'])) {

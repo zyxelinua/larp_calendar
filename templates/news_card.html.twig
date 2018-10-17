@@ -1,0 +1,37 @@
+{#TODO: text cut#}
+
+<div class="col-6">
+    <div class="card my-2">
+        <h4 class="card-header text-left bg-white brand-txt">{{post.name}}
+            <span class="badge badge-light badge-pill float-right brand-txt">
+                {% if constant('NEWS_TYPE', post) == 'event' %}
+                    Анонс
+                {% else %}
+                    Статья
+                {% endif %}
+            </span>
+        </h4>
+        <div class="row no-gutters">
+            <div class="col-auto">
+                {%  if post.picture %}
+                    <img class="img-fluid event-img my-2 ml-2" src="{{ asset( 'images/pictures/' ~ post.picture) }}" alt="{{ post.name }}">
+                {% else %}
+                    <img class="img-fluid event-img my-2 ml-2"  src="{{ asset("images/rolendar-1.jpg") }}" alt="{{ post.name }}">
+                {% endif %}
+            </div>
+            <div class="col ">
+                <div class="card-body px-2 d-flex flex-column">
+                    <p class="card-text m-2">{{post.description}}</p>
+                    {% if constant('NEWS_TYPE', post) == 'event' %}
+                        <a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}" class="btn btn-dark brand-bg align-self-end">Подробнее</a>
+                    {% else %}
+                        <a href="{{ path('show_article_by_slug', {'slug': post.slug}) }}" class="btn btn-dark brand-bg align-self-end">Подробнее</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="card-footer text-muted bg-white">
+            Опубликовано: {{ post.publishDate|date("d/m/Y") }}
+        </div>
+    </div>
+</div>

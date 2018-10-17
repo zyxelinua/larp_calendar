@@ -18,6 +18,8 @@ class Event extends News
     const STATUS_PENDING = 'pending';
     const STATUS_CANCELLED = 'cancelled';
 
+    const NEWS_TYPE = 'event';
+
     /**
      * @ORM\Column(type="datetime")
      */
@@ -170,10 +172,6 @@ class Event extends News
      */
     private $mixDeskScenography;
 
-    /**
-     * @ORM\Column(type="string", length=1000, nullable=true)
-     */
-    private $picture;
 
     public function __construct()
     {
@@ -367,7 +365,7 @@ class Event extends News
     /**
      * @return Collection|Weapon[]
      */
-    public function getWeapon(): Collection
+    public function getWeapons(): Collection
     {
         return $this->weapons;
     }
@@ -542,18 +540,6 @@ class Event extends News
     public function setMixDeskScenography(?int $mixDeskScenography): self
     {
         $this->mixDeskScenography = $mixDeskScenography;
-
-        return $this;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): self
-    {
-        $this->picture = $picture;
 
         return $this;
     }

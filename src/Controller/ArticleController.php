@@ -14,13 +14,42 @@ use App\Form\AdminEntityType;
 
 class ArticleController extends BaseController
 {
-    const ITEMS_PER_PAGE = 10;
+    const ITEMS_PER_PAGE = 5;
 
     /**
-     * @Route("/admin/article/list", name="list_articles")
-     * @Template("admin/article/list.html.twig")
+     * @Route("/article/list", name="list_articles")
+     * @Template("article/article_list.html.twig")
      */
     public function listArticle(Request $request, ArticleRepository $articleRepository)
+    {
+        $page = $request->query->get('page', 1);
+        $offset = ($page-1)*self::ITEMS_PER_PAGE;
+
+        $countItems = $articleRepository->countItems();
+
+        return
+            [
+                'articles' => $articleRepository->findList(self::ITEMS_PER_PAGE, $offset),
+                'page' => $page,
+                'pageCount' => ceil($countItems / self::ITEMS_PER_PAGE)
+            ];
+    }
+
+    /**
+     * @Route("/article/{id}", name="show_article", requirements={"id"="\d+"})
+     * @Route("/article/{slug}", name="show_article_by_slug")
+     * @Template("article/article_show.html.twig")
+     */
+    public function showEvent(Article $article)
+    {
+        return ['article'=>$article];
+    }
+
+    /**
+     * @Route("/admin/article/list", name="admin_list_articles")
+     * @Template("admin/article/list.html.twig")
+     */
+    public function listArticlesAdmin(Request $request, ArticleRepository $articleRepository)
     {
         $page = $request->get('page', 1);
         $limit = self::ITEMS_PER_PAGE;
@@ -42,7 +71,7 @@ class ArticleController extends BaseController
      * @Route("/admin/article/add", name="new_article")
      * @Template("admin/article/add.html.twig")
      */
-    public function addCategory(Request $request)
+    public function addArticle(Request $request)
     {
         $article = new Article;
         $form = $this->createForm(AdminEntityType::class, $article);

@@ -61,6 +61,11 @@ abstract class News
      */
     private $updated;
 
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $picture;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -134,6 +139,18 @@ abstract class News
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getPicture(): ?string
+    {
+        return $this->picture;
+    }
+
+    public function setPicture(?string $picture): self
+    {
+        $this->picture = $picture;
 
         return $this;
     }

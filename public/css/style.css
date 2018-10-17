@@ -1,5 +1,5 @@
 body {
-    padding-top: 70px;
+    padding-top: 80px;
     padding-bottom: 70px;
 }
 
@@ -18,7 +18,8 @@ body {
 
 /*pagination*/
 .page-item.active .page-link{
-    border-color: black;
+    border-color: #00005a;
+    background-color: #00005a;
 }
 
 .alert {
@@ -26,11 +27,15 @@ body {
 }
 
 .brand-bg {
-    background-color: #420080;
+    background-color: #00005a;
+}
+
+.brand-light-bg {
+    background-color: #cce6ff;
 }
 
 .brand-txt {
-    color: #28004d;
+    color: #00005a;
 }
 
 .event-img {
