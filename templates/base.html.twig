@@ -3,8 +3,8 @@
     <head>
         {% block head %}
             <meta charset="UTF-8">
-            <title>{% block title %} LARP Calendar {% endblock %}</title>
-            <link rel="icon" href="http://cdn.onlinewebfonts.com/svg/img_99208.png" type="image/x-icon" sizes="16x16">
+            <title>{% block title %} Ролендарь {% endblock %}</title>
+            <link rel="icon" href="/images/favicon-cropped.png" type="image/x-icon" sizes="16x16">
 
             {% block stylesheets %}
                 {#bootstrap#}
@@ -22,30 +22,41 @@
             <div class="container-fluid">
                 {% block navbar %}
                     <nav class="navbar navbar-light bg-white fixed-top">
-                        <h1 class=" header"> LARP Calendar</h1>
-
+                        <em class=" h1 header ml-3 pb-1 brand-txt">
+                            Ролендарь
+                            <span class="h4 "> календарь украинских ролевых событий </span>
+                        </em>
                         <ul class="navbar nav navbar-light justify-content-end" >
                             <li class="nav-item active">
-                                <a class="nav-link text-dark" href="{{ path('home') }}">Recently added</a>
+                                <a class="nav-link text-dark" href="{{ path('home') }}">Новости</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Events</a>
+                                <a class="nav-link dropdown-toggle text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Игры</a>
                                 <div class="dropdown-menu ">
-                                    <a class="dropdown-item " href="{{ path('list_events') }}">List</a>
-                                    <a class="dropdown-item " href="#">Calendar</a>
-                                    <a class="dropdown-item" href="#">Find event</a>
+                                    <a class="dropdown-item " href="{{ path('list_events') }}">Список</a>
+                                    <a class="dropdown-item " href="#">Календарь</a>
+                                    <a class="dropdown-item" href="#">Выбрать игру</a>
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="{{ path('new_event') }}">Add event</a>
+                                <a class="nav-link text-dark" href="{{ path('new_event') }}">Добавить игру</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="#">About project</a>
+                                <a class="nav-link text-dark" href="{{ path('list_articles') }}">Обзоры и статьи</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Полезные ссылки</a>
+                                <div class="dropdown-menu ">
+                                    <a class="dropdown-item" href="https://docs.google.com/spreadsheets/d/13Od15EjnajMxsgw2WxvENrCsenBr-qDAJaPmlCCKmAc/pubhtml?wmode=transparent">Каптерка</a>
+                                </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="#">Contacts</a>
+                                <a class="nav-link text-dark" href="#">О проекте</a>
                             </li>
-                            </ul>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#">Контакты</a>
+                            </li>
+                        </ul>
                     </nav>
                     <hr/>
                 {% endblock %}
@@ -73,7 +84,7 @@
 
                 {% block page_heading %}
                     <div class="row " >
-                        <h2 class="sub-header text-center">{% block heading %}{% endblock %}</h2>
+                        <h2 class="sub-header text-center brand-txt">{% block heading %}{% endblock %}</h2>
                     </div>
                 {% endblock %}
 
@@ -81,9 +92,14 @@
                 {% endblock %}
 
                 {% block footer %}
-                    <footer class="page-footer fixed-bottom font-small bg-dark text-light">
-                        <div class="footer-copyright text-center py-3">
-                            LARP Calendar takes no responsibility for the services provided by event organisers, nor does it make any guarantees or assurances about them.
+                    <footer class="page-footer fixed-bottom font-small bg-white brand-txt">
+                        <div class="footer-copyright text-center pb-3">
+                            <hr/>
+                            Ролендарь в соцсетях:
+                            <a href="https://www.facebook.com/rolendar/"> <span class="fa fa-facebook-square brand-txt mx-2" ></span>  </a>
+                            <a href="https://vk.com/rolendar"> <span class="fa fa-vk brand-txt mx-2" ></span>  </a>
+                            <a href="https://t.me/rolendar"> <span class="fa fa-telegram brand-txt mx-2" ></span>  </a>
+
                         </div>
                     </footer>
                 {% endblock %}

@@ -1,28 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block heading %} Upcoming events {% endblock %}
+{% block heading %} Предстоящие события {% endblock %}
 
 {% block content %}
     {% if events %}
         {% for event in events %}
             <div class="card my-2">
-                <h4 class="card-title">{{event.startDate|date("d/m/Y")}}-{{event.endDate|date("d/m/Y")}} {{event.name}}</h4>
-
-
-                        <div class="card-body px-2 d-flex flex-column">
-
-                            <p class="card-text m-2">{{event.description}}</p>
-                            <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-dark bg-dark align-self-end">See more</a>
-                        </div>
-                    </div>
-
-
+                <h4 class="card-title p-2 brand-txt">
+                    {{event.name}} <br>
+                    <span class="h5 text-muted"> {{event.startDate|date("d/m/Y")}}-{{event.endDate|date("d/m/Y")}} </span>
+                    <span class="badge badge-light badge-pill float-right p-2 brand-txt"> {{ event.type.name }} </span>
+                </h4>
+                <div class="card-body px-1 py-0 d-flex flex-column">
+                    <p class="card-text m-2">{{event.description}}</p>
+                    <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-dark brand-bg align-self-end mb-2">Подробнее</a>
+                </div>
+            </div>
         {% endfor %}
     {% else %}
-        There is no data currently.
+        Данные не найдены.
     {% endif %}
 
     {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
-
 
 {% endblock %}

@@ -17,7 +17,7 @@ class EventTypeController extends BaseController
     const ITEMS_PER_PAGE = 10;
 
     /**
-     * @Route("/admin/eventType/list", name="list_eventTypes")
+     * @Route("/admin/format/list", name="list_eventTypes")
      * @Template("admin/eventType/list.html.twig")
      */
     public function listEventType(Request $request, EventTypeRepository $eventTypeRepository)
@@ -39,10 +39,10 @@ class EventTypeController extends BaseController
     }
 
     /**
-     * @Route("/admin/eventType/add", name="new_eventType")
+     * @Route("/admin/format/add", name="new_eventType")
      * @Template("admin/eventType/add.html.twig")
      */
-    public function addCategory(Request $request)
+    public function addeventType(Request $request)
     {
         $eventType = new EventType;
         $form = $this->createForm(AdminEntityType::class, $eventType);

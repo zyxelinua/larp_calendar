@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Article extends News
 {
+    const NEWS_TYPE = 'article';
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Author", inversedBy="articles")
      */

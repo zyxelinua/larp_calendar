@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block heading %} Статьи и обзоры {% endblock %}
+
+{% block content %}
+    {% if articles %}
+        {% for article in articles %}
+            <div class="card my-2">
+                <h4 class="card-title p-2 brand-txt">
+                    {{article.name}} <br>
+                </h4>
+                <div class="card-body px-1 py-0 d-flex flex-column">
+                    <p class="card-text m-2">{{article.description}}</p>
+                    <a href="{{ path('show_article_by_slug', {'slug': article.slug}) }}" class="btn btn-dark brand-bg align-self-end mb-2">Читать полностью</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        Данные не найдены.
+    {% endif %}
+
+    {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+
+{% endblock %}

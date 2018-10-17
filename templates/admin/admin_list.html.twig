@@ -14,10 +14,10 @@
                                 <td>
                                     <span class="entity-name"> {{entity.name}} </span>
                                     <input class="input-name" type='text' style="display: none;" value="{{ entity.name }}"/>
-                                    <a href="{{ path(deletePath, {'id': entity.id}) }}" class="entity-delete btn btn-dark text-light float-right mx-1" role="button"  ><span class="fa fa-trash-o text-white" aria-hidden="true"></span> Delete</a>
-                                    <a class="entity-edit btn btn-dark text-light float-right mx-1" data-edit-path="{{ path(editPath) }}" role="button" ><span class="fa fa-pencil text-white" aria-hidden="true"></span> Edit</a>
-                                    <a class="entity-save btn btn-dark text-light float-right mx-1" role="button" style="display: none;" ><span class="fa fa-check text-white" aria-hidden="true"></span> Save</a>
-                                    <a class="entity-cancel btn btn-dark text-light float-right mx-1" role="button" style="display: none;" ><span class="fa fa-times text-white" aria-hidden="true"></span> Cancel</a>
+                                    <a href="{{ path(deletePath, {'id': entity.id}) }}" class="entity-delete btn btn-dark text-light float-right mx-1 brand-bg" role="button"  ><span class="fa fa-trash-o text-white" aria-hidden="true"></span> Delete</a>
+                                    <a class="entity-edit btn btn-dark text-light float-right mx-1 brand-bg" data-edit-path="{{ path(editPath) }}" role="button" ><span class="fa fa-pencil text-white" aria-hidden="true"></span> Edit</a>
+                                    <a class="entity-save btn btn-dark text-light float-right mx-1 brand-bg" role="button" style="display: none;" ><span class="fa fa-check text-white" aria-hidden="true"></span> Save</a>
+                                    <a class="entity-cancel btn btn-dark text-light float-right mx-1 brand-bg" role="button" style="display: none;" ><span class="fa fa-times text-white" aria-hidden="true"></span> Cancel</a>
                                 </td>
                             </tr>
                         {% endfor %}

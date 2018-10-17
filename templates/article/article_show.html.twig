@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block heading %}
+    {% if article %}
+        {{ article.name }}
+    {% else %}
+        Такой статьи не существует.
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if article %}
+        {%  if article.picture %}
+            <img class="img-fluid event-img mr-3 my-2" src="{{ asset( 'images/pictures/' ~ post.picture) }}" alt="{{ article.name }}" align="left">
+        {% else %}
+            <img class="img-fluid event-img mr-3 my-2"  src="{{ asset("images/rolendar-1.jpg") }}" alt="{{ article.name }}" align="left">
+        {% endif %}
+        <h5 class="text-muted p-2">
+            Автор: {{ article.author.name }}
+        </h5>
+        <h6 class="text-muted p-2">
+            Опубликовано: {{ article.publishDate|date("d/m/Y") }}
+        </h6>
+        <p class="p-2">{{article.description}}</p>
+    {% endif %}
+{% endblock %}

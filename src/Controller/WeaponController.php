@@ -42,7 +42,7 @@ class WeaponController extends BaseController
      * @Route("/admin/weapon/add", name="new_weapon")
      * @Template("admin/weapon/add.html.twig")
      */
-    public function addCategory(Request $request)
+    public function addWeapon(Request $request)
     {
         $weapon = new Weapon;
         $form = $this->createForm(AdminEntityType::class, $weapon);
