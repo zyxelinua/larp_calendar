@@ -1,0 +1,51 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{%block heading %}Статьи, обзоры, объявления{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">        
+        <div class="row " >
+            {% if entities is empty %}
+                Сейчас в базе нет этих данных.
+            {% else %}            
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Дата публикации</th>
+                                <th>Категория</th>
+                                <th>Автор</th>
+                                <th>Название</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                        {% for entity in entities %}
+                            <tr>                
+                                <td>{{entity.publishDate | date("d/m/Y")}}</td>
+                                <td>{{entity.category}}</td>
+                                <td>{{entity.author.name}}</td>
+                                <td>{{entity.name}}</td>
+
+                                <td>
+                                    <a href="{{ path('show_article_by_slug', {'slug': entity.slug}) }}" class="btn btn-dark brand-bg mx-2" role="button"><span class="fa fa-eye text-white" aria-hidden="true"></span> View</a>
+                                    <a href="{{ path('edit_article', {'id': entity.id}) }}" class="btn btn-dark brand-bg mx-2" role="button"><span class="fa fa-pencil text-white" aria-hidden="true"></span> Edit</a>
+                                    <a href="{{ path('delete_article', {'id': entity.id}) }}" class="entity-delete btn btn-dark brand-bg mx-2" role="button"  ><span class="fa fa-trash-o text-white" aria-hidden="true"></span> Delete</a>
+                                </td>
+                            </tr>                    
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endif %}
+        </div>
+        
+        {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+        
+    </div>   
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/admin_list_script.js"></script>
+{% endblock %}

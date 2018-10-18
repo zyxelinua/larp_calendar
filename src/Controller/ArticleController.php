@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use App\Form\ArticleFormType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +11,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use App\Form\AdminEntityType;
 
 class ArticleController extends BaseController
 {
@@ -25,11 +25,30 @@ class ArticleController extends BaseController
         $page = $request->query->get('page', 1);
         $offset = ($page-1)*self::ITEMS_PER_PAGE;
 
-        $countItems = $articleRepository->countItems();
+        $countItems = $articleRepository->countItemsByCategory(Article::CATEGORY_ARTICLE);
 
         return
             [
-                'articles' => $articleRepository->findList(self::ITEMS_PER_PAGE, $offset),
+                'articles' => $articleRepository->findListByCategory(self::ITEMS_PER_PAGE, $offset, Article::CATEGORY_ARTICLE),
+                'page' => $page,
+                'pageCount' => ceil($countItems / self::ITEMS_PER_PAGE)
+            ];
+    }
+
+    /**
+     * @Route("/article/overview/list", name="list_overviews")
+     * @Template("article/overview_list.html.twig")
+     */
+    public function listOverview(Request $request, ArticleRepository $articleRepository)
+    {
+        $page = $request->query->get('page', 1);
+        $offset = ($page-1)*self::ITEMS_PER_PAGE;
+
+        $countItems = $articleRepository->countItemsByCategory(Article::CATEGORY_OVERVIEW);
+
+        return
+            [
+                'articles' => $articleRepository->findListByCategory(self::ITEMS_PER_PAGE, $offset, Article::CATEGORY_OVERVIEW),
                 'page' => $page,
                 'pageCount' => ceil($countItems / self::ITEMS_PER_PAGE)
             ];
@@ -40,7 +59,7 @@ class ArticleController extends BaseController
      * @Route("/article/{slug}", name="show_article_by_slug")
      * @Template("article/article_show.html.twig")
      */
-    public function showEvent(Article $article)
+    public function showArticle(Article $article)
     {
         return ['article'=>$article];
     }
@@ -74,7 +93,7 @@ class ArticleController extends BaseController
     public function addArticle(Request $request)
     {
         $article = new Article;
-        $form = $this->createForm(AdminEntityType::class, $article);
+        $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -83,53 +102,41 @@ class ArticleController extends BaseController
             $this->saveEntity($article);
 
             $this->addSuccessFlash(sprintf('Successfully saved new article "%s"', $article->getName()));
-            return $this->redirectToRoute('list_articles');
+            return $this->redirectToRoute('admin_list_articles');
         }
 
         return ['form' => $form->createView()] ;
     }
 
     /**
-     * @Route(
-     * "/admin/article/article_edit",
-     * name="edit_article",
-     * methods={"POST"},
-     * requirements={
-     *  "_format": "json"
-     *  }
-     * )
+     * @Route("/admin/article/edit/{id}", name="edit_article", requirements={"id"="\d+"})
+     * @Template("/admin/article/edit.html.twig")
      */
-    public function editArticleTitle(Request $request, ArticleRepository $articleRepository)
+    public function editArticle(Request $request, Article $article)
     {
-        $content = json_decode($request->getContent(), true);
-        if (isset($content['id']) && isset($content['name'])) {
-            $id = $content['id'];
-            $newName = $content['name'];
-            $article = $articleRepository->find($id);
-            if ($article) {
-                $article->setName($newName);
-                $this->saveEntity($article);
+        $form = $this->createForm(ArticleFormType::class, $article);
+        $form->handleRequest($request);
 
-                return new Response($article->getName());
-            } else {
-                throw $this->createNotFoundException('Article doesn\'t exist');
-            }
-        } else {
-            throw new BadRequestHttpException('Not valid request', null, 400);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article = $form->getData();
+
+            $this->saveEntity($article);
+
+            $this->addSuccessFlash(sprintf('Successfully edited article "%s"', $article->getName()));
+            return $this->redirectToRoute('admin_list_articles');
         }
+
+        return ['form' => $form->createView()];
     }
 
     /**
-     * @Route("/admin/article/article_delete/{id}", name="delete_article")
+     * @Route("/admin/article/delete/{id}", name="delete_article", requirements={"id"="\d+"})
      */
     public function deleteArticle(Article $article)
     {
-        if (count($article->getEvents()) > 0) {
-            $this->addNoticeFlash('This article has associated events and can not be deleted');
-        } else {
-            $this->removeEntity($article);
-            $this->addSuccessFlash('Successfully deleted article');
-        }
-        return $this->redirectToRoute('list_articles');
+        $this->removeEntity($article);
+        $this->addSuccessFlash('Successfully deleted article');
+
+        return $this->redirectToRoute('admin_list_articles');
     }
 }

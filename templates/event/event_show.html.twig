@@ -1,118 +1,112 @@
 {% extends 'base.html.twig' %}
 
-{% block heading %}
-    {% if event %}
-        {{ event.name }}
-    {% else %}
-        Please specify valid event.
-    {% endif %}
+{% block page_heading %}
+    <div class="row justify-content-center" >
+        <div class="col-11">
+            <h2 class="sub-header text-center brand-txt">
+                {% block heading %}
+                    {{ event.name }}
+                {% endblock %}
+            </h2>
+        </div>
+    </div>
 {% endblock %}
 
 {% block content %}
     {% if event %}
-
-        {%  if event.picture %}
-            <img class="img-fluid event-img mr-3 my-2" src="{{ asset( 'images/pictures/' ~ event.picture) }}" alt="{{ event.name }}" align="left">
-        {% else %}
-            <img class="img-fluid event-img mr-3 my-2"  src="{{ asset("images/rolendar-1.jpg") }}" alt="{{ event.name }}" align="left">
-        {% endif %}
-
-        {% if event.status == constant('STATUS_CANCELLED', event) %}
-            <h4 class="p-2">
-                <span class="badge badge-danger">Отменено!</span>
-            </h4>
-        {% endif %}
-
-        <h4 class="text-muted pl-1">
-            {{ event.startDate | date("d/m/Y") }}
-            {% if event.startDate != event.endDate %}
-                 - {{ event.endDate | date("d/m/Y") }}
-            {% endif %}
-        </h4>
-        <h4 class="text-muted pl-1">
-            {% if event.location %}
-                {{ event.location }},
-            {% endif %}
-            {{ event.region.name }}
-        </h4>
-
-        {% if event.type %}
-            <p class="pl-1"> <strong> Формат:</strong> {{ event.type.name}} </p>
-        {% endif %}
-
-        {% if event.genre %}
-            <p class="pl-1"> <strong> Жанр:</strong> {{ event.genre.name }} </p>
-        {% endif %}
-
-        {% if event.subgenres %}
-            <p class="pl-1"> <strong> Поджанры: </strong>
-                {% for subgenre in event.subgenres%}
-                    {% if loop.last %}
-                        {{ subgenre.name }}
-                    {% else %}
-                        {{ subgenre.name }},
-                    {% endif %}
-                {% endfor %}
-            </p>
-        {% endif %}
-
-        {% if event.organizers %}
-            <p class="pl-1"> <strong> Организаторы:</strong> {{ event.organizers }} </p>
-        {% endif %}
-
-        {% if event.settlement %}
-            <p class="pl-1"> <strong> Тип поселения:</strong> {{ event.settlement.name }} </p>
-        {% endif %}
-
-        {% if not event.weapons is empty  %}
-            <p class="pl-1"> <strong> Материал оружия: </strong>
-                {% for weapon in event.weapons %}
-                    {% if loop.last %}
-                        {{ weapon.name }}
-                    {% else %}
-                        {{ weapon.name }},
-                    {% endif %}
-                {% endfor %}
-            </p>
-        {% endif %}
-
-        {% if (event.priceMin or event.priceMax) %}
-            <p class="p-1">
-                <strong>Взнос: </strong>
-                {% if event.priceMin %}
-                    {{ event.priceMin }}
-                    {% if event.priceMax and event.priceMax != event.priceMin %}
-                        - {{ event.priceMax }}
-                    {% endif %}
+        <div class="row justify-content-center">
+            <div class="col-11">
+                {%  if event.picture %}
+                    <img class="img-fluid event-img mr-3 my-2" src="{{ asset( 'images/pictures/' ~ event.picture) }}" alt="{{ event.name }}" align="left">
                 {% else %}
-                    {{ event.priceMax }}
+                    <img class="img-fluid event-img mr-3 my-2"  src="{{ asset("images/rolendar-1.jpg") }}" alt="{{ event.name }}" align="left">
                 {% endif %}
-                 грн.
-            </p>
-        {% endif %}
 
-        {% if (event.contactSite or event.contactFB or event.contactVK or event.contactTelegram or event.contactOther) %}
-            <p class="p-1"> <strong> Ссылки: </strong>
-                {% if event.contactSite %}
-                    <a href="http://{{ event.contactSite }}" class="text-dark mx-3"> сайт </a>
+                {% if event.status == constant('STATUS_CANCELLED', event) %}
+                    <h4 class="p-2">
+                        <span class="badge badge-danger">Отменено!</span>
+                    </h4>
                 {% endif %}
-                {% if event.contactFB %}
-                    <a href="{{ event.contactFB }}" class="text-dark"> <span class="fa fa-facebook-square mx-3" ></span></a>
-                {% endif %}
-                {% if event.contactVK %}
-                    <a href="{{ event.contactVK }}" class="text-dark"> <span class="fa fa-vk mx-3" ></span></a>
-                {% endif %}
-                {% if event.contactTelegram %}
-                    <a href="{{ event.contactTelegram }}" class="text-dark"> <span class="fa fa-telegram mx-3" ></span></a>
-                {% endif %}
-                {% if event.contactOther %}
-                    <p>{{ event.contactOther }}</p>
-                {% endif %}
-        {% endif %}
 
-        {% if event.description %}
-            <p class="p-1">{{event.description}}</p>
-        {% endif %}
+                <h4 class="text-muted pl-1">
+                    {{ event.startDate | date("d/m/Y") }}
+                    {% if event.startDate != event.endDate %}
+                         - {{ event.endDate | date("d/m/Y") }}
+                    {% endif %}
+                </h4>
+                <h4 class="text-muted pl-1">
+                    {% if event.location %}
+                        {{ event.location }},
+                    {% endif %}
+                    {{ event.region.name }}
+                </h4>
 
+                {% if event.type %}
+                    <p class="pl-1"> <strong> Формат:</strong> {{ event.type.name}} </p>
+                {% endif %}
+
+                {% if event.genre %}
+                    <p class="pl-1"> <strong> Жанр:</strong> {{ event.genre.name }} </p>
+                {% endif %}
+
+                {% if event.subgenres %}
+                    <p class="pl-1"> <strong> Поджанры: </strong>
+                        {{ event.subgenres | join(', ') }}
+                    </p>
+                {% endif %}
+
+                {% if event.organizers %}
+                    <p class="pl-1"> <strong> Организаторы:</strong> {{ event.organizers }} </p>
+                {% endif %}
+
+                {% if event.settlement %}
+                    <p class="pl-1"> <strong> Тип поселения:</strong> {{ event.settlement.name }} </p>
+                {% endif %}
+
+                {% if not event.weapons is empty  %}
+                    <p class="pl-1"> <strong> Материал оружия: </strong>
+                        {{ event.subgenres | join(', ') }}
+                    </p>
+                {% endif %}
+
+                {% if (event.priceMin or event.priceMax) %}
+                    <p class="p-1">
+                        <strong>Взнос: </strong>
+                        {% if event.priceMin %}
+                            {{ event.priceMin }}
+                            {% if event.priceMax and event.priceMax != event.priceMin %}
+                                - {{ event.priceMax }}
+                            {% endif %}
+                        {% else %}
+                            {{ event.priceMax }}
+                        {% endif %}
+                         грн.
+                    </p>
+                {% endif %}
+
+                {% if (event.contactSite or event.contactFB or event.contactVK or event.contactTelegram or event.contactOther) %}
+                    <p class="p-1"> <strong> Ссылки: </strong>
+                        {% if event.contactSite %}
+                            <a href="{{ event.contactSite }}" class="text-dark mx-3"> сайт </a>
+                        {% endif %}
+                        {% if event.contactFB %}
+                            <a href="{{ event.contactFB }}" class="text-dark"> <span class="fa fa-facebook-square mx-3" ></span></a>
+                        {% endif %}
+                        {% if event.contactVK %}
+                            <a href="{{ event.contactVK }}" class="text-dark"> <span class="fa fa-vk mx-3" ></span></a>
+                        {% endif %}
+                        {% if event.contactTelegram %}
+                            <a href="{{ event.contactTelegram }}" class="text-dark"> <span class="fa fa-telegram mx-3" ></span></a>
+                        {% endif %}
+                        {% if event.contactOther %}
+                            <p>{{ event.contactOther }}</p>
+                        {% endif %}
+                {% endif %}
+
+                {% if event.description %}
+                    <p class="p-1">{{event.description}}</p>
+                {% endif %}
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

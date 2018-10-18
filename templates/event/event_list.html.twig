@@ -12,13 +12,13 @@
                     <span class="badge badge-light badge-pill float-right p-2 brand-txt"> {{ event.type.name }} </span>
                 </h4>
                 <div class="card-body px-1 py-0 d-flex flex-column">
-                    <p class="card-text m-2">{{event.description}}</p>
+                    <p class="card-text m-2">{{event.description | cut}}</p>
                     <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-dark brand-bg align-self-end mb-2">Подробнее</a>
                 </div>
             </div>
         {% endfor %}
     {% else %}
-        Данные не найдены.
+        Сейчас в этом разделе ничего нет.
     {% endif %}
 
     {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}

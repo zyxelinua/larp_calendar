@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block navbar %}
-
-
-    <nav class="navbar navbar-expand-sm brand-bg navbar-dark fixed-top ">
+    <nav class="navbar brand-bg navbar-dark fixed-top ">
         <h1 class=" header text-light mx-3"> Ролендарь админка</h1>
-        <ul class="navbar-nav justify-content-end">
+        <ul class="navbar nav justify-content-end">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-light text-light" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Событие</a>
                 <div class="dropdown-menu">
@@ -62,11 +60,9 @@
                     <a class="dropdown-item" href="{{ path('new_author') }}">Добавить</a>
                 </div>
             </li>
+            <li class="nav-item">
+                <a href="{{ path('home') }}" class="btn btn-rounded btn-light float-right mx-2 brand-txt" ><span class="fa fa-home " aria-hidden="true"></span> На главную</a>
+            </li>
         </ul>
-
-        <a href="{{ path('home') }}" class="btn btn-rounded btn-light float-right mx-2 brand-txt" ><span class="fa fa-home " aria-hidden="true"></span> На главную</a>
-
     </nav>
-
-
 {% endblock %}
