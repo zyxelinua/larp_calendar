@@ -66,6 +66,7 @@ class AppFixtures extends Fixture
         $article1 -> setDescription("This is some abstract larp overview");
         $article1->setPublishDate(new \DateTime("October 01, 2018"));
         $article1->setAuthor($author);
+        $article1->setCategory(Article::CATEGORY_ARTICLE);
         $manager->persist($article1);
 
         $article2 = new Article();
@@ -73,6 +74,7 @@ class AppFixtures extends Fixture
         $article2 -> setDescription("This is some abstract larp overview");
         $article2->setPublishDate(new \DateTime("October 10, 2018"));
         $article2->setAuthor($author);
+        $article2->setCategory(Article::CATEGORY_OVERVIEW);
         $manager->persist($article2);
 
         $article3 = new Article();
@@ -80,6 +82,7 @@ class AppFixtures extends Fixture
         $article3 -> setDescription("This is some abstract larp overview");
         $article3->setPublishDate(new \DateTime("October 01, 2018"));
         $article3->setAuthor($author);
+        $article3->setCategory(Article::CATEGORY_ANNOUNCEMENT);
         $manager->persist($article3);
 
         //create events

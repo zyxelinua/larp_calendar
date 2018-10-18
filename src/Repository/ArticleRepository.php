@@ -47,4 +47,37 @@ class ArticleRepository extends AdminEntityRepository
         ;
     }
     */
+    public function findList($limit, $offset)
+    {
+        return $this->createQueryBuilder('entity')
+            ->select('entity')
+            ->setFirstResult($offset)
+            ->orderBy('entity.publishDate', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    public function findListByCategory($limit, $offset, $category)
+    {
+        return $this->createQueryBuilder('entity')
+            ->select('entity')
+            ->andWhere('entity.category = :val')
+            ->setParameter('val', $category)
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function countItemsByCategory($category)
+    {
+        return $this->createQueryBuilder('entity')
+            ->select('count(entity.id)')
+            ->andWhere('entity.category = :val')
+            ->setParameter('val', $category)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

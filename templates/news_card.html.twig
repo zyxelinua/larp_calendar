@@ -5,9 +5,9 @@
         <h4 class="card-header text-left bg-white brand-txt">{{post.name}}
             <span class="badge badge-light badge-pill float-right brand-txt">
                 {% if constant('NEWS_TYPE', post) == 'event' %}
-                    Анонс
+                    анонс
                 {% else %}
-                    Статья
+                    {{  post.category }}
                 {% endif %}
             </span>
         </h4>
@@ -21,7 +21,7 @@
             </div>
             <div class="col ">
                 <div class="card-body px-2 d-flex flex-column">
-                    <p class="card-text m-2">{{post.description}}</p>
+                    <p class="card-text m-2">{{post.description | cut}}</p>
                     {% if constant('NEWS_TYPE', post) == 'event' %}
                         <a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}" class="btn btn-dark brand-bg align-self-end">Подробнее</a>
                     {% else %}
