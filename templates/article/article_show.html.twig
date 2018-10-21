@@ -17,7 +17,7 @@
         <div class="row justify-content-center">
             <div class="col-11">
                 {%  if article.picture %}
-                    <img class="img-fluid event-img mr-3 my-2" src="{{ asset( 'images/pictures/' ~ post.picture) }}" alt="{{ article.name }}" align="left">
+                    <img class="img-fluid event-img mr-3 my-2" src="{{ asset( 'images/pictures/' ~ article.picture) }}" alt="{{ article.name }}" align="left">
                 {% else %}
                     <img class="img-fluid event-img mr-3 my-2"  src="{{ asset("images/rolendar-1.jpg") }}" alt="{{ article.name }}" align="left">
                 {% endif %}

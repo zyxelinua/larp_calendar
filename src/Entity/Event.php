@@ -8,9 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints as CustomAssert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @UniqueEntity("token")
  */
 class Event extends News
 {
@@ -60,17 +62,9 @@ class Event extends News
     private $type;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Subgenre", inversedBy="events")
-     * @ORM\JoinTable(name="event_subgenres")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Subgenre", inversedBy="events")
      */
-    private $subgenres;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Genre", inversedBy="events")
-     * @ORM\JoinColumn(nullable=true)
-     * @Assert\NotBlank()
-     */
-    private $genre;
+    private $subgenre;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Settlement", inversedBy="events")
@@ -94,21 +88,26 @@ class Event extends News
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url()
      */
     private $contactSite;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex ("'https:\/\/www\.facebook\.com\/.*'", message="Адрес должен начинаться с 'https://www.facebook.com/'")
      */
     private $contactFB;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex ("'https:\/\/vk\.com\/.*'", message="Адрес должен начинаться с 'https://vk.com/'")
+     *
      */
     private $contactVK;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex ("'https:\/\/t\.me\/.*'", message="Адрес должен начинаться с 'https://t.me/'")
      */
     private $contactTelegram;
 
@@ -171,6 +170,12 @@ class Event extends News
      * @ORM\Column(type="integer", nullable=true)
      */
     private $mixDeskScenography;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Token()
+     */
+    private $token;
 
 
     public function __construct()
@@ -323,29 +328,14 @@ class Event extends News
         return $this;
     }
 
-    /**
-     * @return Subgenre[]
-     */
-    public function getSubgenres()
+    public function getSubgenre(): ?Subgenre
     {
-        return $this->subgenres;
+        return $this->subgenre;
     }
 
-    public function setSubgenres($subgenres): self
+    public function setSubgenre($subgenre): self
     {
-        $this->subgenres = $subgenres;
-
-        return $this;
-    }
-
-    public function getGenre(): ?Genre
-    {
-        return $this->genre;
-    }
-
-    public function setGenre(?Genre $genre): self
-    {
-        $this->genre = $genre;
+        $this->subgenre = $subgenre;
 
         return $this;
     }
@@ -542,5 +532,45 @@ class Event extends News
         $this->mixDeskScenography = $mixDeskScenography;
 
         return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(string $token): self
+    {
+        $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * @Assert\IsTrue(message="Пожалуйста, проверьте указанные даты: событие не может закончиться до своего начала.")
+     */
+    public function isEndDateSane()
+    {
+        return $this->getStartDate() <= $this->getEndDate();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMixDesk()
+    {
+        return ($this->getMixDeskRuntimeGM() && $this->getMixDeskOpenness()&& $this->getMixDeskBleedIn() && $this->getMixDeskCharCreation() && $this->getMixDeskCommunicationStyle() && $this->getMixDeskLoyaltyToSetting() && $this->getMixDeskMetatechniques() && $this->getMixdeskPlayerPressure() && $this->getMixDeskRepresentaionOfTheme() && $this->getMixDeskScenography() && $this->getMixDeskStoryEngine());
+    }
+
+    /**
+     * @Assert\IsTrue(message="Пожалуйста, укажите все параметры эквалайзера.")
+     */
+    public function isMixDeskValid()
+    {
+        if ($this->getMixDeskRuntimeGM() || $this->getMixDeskOpenness()|| $this->getMixDeskBleedIn() || $this->getMixDeskCharCreation() || $this->getMixDeskCommunicationStyle() || $this->getMixDeskLoyaltyToSetting() || $this->getMixDeskMetatechniques() || $this->getMixdeskPlayerPressure() || $this->getMixDeskRepresentaionOfTheme() || $this->getMixDeskScenography() || $this->getMixDeskStoryEngine()) {
+            return ($this->isMixDesk());
+        } else {
+            return true;
+        }
     }
 }

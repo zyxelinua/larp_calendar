@@ -45,14 +45,12 @@
                     <p class="pl-1"> <strong> Формат:</strong> {{ event.type.name}} </p>
                 {% endif %}
 
-                {% if event.genre %}
-                    <p class="pl-1"> <strong> Жанр:</strong> {{ event.genre.name }} </p>
+                {% if event.subgenre.genre %}
+                    <p class="pl-1"> <strong> Жанр:</strong> {{ event.subgenre.genre.name }} </p>
                 {% endif %}
 
-                {% if event.subgenres %}
-                    <p class="pl-1"> <strong> Поджанры: </strong>
-                        {{ event.subgenres | join(', ') }}
-                    </p>
+                {% if event.subgenre %}
+                    <p class="pl-1"> <strong> Поджанр: </strong>{{ event.subgenre }}</p>
                 {% endif %}
 
                 {% if event.organizers %}
@@ -65,7 +63,7 @@
 
                 {% if not event.weapons is empty  %}
                     <p class="pl-1"> <strong> Материал оружия: </strong>
-                        {{ event.subgenres | join(', ') }}
+                        {{ event.weapons | join(', ') }}
                     </p>
                 {% endif %}
 

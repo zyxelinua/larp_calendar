@@ -1,6 +1,7 @@
 <?php
 namespace App\Form;
 
+use App\Entity\Event;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\CallbackTransformer;
@@ -10,55 +11,262 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\EventType;
+use App\Entity\Genre;
 use App\Entity\Subgenre;
 use App\Entity\Region;
+use App\Entity\Settlement;
+use App\Entity\Weapon;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EventFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, ['label' => 'Название'])
             ->add(
                 'type',
                 EntityType::class,
                 [
                     'class' => EventType::class,
-                    'choice_label' => 'name'
+                    'choice_label' => 'name',
+                    'label' => 'Формат'
                 ]
             )
-            ->add('description', TextareaType::class)
-            ->add('startDate', DateType::class)
-            ->add('endDate', DateType::class)
-            ->add('location', TextType::class)
+            ->add(
+                'startDate',
+                DateType::class,
+                [
+                'label' => 'Дата начала',
+                'data' => new \DateTime(date('Y-m-d'))
+                ]
+            )
+            ->add(
+                'endDate',
+                DateType::class,
+                [
+                    'label' => 'Дата окончания',
+                    'data' => new \DateTime(date('Y-m-d'))
+                ]
+            )
+            ->add(
+                'location',
+                TextType::class,
+                [
+                    'label' => 'Место проведения',
+                    'required' => false
+                ]
+            )
             ->add(
                 'region',
                 EntityType::class,
                 [
                     'class' => Region::class,
-                    'choice_label' => 'name'
+                    'choice_label' => 'name',
+                    'label' => 'Область'
                 ]
             )
-            ->add('priceMin', IntegerType::class)
-            ->add('priceMax', IntegerType::class)
             ->add(
-                'subgenres',
+                'subgenre',
                 EntityType::class,
                 [
                     'class' => Subgenre::class,
                     'choice_label' => 'name',
-                    'multiple' => true
+                    'required' => true,
+                    'label' => 'Жанр, поджанр',
+                    'placeholder' => false,
+                    'group_by' => function ($choiceValue, $key, $value) {
+                        return $choiceValue->getGenre()->getName();
+                    }
                 ]
             )
-            ->add('organizers', TextType::class)
-            ->add('organizerContact', TextType::class)
-            ->add('contactSite', TextType::class)
-            ->add('contactFB', TextType::class)
-            ->add('contactOther', TextType::class)
-            ->add('picture', FileType::class, array('label' => 'Add picture'))
-            ->add('save', SubmitType::class)
+            ->add('organizers', TextType::class, ['label' => 'Организаторы'])
+            ->add('organizerContact', TextType::class, ['label' => 'Контакты организаторов для обратной связи с Ролендарем'])
+            ->add(
+                'settlement',
+                EntityType::class,
+                [
+                    'class' => Settlement::class,
+                    'choice_label' => 'name',
+                    'label' => 'Тип поселения'
+                ]
+            )
+            ->add(
+                'weapons',
+                EntityType::class,
+                [
+                    'class' => Weapon::class,
+                    'choice_label' => 'name',
+                    'multiple' => true,
+                    'expanded' => true,
+                    'label' => 'Тип оружия',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'priceMin',
+                IntegerType::class,
+                [
+                    'label' => 'Размер денежного взноса от',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'priceMax',
+                IntegerType::class,
+                [
+                    'label' => 'Размер денежного взноса до',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'contactSite',
+                TextType::class,
+                [
+                    'label' => 'Сайт мероприятия',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'contactFB',
+                TextType::class,
+                [
+                    'label' => 'Группа в Facebook',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'contactVK',
+                TextType::class,
+                [
+                    'label' => 'Группа в Вконтакте',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'contactTelegram',
+                TextType::class,
+                [
+                    'label' => 'Телеграм',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'contactOther',
+                TextType::class,
+                [
+                    'label' => 'Другие ссылки и контакты',
+                    'required' => false
+                ]
+            )
+            ->add('description', TextareaType::class, ['label' => 'Описание'])
+//            todo: actual demands for image attachment
+            ->add(
+                'picture',
+                FileType::class,
+                [
+                    'label' => 'Загрузить картинку',
+                    'help' => 'Формат/размер/соотношение сторон',
+                    'required' => false
+                ]
+            )
+
+            ->add('mixDeskRuntimeGM', ChoiceType::class, array(
+                'choices'  => MixDesk::RuntimeGM['values'],
+                'label' => MixDesk::RuntimeGM['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskOpenness', ChoiceType::class, array(
+                'choices'  => MixDesk::Openness['values'],
+                'label' => MixDesk::Openness['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskPlayerPressure', ChoiceType::class, array(
+                'choices'  => MixDesk::PlayerPressure['values'],
+                'label' => MixDesk::PlayerPressure['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskCharCreation', ChoiceType::class, array(
+                'choices'  => MixDesk::CharCreation['values'],
+                'label' => MixDesk::CharCreation['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskMetatechniques', ChoiceType::class, array(
+                'choices'  => MixDesk::Metatechniques['values'],
+                'label' => MixDesk::Metatechniques['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskStoryEngine', ChoiceType::class, array(
+                'choices'  => MixDesk::StoryEngine['values'],
+                'label' => MixDesk::StoryEngine['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskCommunicationStyle', ChoiceType::class, array(
+                'choices'  => MixDesk::CommunicationStyle['values'],
+                'label' => MixDesk::CommunicationStyle['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskBleedIn', ChoiceType::class, array(
+                'choices'  => MixDesk::BleedIn['values'],
+                'label' => MixDesk::BleedIn['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskLoyaltyToSetting', ChoiceType::class, array(
+                'choices'  => MixDesk::LoyaltyToSetting['values'],
+                'label' => MixDesk::LoyaltyToSetting['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskRepresentaionOfTheme', ChoiceType::class, array(
+                'choices'  => MixDesk::RepresentaionOfTheme['values'],
+                'label' => MixDesk::RepresentaionOfTheme['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+            ->add('mixDeskScenography', ChoiceType::class, array(
+                'choices'  => MixDesk::Scenography['values'],
+                'label' => MixDesk::Scenography['description'],
+                'expanded' => true,
+                'required' => false,
+                'placeholder' => false
+            ))
+
+            ->add(
+                'save',
+                SubmitType::class,
+                [
+                    'label' => 'Сохранить',
+                    'attr' => array('class' => 'brand-bg text-light')
+                ]
+            );
         ;
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => Event::class,
+        ));
     }
 }

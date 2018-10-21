@@ -46,3 +46,12 @@ label.required:after {
     content: "* ";
     color: red;
 }
+
+legend.required:after {
+    content: "* ";
+    color: red;
+}
+
+.btn-primary.brand-bg {
+    border-color: #00005a;
+}

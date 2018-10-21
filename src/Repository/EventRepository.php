@@ -88,4 +88,29 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @param $limit
+     * @param $offset
+     */
+    public function findListAdmin($limit, $offset)
+    {
+        return $this->createQueryBuilder('event')
+            ->orderBy('event.created', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return integer
+     */
+    public function countItemsAdmin()
+    {
+        return $this->createQueryBuilder('event')
+            ->select('count(event.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

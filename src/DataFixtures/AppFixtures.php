@@ -5,9 +5,11 @@ use App\Entity\Article;
 use App\Entity\Author;
 use App\Entity\Region;
 use App\Entity\EventType;
+use App\Entity\Settlement;
 use App\Entity\Subgenre;
 use App\Entity\Genre;
 use App\Entity\Event;
+use App\Entity\Weapon;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -23,15 +25,24 @@ class AppFixtures extends Fixture
         $ukraine = new Region();
         $ukraine->setName('Ukraine');
         $manager->persist($ukraine);
+        
+        //create settlements
+        $tent = new Settlement();
+        $tent->setName('палатки');
+        $manager->persist($tent);
 
-        //create subgenres
-        $alt_historical = new Subgenre;
-        $alt_historical->setName('alternative history');
-        $manager->persist($alt_historical);
+        $cottage = new Settlement();
+        $cottage->setName('база отдыха');
+        $manager->persist($cottage);
 
-        $postapoc = new Subgenre;
-        $postapoc->setName('post apocalypse');
-        $manager->persist($postapoc);
+        //create weapons
+        $pw = new Weapon();
+        $pw->setName('ПО');
+        $manager->persist($pw);
+
+        $wood = new Weapon();
+        $wood->setName('дерево');
+        $manager->persist($wood);
 
         //create genres
         $history = new Genre;
@@ -41,6 +52,21 @@ class AppFixtures extends Fixture
         $fantasy = new Genre;
         $fantasy->setName('fantasy');
         $manager->persist($fantasy);
+
+        $sciFi = new Genre;
+        $sciFi->setName('science fiction');
+        $manager->persist($sciFi);
+
+        //create subgenres
+        $alt_historical = new Subgenre;
+        $alt_historical->setName('alternative history');
+        $alt_historical->setGenre($history);
+        $manager->persist($alt_historical);
+
+        $postapoc = new Subgenre;
+        $postapoc->setName('post apocalypse');
+        $postapoc->setGenre($sciFi);
+        $manager->persist($postapoc);
 
         //create types
         $larp = new EventType();
@@ -95,8 +121,7 @@ class AppFixtures extends Fixture
         $run1->setEndDate(new \DateTime("November 04, 2018"));
         $run1->setLocation('beautiful castle');
         $run1->setRegion($poland);
-        $run1->setGenre($history);
-        $run1->setSubgenres([$alt_historical]);
+        $run1->setSubgenre($alt_historical);
         $run1->setType($larp);
         $run1->setStatus('approved');
         $run1->setOrganizers('cool MG');
@@ -120,8 +145,7 @@ class AppFixtures extends Fixture
         $run2->setEndDate(new \DateTime("December 04, 2018"));
         $run2->setLocation('beautiful castle');
         $run2->setRegion($poland);
-        $run2->setGenre($history);
-        $run2->setSubgenres([$alt_historical]);
+        $run2->setSubgenre($alt_historical);
         $run2->setType($chamber);
         $run2->setStatus('approved');
         $run2->setOrganizers('cool MG');
@@ -141,8 +165,7 @@ class AppFixtures extends Fixture
         $run3->setEndDate(new \DateTime("December 04, 2018"));
         $run3->setLocation('beautiful castle');
         $run3->setRegion($poland);
-        $run3->setSubgenres([$postapoc, $alt_historical]);
-        $run3->setGenre($history);
+        $run3->setSubgenre($postapoc);
         $run3->setType($larp);
         $run3->setStatus('approved');
         $run3->setOrganizers('cool MG');
@@ -163,8 +186,7 @@ class AppFixtures extends Fixture
         $run4->setEndDate(new \DateTime("December 04, 2018"));
         $run4->setLocation('beautiful castle');
         $run4->setRegion($poland);
-        $run4->setGenre($fantasy);
-        $run4->setSubgenres([$alt_historical]);
+        $run4->setSubgenre($alt_historical);
         $run4->setType($convent);
         $run4->setStatus('approved');
         $run4->setOrganizers('cool MG');
@@ -185,8 +207,7 @@ class AppFixtures extends Fixture
         $run5->setEndDate(new \DateTime("December 04, 2018"));
         $run5->setLocation('beautiful castle');
         $run5->setRegion($ukraine);
-        $run5->setSubgenres([$alt_historical]);
-        $run5->setGenre($history);
+        $run5->setSubgenre($alt_historical);
         $run5->setType($larp);
         $run5->setStatus('approved');
         $run5->setOrganizers('cool MG');
@@ -204,8 +225,7 @@ class AppFixtures extends Fixture
         $run6->setEndDate(new \DateTime("December 04, 2018"));
         $run6->setLocation('beautiful castle');
         $run6->setRegion($poland);
-        $run6->setSubgenres([$alt_historical]);
-        $run6->setGenre($history);
+        $run6->setSubgenre($alt_historical);
         $run6->setType($larp);
         $run6->setStatus('approved');
         $run6->setOrganizers('cool MG');
@@ -223,8 +243,7 @@ class AppFixtures extends Fixture
         $run7->setEndDate(new \DateTime("December 04, 2018"));
         $run7->setLocation('beautiful castle');
         $run7->setRegion($poland);
-        $run7->setSubgenres([$alt_historical]);
-        $run7->setGenre($history);
+        $run7->setSubgenre($alt_historical);
         $run7->setType($larp);
         $run7->setStatus('cancelled');
         $run7->setOrganizers('cool MG');
@@ -242,8 +261,7 @@ class AppFixtures extends Fixture
         $run8->setEndDate(new \DateTime("December 04, 2018"));
         $run8->setLocation('beautiful castle');
         $run8->setRegion($poland);
-        $run8->setSubgenres([$alt_historical]);
-        $run8->setGenre($history);
+        $run8->setSubgenre($alt_historical);
         $run8->setType($larp);
         $run8->setStatus('pending');
         $run8->setOrganizers('cool MG');
@@ -260,8 +278,7 @@ class AppFixtures extends Fixture
         $runPast->setEndDate(new \DateTime("May 04, 2018"));
         $runPast->setLocation('beautiful castle');
         $runPast->setRegion($poland);
-        $runPast->setSubgenres([$alt_historical]);
-        $runPast->setGenre($history);
+        $runPast->setSubgenre($alt_historical);
         $runPast->setType($larp);
         $runPast->setStatus('approved');
         $runPast->setOrganizers('cool MG');

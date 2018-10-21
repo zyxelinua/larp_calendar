@@ -24,6 +24,11 @@ class BaseController extends Controller
         $this->addFlash('success', $message);
     }
 
+    public function addDangerFlash($message)
+    {
+        $this->addFlash('dander', $message);
+    }
+
     public function saveEntity($entity)
     {
         $entityManager = $this->getDoctrine()->getManager();
@@ -36,5 +41,20 @@ class BaseController extends Controller
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($entity);
         $entityManager->flush();
+    }
+
+    /**
+     * @param $length
+     * @param string $keyspace
+     * @return string
+     */
+    protected function generateToken($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    {
+        $token = [];
+        $max = mb_strlen($keyspace, '8bit') - 1;
+        for ($i = 0; $i < $length; ++$i) {
+            $token []= $keyspace[random_int(0, $max)];
+        }
+        return implode($token);
     }
 }

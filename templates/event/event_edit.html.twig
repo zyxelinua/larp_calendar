@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{%block heading %}Редактировать событие{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <div class="row py-3" >
+        <div class="col-6" >
+            {{ form_row(form.name) }}
+            {{ form_row(form.type) }}
+            {{ form_row(form.startDate) }}
+            {{ form_row(form.endDate) }}
+            {{ form_row(form.location) }}
+            {{ form_row(form.region) }}
+            <a href="#"> О жанрах и поджанрах</a>
+            {{ form_row(form.subgenre) }}
+            {{ form_row(form.organizers) }}
+            {{ form_row(form.organizerContact) }}
+            {{ form_row(form.settlement) }}
+            {{ form_row(form.weapons) }}
+            {{ form_row(form.priceMin) }}
+            {{ form_row(form.priceMax) }}
+            <h5>Ссылки:</h5>
+            {{ form_row(form.contactSite) }}
+            {{ form_row(form.contactFB) }}
+            {{ form_row(form.contactVK) }}
+            {{ form_row(form.contactTelegram) }}
+            {{ form_row(form.contactOther) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.picture) }}
+        </div>
+    </div>
+    <div class="row py-3" >
+        <div class="col" >
+            <h5> <input type="checkbox" id="mixDeskChecker" value="0"> Я хочу заполнить "эквалайзер" </h5>
+            <a href="#"> Описание</a>
+            <div id="mixDesk">
+                <hr/>
+                <h5> {{ constant('App\\Form\\MixDesk::RuntimeGM').title }}</h5>
+                {{ form_row(form.mixDeskRuntimeGM) }}
+                <h5> {{ constant('App\\Form\\MixDesk::Openness').title }}</h5>
+                {{ form_row(form.mixDeskOpenness) }}
+                <h5> {{ constant('App\\Form\\MixDesk::PlayerPressure').title }}</h5>
+                {{ form_row(form.mixDeskPlayerPressure) }}
+                <h5> {{ constant('App\\Form\\MixDesk::CharCreation').title }}</h5>
+                {{ form_row(form.mixDeskCharCreation) }}
+                <h5> {{ constant('App\\Form\\MixDesk::Metatechniques').title }}</h5>
+                {{ form_row(form.mixDeskMetatechniques) }}
+                <h5> {{ constant('App\\Form\\MixDesk::StoryEngine').title }}</h5>
+                {{ form_row(form.mixDeskStoryEngine) }}
+                <h5> {{ constant('App\\Form\\MixDesk::CommunicationStyle').title }}</h5>
+                {{ form_row(form.mixDeskCommunicationStyle) }}
+                <h5> {{ constant('App\\Form\\MixDesk::BleedIn').title }}</h5>
+                {{ form_row(form.mixDeskBleedIn) }}
+                <h5> {{ constant('App\\Form\\MixDesk::LoyaltyToSetting').title }}</h5>
+                {{ form_row(form.mixDeskLoyaltyToSetting) }}
+                <h5> {{ constant('App\\Form\\MixDesk::RepresentaionOfTheme').title }}</h5>
+                {{ form_row(form.mixDeskRepresentaionOfTheme) }}
+                <h5> {{ constant('App\\Form\\MixDesk::Scenography').title }}</h5>
+                {{ form_row(form.mixDeskScenography) }}
+                <hr/>
+            </div>
+        </div>
+    </div>
+
+    {{ form_row(form.save) }}
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/add_event_script.js"></script>
+{% endblock %}

@@ -1,3 +1,45 @@
-{% extends 'admin/admin_list.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
 {%block heading %} Поджанры {% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row " >
+        {% if entities is empty %}
+            Сейчас в базе нет этих данных.
+        {% else %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Название</th>
+                        <th>Жанр</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for entity in entities %}
+                        <tr>
+                            <td>{{entity.name}}</td>
+                            <td>{{entity.genre.name}}</td>
+                            <td>
+                                <a href="{{ path('edit_subgenre', {'id': entity.id}) }}" class="btn btn-primary brand-bg mx-2" role="button"><span class="fa fa-pencil text-white" aria-hidden="true"></span> Edit</a>
+                                <a href="{{ path('delete_subgenre', {'id': entity.id}) }}" class="entity-delete btn btn-primary brand-bg mx-2" role="button"  ><span class="fa fa-trash-o text-white" aria-hidden="true"></span> Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+
+    {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/admin_list_script.js"></script>
+{% endblock %}
