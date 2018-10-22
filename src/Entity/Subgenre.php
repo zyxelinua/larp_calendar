@@ -25,7 +25,7 @@ class Subgenre
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="subgenres")
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="subgenre")
      */
     private $events;
 
@@ -50,6 +50,12 @@ class Subgenre
      * @ORM\Column(type="datetime")
      */
     private $updated;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Genre", inversedBy="subgenres")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $genre;
 
     public function __construct()
     {
@@ -108,5 +114,17 @@ class Subgenre
     public function getSlug()
     {
         return $this->slug;
+    }
+
+    public function getGenre(): ?Genre
+    {
+        return $this->genre;
+    }
+
+    public function setGenre(?Genre $genre): self
+    {
+        $this->genre = $genre;
+
+        return $this;
     }
 }

@@ -24,13 +24,14 @@ class Genre
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="genre")
+     * @ORM\OneToMany(targetEntity="App\Entity\Subgenre", mappedBy="genre")
      */
-    private $events;
+    private $subgenres;
 
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->subgenres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -51,30 +52,30 @@ class Genre
     }
 
     /**
-     * @return Collection|Event[]
+     * @return Collection|Subgenre[]
      */
-    public function getEvents(): Collection
+    public function getSubgenres(): Collection
     {
-        return $this->events;
+        return $this->subgenres;
     }
 
-    public function addEvent(Event $event): self
+    public function addSubgenre(Subgenre $subgenre): self
     {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setGenre($this);
+        if (!$this->subgenres->contains($subgenre)) {
+            $this->subgenres[] = $subgenre;
+            $subgenre->setGenre($this);
         }
 
         return $this;
     }
 
-    public function removeEvent(Event $event): self
+    public function removeSubgenre(Subgenre $subgenre): self
     {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
+        if ($this->subgenres->contains($subgenre)) {
+            $this->subgenres->removeElement($subgenre);
             // set the owning side to null (unless already changed)
-            if ($event->getGenre() === $this) {
-                $event->setGenre(null);
+            if ($subgenre->getGenre() === $this) {
+                $subgenre->setGenre(null);
             }
         }
 

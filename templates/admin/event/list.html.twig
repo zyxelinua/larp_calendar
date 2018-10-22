@@ -1,0 +1,199 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{%block heading %}События{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row mb-3" >
+            {% if entities is empty %}
+                Сейчас в базе нет этих данных.
+            {% else %}
+                <div class="accordion" id="accordion" style="width: 100%;">
+                    {% for entity in entities %}
+                        <div class="card ">
+                            <div class="card-header bg-white    " id="{{ entity.id }}">
+                                <div class="row " >
+                                    <div class="col" >
+                                        <h5 class="mb-0 mr-5">
+                                            <button class="btn btn-link collapsed brand-txt" type="button" data-toggle="collapse" data-target="#collapse{{ entity.id }}" aria-expanded="false" aria-controls="collapse{{ entity.id }}">
+                                                <span class="fa fa-angle-right " aria-hidden="true">
+                                            </button>
+                                            {{entity.name}}
+                                        </h5>
+                                    </div>
+                                    <div class="col" >
+                                        <ul class="nav nav-pills card-header-pills justify-content-end">
+                                            {%  if entity.status == constant('App\\Entity\\Event::STATUS_PENDING') %}
+                                                <li class="nav-item">
+                                                    <a href="{{ path('approve_event', {'id': entity.id}) }}" class=" event-approve btn btn-success mx-2" role="button"><span class="fa fa-check text-white" aria-hidden="true"></span> Approve</a>
+                                                </li>
+                                            {% endif %}
+                                            {% if  entity.status == constant('App\\Entity\\Event::STATUS_APPROVED')%}
+                                                <li class="nav-item">
+                                                    <a href="{{ path('cancel_event', {'id': entity.id}) }}" class="event-cancel btn btn-danger mx-2" role="button" style="background-color: darkred" ><span class="fa fa-times text-white" aria-hidden="true"></span>&nbsp Cancel &nbsp </a>
+                                                </li>
+                                            {% endif %}
+                                            {% if  entity.status == constant('App\\Entity\\Event::STATUS_CANCELLED')%}
+                                                <li class="nav-item">
+                                                    <a href="{{ path('restore_event', {'id': entity.id}) }}" class=" event-restore btn btn-outline-success mx-2" role="button"><span class="fa fa-check " aria-hidden="true"></span> Restore</a>
+                                                </li>
+                                            {% endif %}
+                                            <li class="nav-item">
+                                                <a href="{{ path('show_event_by_slug', {'slug': entity.slug}) }}" class="btn btn-primary brand-bg mx-2" role="button"><span class="fa fa-eye text-white" aria-hidden="true"></span> View</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ path('admin_edit_event', {'id': entity.id}) }}" class="btn btn-primary brand-bg mx-2" role="button"><span class="fa fa-pencil text-white" aria-hidden="true"></span> Edit</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a href="{{ path('delete_event', {'id': entity.id}) }}" class="entity-delete btn btn-primary brand-bg mx-2" role="button"  ><span class="fa fa-trash-o text-white" aria-hidden="true"></span> Delete</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="collapse{{ entity.id }}" class="collapse" aria-labelledby="{{ entity.id }}" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="col-5">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"> <b> Статус: </b> {{entity.status}} </li>
+                                            <li class="list-group-item"> <b> Создано: </b> {{entity.created | date("d/m/Y") }} </li>
+                                            {% if  entity.publishDate %}
+                                                <li class="list-group-item">
+                                                    <b> Опубликовано: </b>
+                                                    {{entity.publishDate | date("d/m/Y")}}
+                                                </li>
+                                            {% endif %}
+                                            <li class="list-group-item"> <b> Дата начала: </b> {{entity.startDate | date("d/m/Y") }} </li>
+                                            <li class="list-group-item"> <b> Дата окончания: </b> {{entity.endDate | date("d/m/Y") }} </li>
+                                            <li class="list-group-item">
+                                                <b> Место проведения: </b>
+                                                {% if  entity.location %}
+                                                    {{entity.location}}
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item"> <b> Область: </b> {{entity.region.name}} </li>
+                                            <li class="list-group-item">
+                                                <b> Размер денежного взноса от: </b>
+                                                {% if  entity.priceMin %}
+                                                    {{entity.priceMin}} грн.
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b> Размер денежного взноса до: </b>
+                                                {% if  entity.priceMax %}
+                                                    {{entity.priceMax}} грн.
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item"> <b> Формат: </b> {{entity.type.name}} </li>
+                                            <li class="list-group-item"> <b> Жанр: </b> {{entity.subgenre.genre.name}} </li>
+                                            <li class="list-group-item"> <b> Поджанр: </b> {{entity.subgenre}} </li>
+                                            <li class="list-group-item">
+                                                <b> Тип поселения: </b>
+                                                {% if  entity.settlement %}
+                                                    {{entity.settlement.name}}
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b> Тип оружия: </b>
+                                                {% if  entity.weapons %}
+                                                    {{entity.weapons | join(', ')}}
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item"> <b> Организаторы: </b> {{entity.organizers}} </li>
+                                            <li class="list-group-item"> <b> Контакты организаторов: </b> {{entity.organizerContact}} </li>
+                                            <li class="list-group-item"> <h6> Ссылки: </h6> </li>
+                                            <li class="list-group-item">
+                                                <b> Сайт: </b>
+                                                {% if  entity.contactSite %}
+                                                    {{entity.contactSite}}
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b> Группа в Facebook: </b>
+                                                {% if  entity.contactFB %}
+                                                    {{entity.contactFB}}
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b> Группа в Вконтакте: </b>
+                                                {% if  entity.contactVK %}
+                                                    {{entity.contactVK}}
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b> Телеграм: </b>
+                                                {% if  entity.contactTelegram %}
+                                                    {{entity.contactTelegram}}
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b> Другие ссылки и контакты: </b>
+                                                {% if  entity.contactOther %}
+                                                    {{entity.contactOther}}
+                                                {% else %}
+                                                    не указано
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b> Ссылка для редактирования организаторами: </b>
+                                                {% if  entity.token %}
+                                                    {{ url('edit_event', {'id': entity.id, 'token': entity.token}) }}
+                                                {% else %}
+                                                    не доступно для редактирования
+                                                {% endif %}
+                                            </li>
+                                            <li class="list-group-item">
+                                                <b> Заполнена форма эквалайзера: </b>
+                                                {% if  entity.isMixDesk() %}
+                                                    да
+                                                {% else %}
+                                                    нет
+                                                {% endif %}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <hr/>
+                                    <div class="col">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <b> Описание: </b><br>{{entity.description}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+        
+    </div>   
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/event_admin_list_script.js"></script>
+{% endblock %}

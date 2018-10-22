@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\Subgenre;
+use App\Form\SubgenreFormType;
 use App\Repository\SubgenreRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -61,33 +62,24 @@ class SubgenreController extends BaseController
     }
 
     /**
-     * @Route(
-     * "/admin/subgenre/subgenre_edit",
-     * name="edit_subgenre",
-     * methods={"POST"},
-     * requirements={
-     *  "_format": "json"
-     *  }
-     * )
+     * @Route("/admin/subgenre/edit/{id}", name="edit_subgenre", requirements={"id"="\d+"})
+     * @Template("/admin/subgenre/edit.html.twig")
      */
-    public function editSubgenreTitle(Request $request, SubgenreRepository $subgenreRepository)
+    public function editSubgenre(Request $request, Subgenre $subgenre)
     {
-        $content = json_decode($request->getContent(), true);
-        if (isset($content['id']) && isset($content['name'])) {
-            $id = $content['id'];
-            $newName = $content['name'];
-            $subgenre = $subgenreRepository->find($id);
-            if ($subgenre) {
-                $subgenre->setName($newName);
-                $this->saveEntity($subgenre);
+        $form = $this->createForm(SubgenreFormType::class, $subgenre);
+        $form->handleRequest($request);
 
-                return new Response($subgenre->getName());
-            } else {
-                throw $this->createNotFoundException('Subgenre doesn\'t exist');
-            }
-        } else {
-            throw new BadRequestHttpException('Not valid request', null, 400);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $subgenre = $form->getData();
+
+            $this->saveEntity($subgenre);
+
+            $this->addSuccessFlash(sprintf('Successfully edited subgenre "%s"', $subgenre->getName()));
+            return $this->redirectToRoute('list_subgenres');
         }
+
+        return ['form' => $form->createView()];
     }
 
     /**

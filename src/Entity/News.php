@@ -70,6 +70,8 @@ abstract class News
 
     /**
      * @ORM\Column(type="string", length=1000, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Image()
      */
     private $picture;
 
@@ -150,14 +152,16 @@ abstract class News
         return $this;
     }
 
-    public function getPicture(): ?string
+    public function getPicture()
     {
         return $this->picture;
     }
 
-    public function setPicture(?string $picture): self
+    public function setPicture($picture): self
     {
-        $this->picture = $picture;
+        if ($picture) {
+            $this->picture = $picture;
+        }
 
         return $this;
     }

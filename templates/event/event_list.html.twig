@@ -1,26 +1,33 @@
 {% extends 'base.html.twig' %}
 
-{% block heading %} Предстоящие события {% endblock %}
+{% block page_heading %}
+    <div class="row " >
+        <div class="col-11 justify-content-center ml-3">
+        <h2 class="sub-header  brand-txt">{% block heading %}  Предстоящие события  {% endblock %}</h2>
+        </div>
+    </div>
+{% endblock %}
 
 {% block content %}
     {% if events %}
-        {% for event in events %}
-            <div class="card my-2">
-                <h4 class="card-title p-2 brand-txt">
-                    {{event.name}} <br>
-                    <span class="h5 text-muted"> {{event.startDate|date("d/m/Y")}}-{{event.endDate|date("d/m/Y")}} </span>
-                    <span class="badge badge-light badge-pill float-right p-2 brand-txt"> {{ event.type.name }} </span>
-                </h4>
-                <div class="card-body px-1 py-0 d-flex flex-column">
-                    <p class="card-text m-2">{{event.description | cut}}</p>
-                    <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-dark brand-bg align-self-end mb-2">Подробнее</a>
+        <div class="col-11 justify-content-center ml-3">
+            {% for event in events %}
+                <div class="card my-2">
+                    <h4 class="card-title p-2 brand-txt">
+                        {{event.name}} <br>
+                        <span class="h5 text-muted"> {{event.startDate|date("d/m/Y")}}-{{event.endDate|date("d/m/Y")}} </span>
+                        <span class="badge badge-light badge-pill float-right p-2 brand-txt"> {{ event.type.name }} </span>
+                    </h4>
+                    <div class="card-body px-1 py-0 d-flex flex-column">
+                        <p class="card-text m-2">{{event.description | cut}}</p>
+                        <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-primary brand-bg align-self-end mb-2">Подробнее</a>
+                    </div>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+
+        {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+        </div>
     {% else %}
         Сейчас в этом разделе ничего нет.
     {% endif %}
-
-    {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
-
 {% endblock %}

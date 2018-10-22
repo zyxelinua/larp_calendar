@@ -23,9 +23,9 @@
                 <div class="card-body px-2 d-flex flex-column">
                     <p class="card-text m-2">{{post.description | cut}}</p>
                     {% if constant('NEWS_TYPE', post) == 'event' %}
-                        <a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}" class="btn btn-dark brand-bg align-self-end">Подробнее</a>
+                        <a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}" class="btn btn-primary brand-bg align-self-end">Подробнее</a>
                     {% else %}
-                        <a href="{{ path('show_article_by_slug', {'slug': post.slug}) }}" class="btn btn-dark brand-bg align-self-end">Подробнее</a>
+                        <a href="{{ path('show_article_by_slug', {'slug': post.slug}) }}" class="btn btn-primary brand-bg align-self-end">Подробнее</a>
                     {% endif %}
                 </div>
             </div>

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class ArticleFormType extends AbstractType
 {
@@ -37,7 +38,23 @@ class ArticleFormType extends AbstractType
             )
             ->add('name', TextType::class, array('label' => 'Название'))
             ->add('description', TextareaType::class, array('label' => 'Текст'))
-            ->add('save', SubmitType::class, array('label' => 'Сохранить'))
-        ;
+            //            todo: actual demands for image attachment
+            ->add(
+                'picture',
+                FileType::class,
+                [
+                    'label' => 'Загрузить картинку',
+                    'help' => 'Формат/размер/соотношение сторон',
+                    'required' => false
+                ]
+            )
+            ->add(
+                'save',
+                SubmitType::class,
+                [
+                    'label' => 'Сохранить',
+                    'attr' => array('class' => 'brand-bg text-light')
+                ]
+            );
     }
 }
