@@ -46,7 +46,7 @@ class SubgenreController extends BaseController
     public function addSubgenre(Request $request)
     {
         $subgenre = new Subgenre;
-        $form = $this->createForm(AdminEntityType::class, $subgenre);
+        $form = $this->createForm(SubgenreFormType::class, $subgenre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

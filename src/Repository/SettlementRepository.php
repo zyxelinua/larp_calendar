@@ -47,4 +47,8 @@ class SettlementRepository extends AdminEntityRepository
         ;
     }
     */
+    public function createFormQueryBuilder()
+    {
+        return $this->createQueryBuilder('settlement')->innerJoin('settlement.events', 'event');
+    }
 }

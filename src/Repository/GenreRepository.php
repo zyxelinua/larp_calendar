@@ -47,4 +47,12 @@ class GenreRepository extends AdminEntityRepository
         ;
     }
     */
+
+    public function createFormQueryBuilder()
+    {
+        return
+            $this->createQueryBuilder('genre')
+            ->innerJoin('genre.subgenres', 'subgenre')
+            ->innerJoin('subgenre.events', 'event');
+    }
 }

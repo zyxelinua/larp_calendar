@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventFormType;
+use App\Form\EventSearchFormType;
 use App\Repository\EventRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ use App\Service\FileUploader;
 class EventController extends BaseController
 {
     const ITEMS_PER_PAGE = 5;
+    const FIRST_YEAR = 2017;
 
     /**
      * @Route("/event/list", name="list_events")
@@ -34,6 +36,34 @@ class EventController extends BaseController
                 'events' => $eventRepository->findList(self::ITEMS_PER_PAGE, $offset),
                 'page' => $page,
                 'pageCount' => ceil($countItems / self::ITEMS_PER_PAGE)
+            ];
+    }
+
+    /**
+     * @Route("/event/search", name="search_events")
+     * @Template("event/event_search.html.twig")
+     */
+    public function searchEvent(Request $request, EventRepository $eventRepository)
+    {
+        $form = $this->createForm(EventSearchFormType::class);
+        $form->handleRequest($request);
+        $years = range(self::FIRST_YEAR, date('Y', strtotime('+1 year')));
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $params = $form->getData();
+
+            return [
+                'events' => $eventRepository->findListByCriterias($params),
+                'form' => $form->createView(),
+                'years' => $years,
+            ];
+        }
+
+        return
+            [
+                'events' => [],
+                'form' => $form->createView(),
+                'years' => $years,
             ];
     }
 

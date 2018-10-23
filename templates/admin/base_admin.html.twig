@@ -7,7 +7,8 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-light " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">События</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ path('admin_list_events') }}">Список</a>
+                    <a class="dropdown-item" href="{{ path('admin_list_events_approve') }}">Ожидающие утверждения</a>
+                    <a class="dropdown-item" href="{{ path('admin_list_events') }}">Все</a>
                     <a class="dropdown-item" href="{{ path('new_event') }}">Добавить</a>
                 </div>
             </li>

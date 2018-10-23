@@ -95,12 +95,9 @@ class GenreController extends BaseController
      */
     public function deleteGenre(Genre $genre)
     {
-        if (count($genre->getEvents()) > 0) {
-            $this->addNoticeFlash('This genre has associated events and can not be deleted');
-        } else {
-            $this->removeEntity($genre);
-            $this->addSuccessFlash('Successfully deleted genre');
-        }
+        $this->removeEntity($genre);
+        $this->addSuccessFlash('Successfully deleted genre');
+
         return $this->redirectToRoute('list_genres');
     }
 }

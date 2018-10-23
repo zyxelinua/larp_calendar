@@ -47,4 +47,9 @@ class WeaponRepository extends AdminEntityRepository
         ;
     }
     */
+
+    public function createFormQueryBuilder()
+    {
+        return $this->createQueryBuilder('weapon')->innerJoin('weapon.events', 'event');
+    }
 }
