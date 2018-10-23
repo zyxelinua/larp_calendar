@@ -38,7 +38,7 @@ class ArticleFormType extends AbstractType
             )
             ->add('name', TextType::class, array('label' => 'Название'))
             ->add('description', TextareaType::class, array('label' => 'Текст'))
-            //            todo: actual demands for image attachment
+            //todo: actual demands for image attachment
             ->add(
                 'picture',
                 FileType::class,

@@ -113,4 +113,149 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    /**
+     * @param $limit
+     * @param $offset
+     */
+    public function findListAdminToApprove($limit, $offset)
+    {
+        return $this->createQueryBuilder('event')
+            ->andWhere('event.status = :val')
+            ->setParameter('val', Event::STATUS_PENDING)
+            ->orderBy('event.startDate', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return integer
+     */
+    public function countItemsAdminToApprove()
+    {
+        return $this->createQueryBuilder('event')
+            ->select('count(event.id)')
+            ->andWhere('event.status = :val')
+            ->setParameter('val', Event::STATUS_PENDING)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    /**
+     * @param $limit
+     * @param $offset
+     * @param $params
+     */
+    public function findListByCriterias($params)
+    {
+        $qb = $this->setCriterias($params);
+
+        return $qb
+            ->orderBy('event.startDate', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return integer
+     */
+    public function countItemsByCriterias($params)
+    {
+        $qb = $this->setCriterias($params);
+
+        return $qb
+            ->select('count(event.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function setCriterias($params)
+    {
+        $qb = $this->createQueryBuilder('event')
+            ->innerJoin('event.subgenre', 'subgenre')
+            ->innerJoin('subgenre.genre', 'genre')
+            ->leftJoin('event.weapons', 'weapon');
+
+        if (count($params['type'])>0) {
+            $entityList = [];
+            foreach ($params['type'] as $entity) {
+                $entityList[] = $entity->getId();
+            }
+            $qb->andWhere($qb->expr()->in('event.type', $entityList));
+        }
+
+        if (count($params['region'])>0) {
+            $entityList = [];
+            foreach ($params['region'] as $entity) {
+                $entityList[] = $entity->getId();
+            }
+            $qb->andWhere($qb->expr()->in('event.region', $entityList));
+        }
+
+        if (count($params['genre'])>0) {
+            $entityList = [];
+            foreach ($params['genre'] as $entity) {
+                $entityList[] = $entity->getId();
+            }
+            dump($entityList);
+            $qb->andWhere($qb->expr()->in('genre', $entityList));
+        }
+
+        if (count($params['subgenre'])>0) {
+            $entityList = [];
+            foreach ($params['subgenre'] as $entity) {
+                $entityList[] = $entity->getId();
+            }
+            $qb->andWhere($qb->expr()->in('event.subgenre', $entityList));
+        }
+
+        if (count($params['settlement'])>0) {
+            $entityList = [];
+            foreach ($params['settlement'] as $entity) {
+                $entityList[] = $entity->getId();
+            }
+            $qb->andWhere($qb->expr()->in('event.settlement', $entityList));
+        }
+
+        if (count($params['weapons'])>0) {
+            $entityList = [];
+            foreach ($params['weapons'] as $entity) {
+                $entityList[] = $entity->getId();
+            }
+            $qb->andWhere($qb->expr()->in('weapon', $entityList));
+        }
+
+        if ($params['priceMax']) {
+            $qb->andWhere($qb->expr()->lte('event.priceMin', $params['priceMax']));
+        }
+
+        if ($params['keywords']) {
+            $words = explode(" ", $params['keywords']);
+
+            $conditions = [];
+            foreach ($words as $word) {
+                $conditions[] = $qb->expr()->like('event.name', $qb->expr()->literal('%' . $word . '%'));
+                $conditions[] = $qb->expr()->like('event.description', $qb->expr()->literal('%' . $word . '%'));
+            }
+            $qb->andWhere(
+                call_user_func_array(array($qb->expr(), 'orX'), $conditions)
+            );
+        }
+
+        $qb
+            ->andWhere('event.startDate >= :start')
+            ->andWhere('event.startDate <= :end')
+            ->andWhere('event.status = :status')
+            ->setParameters(
+                [
+                    'start'=> $params['periodStart'],
+                    'end'=> $params['periodEnd'],
+                    'status' => Event::STATUS_APPROVED,
+                ]
+            );
+
+        return $qb;
+    }
 }

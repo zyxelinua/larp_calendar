@@ -40,8 +40,8 @@ class EventFormType extends AbstractType
                 'startDate',
                 DateType::class,
                 [
-                'label' => 'Дата начала',
-                'data' => new \DateTime(date('Y-m-d'))
+                    'label' => 'Дата начала',
+                    'years' => range(date('Y'), date('Y', strtotime('+4 years'))),
                 ]
             )
             ->add(
@@ -49,7 +49,7 @@ class EventFormType extends AbstractType
                 DateType::class,
                 [
                     'label' => 'Дата окончания',
-                    'data' => new \DateTime(date('Y-m-d'))
+                    'years' => range(date('Y'), date('Y', strtotime('+4 years'))),
                 ]
             )
             ->add(

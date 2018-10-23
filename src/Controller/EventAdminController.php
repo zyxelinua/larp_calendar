@@ -34,7 +34,29 @@ class EventAdminController extends BaseController
             [
                 'entities' => $eventRepository->findListAdmin($limit, $offset),
                 'page' => $page,
-                'pageCount' => ceil($countItems / $limit)
+                'pageCount' => ceil($countItems / $limit),
+                'toApprove'=> false
+            ];
+    }
+
+    /**
+     * @Route("/admin/event/list-approve", name="admin_list_events_approve")
+     * @Template("admin/event/list.html.twig")
+     */
+    public function listEventsAdminToApprove(Request $request, EventRepository $eventRepository)
+    {
+        $page = $request->get('page', 1);
+        $limit = self::ITEMS_PER_PAGE_ADMIN;
+        $offset = ($page-1)*$limit;
+
+        $countItems = $eventRepository->countItemsAdminToApprove();
+
+        return
+            [
+                'entities' => $eventRepository->findListAdminToApprove($limit, $offset),
+                'page' => $page,
+                'pageCount' => ceil($countItems / $limit),
+                'toApprove'=> true
             ];
     }
 
@@ -108,7 +130,7 @@ class EventAdminController extends BaseController
         $this->saveEntity($event);
         $this->addSuccessFlash('Событие подтверждено и опубликовано');
 
-        return $this->redirectToRoute('admin_list_events');
+        return $this->redirectToRoute('admin_list_events_approve');
     }
 
     /**

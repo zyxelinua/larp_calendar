@@ -1,14 +1,24 @@
 {% extends 'admin/base_admin.html.twig' %}
 
-{%block heading %}События{% endblock %}
+{%block heading %}
+    {%  if toApprove %}
+        События, ожидающие утверждения
+        <a href="{{ path('admin_list_events') }}" class="btn btn-rounded btn-primary float-right mx-5" >
+        <span class="fa fa-eye " aria-hidden="true"></span> &nbsp; Показать все</a>
+    {% else %}
+        События
+        <a href="{{ path('admin_list_events_approve') }}" class="btn btn-rounded btn-primary float-right mx-5" >
+        <span class="fa fa-filter " aria-hidden="true"></span> &nbsp; Показать ожидающие утверждения</a>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
         <div class="row mb-3" >
             {% if entities is empty %}
-                Сейчас в базе нет этих данных.
+                Сейчас в этом разделе ничего нет.
             {% else %}
-                <div class="accordion" id="accordion" style="width: 100%;">
+                <div class="accordion mt-3" id="accordion" style="width: 100%;">
                     {% for entity in entities %}
                         <div class="card ">
                             <div class="card-header bg-white    " id="{{ entity.id }}">
@@ -30,12 +40,12 @@
                                             {% endif %}
                                             {% if  entity.status == constant('App\\Entity\\Event::STATUS_APPROVED')%}
                                                 <li class="nav-item">
-                                                    <a href="{{ path('cancel_event', {'id': entity.id}) }}" class="event-cancel btn btn-danger mx-2" role="button" style="background-color: darkred" ><span class="fa fa-times text-white" aria-hidden="true"></span>&nbsp Cancel &nbsp </a>
+                                                    <a href="{{ path('cancel_event', {'id': entity.id}) }}" class="event-cancel btn btn-danger mx-2" role="button" style="background-color: darkred" ><span class="fa fa-times text-white" aria-hidden="true"></span>&nbsp; Cancel &nbsp; </a>
                                                 </li>
                                             {% endif %}
                                             {% if  entity.status == constant('App\\Entity\\Event::STATUS_CANCELLED')%}
                                                 <li class="nav-item">
-                                                    <a href="{{ path('restore_event', {'id': entity.id}) }}" class=" event-restore btn btn-outline-success mx-2" role="button"><span class="fa fa-check " aria-hidden="true"></span> Restore</a>
+                                                    <a href="{{ path('restore_event', {'id': entity.id}) }}" class=" event-restore btn btn-outline-success mx-2" role="button"><span class="fa fa-check " aria-hidden="true"></span> Restore&nbsp;</a>
                                                 </li>
                                             {% endif %}
                                             <li class="nav-item">

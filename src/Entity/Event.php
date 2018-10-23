@@ -24,11 +24,13 @@ class Event extends News
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank()
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank()
      */
     private $endDate;
 
@@ -63,6 +65,7 @@ class Event extends News
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Subgenre", inversedBy="events")
+     * @Assert\NotBlank()
      */
     private $subgenre;
 
@@ -78,11 +81,13 @@ class Event extends News
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $organizers;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $organizerContact;
 
@@ -173,7 +178,7 @@ class Event extends News
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Token()
+     * @Assert\NotBlank()
      */
     private $token;
 

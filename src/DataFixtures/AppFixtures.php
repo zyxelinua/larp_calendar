@@ -134,6 +134,7 @@ class AppFixtures extends Fixture
         $run1->setContactVK('www.google.com');
         $run1->setContactTelegram('www.google.com');
         $run1->setContactOther('telegram channel @coollarp');
+        $run1->setToken('a');
         $manager->persist($run1);
 
         $run2 = new Event;
@@ -154,6 +155,7 @@ class AppFixtures extends Fixture
         $run2->setPriceMin(100);
         $run2->setContactSite('www.google.com');
         $run2->setContactOther('telegram channel @coollarp');
+        $run2->setToken('b');
         $manager->persist($run2);
 
         $run3 = new Event;
@@ -175,6 +177,7 @@ class AppFixtures extends Fixture
         $run3->setContactFB('www.google.com');
         $run3->setContactOther('telegram channel @coollarp');
         $run3->setPicture('default-event-picture.jpg');
+        $run3->setToken('c');
         $manager->persist($run3);
 
         $run4 = new Event;
@@ -196,6 +199,7 @@ class AppFixtures extends Fixture
         $run4->setPriceMax(100);
         $run4->setContactSite('www.google.com');
         $run4->setContactFB('www.google.com');
+        $run4->setToken('d');
         $manager->persist($run4);
 
         $run5 = new Event;
@@ -214,6 +218,7 @@ class AppFixtures extends Fixture
         $run5->setOrganizerContact('cool_mg@gmail.com');
         $run5->setPublishDate(new \DateTime("October 01, 2018"));
         $run5->setContactSite('www.google.com');
+        $run5->setToken('e');
         $manager->persist($run5);
 
         $run6 = new Event;
@@ -232,6 +237,7 @@ class AppFixtures extends Fixture
         $run6->setOrganizerContact('cool_mg@gmail.com');
         $run6->setPublishDate(new \DateTime("October 01, 2018"));
         $run6->setContactFB('www.google.com');
+        $run6->setToken('f');
         $manager->persist($run6);
 
         $run7 = new Event;
@@ -250,6 +256,7 @@ class AppFixtures extends Fixture
         $run7->setOrganizerContact('cool_mg@gmail.com');
         $run7->setPublishDate(new \DateTime("October 01, 2018"));
         $run7->setContactOther('telegram channel @coollarp');
+        $run7->setToken('g');
         $manager->persist($run7);
 
         $run8 = new Event;
@@ -267,6 +274,7 @@ class AppFixtures extends Fixture
         $run8->setOrganizers('cool MG');
         $run8->setOrganizerContact('cool_mg@gmail.com');
         $run8->setPublishDate(new \DateTime("October 01, 2018"));
+        $run8->setToken('h');
         $manager->persist($run8);
 
         $runPast = new Event;
@@ -284,6 +292,7 @@ class AppFixtures extends Fixture
         $runPast->setOrganizers('cool MG');
         $runPast->setOrganizerContact('cool_mg@gmail.com');
         $runPast->setPublishDate(new \DateTime("April 01, 2018"));
+        $runPast->setToken('ii');
         $manager->persist($runPast);
 
         $manager->flush();

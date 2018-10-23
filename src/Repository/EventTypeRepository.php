@@ -47,4 +47,9 @@ class EventTypeRepository extends AdminEntityRepository
         ;
     }
     */
+
+    public function createFormQueryBuilder()
+    {
+        return $this->createQueryBuilder('type')->innerJoin('type.events', 'event');
+    }
 }

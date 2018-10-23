@@ -47,4 +47,9 @@ class RegionRepository extends AdminEntityRepository
         ;
     }
     */
+
+    public function createFormQueryBuilder()
+    {
+        return $this->createQueryBuilder('region')->innerJoin('region.events', 'event');
+    }
 }
