@@ -21,6 +21,17 @@ class EventController extends BaseController
     const FIRST_YEAR = 2017;
 
     /**
+     * @Route("/event/calendar", name="calendar")
+     * @Template("calendar.html.twig")
+     *
+     */
+    public function viewCalendar()
+    {
+        return [];
+    }
+
+
+    /**
      * @Route("/event/list", name="list_events")
      * @Template("event/event_list.html.twig")
      */
@@ -29,7 +40,7 @@ class EventController extends BaseController
         $page = $request->query->get('page', 1);
         $offset = ($page-1)*self::ITEMS_PER_PAGE;
 
-        $countItems = $eventRepository->countItems();
+        $countItems = $eventRepository->countFutureItems();
 
         return
             [

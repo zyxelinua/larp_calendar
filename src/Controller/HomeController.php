@@ -13,6 +13,7 @@ use App\Repository\EventRepository;
 class HomeController extends BaseController
 {
     const ITEMS_ON_HOMEPAGE = 12;
+
     /**
      * @Route("/home", name="home")
      * @Template("home.html.twig")
@@ -21,5 +22,35 @@ class HomeController extends BaseController
     public function home(NewsRepository $newsRepository)
     {
         return ['posts' => $newsRepository->findLatest(self::ITEMS_ON_HOMEPAGE)];
+    }
+
+    /**
+     * @Route("/about_mixDesk", name="mixDesk_guide")
+     * @Template("mixDesk.html.twig")
+     *
+     */
+    public function mixDeskGuide()
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/about_genres", name="genres_guide")
+     * @Template("genres_guide.html.twig")
+     *
+     */
+    public function genresGuide()
+    {
+        return [];
+    }
+
+    /**
+     * @Route("/contacts", name="contacts")
+     * @Template("contacts.html.twig")
+     *
+     */
+    public function contacts()
+    {
+        return [];
     }
 }

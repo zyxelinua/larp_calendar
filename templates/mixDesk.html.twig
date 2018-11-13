@@ -1,0 +1,152 @@
+{% extends 'base.html.twig' %}
+
+{% block page_heading %}
+    <div class="row justify-content-center" >
+        <div class="col-11">
+            <h2 class="sub-header text-center brand-txt">
+                {% block heading %}
+                    Эквалайзер ролевых игр. Версия 3.0.
+                {% endblock %}
+            </h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="row justify-content-center">
+        <div class="col-11 mt-3">
+
+            <p>
+                Эквалайзер ролевых игр - это система, предназначенная для упрощения понимания структуры ролевой игры между мастерами, а также между мастерами и игроками.<br/>
+                Разработана скандинавской школой ролевых игр на базе мероприятия Knutepunkt. Оригинал можно изучить
+                <a href="https://nordiclarp.org/wiki/The_Mixing_Desk_of_Larp">здесь</a>.
+            </p>
+
+            <p>
+                Командой сайта "Ролендарь" была произведена адаптация эквалайзера следующих целей:
+                <li> адаптация для практического применения в систематизации игр; </li> <br/>
+                <li> масштабирование и адаптация под реалии славянских игр. </li>
+            </p>
+
+            <p>
+                Эквалайзер состоит из 11 пунктов, каждый из которых описывает ту или иную ключевую сторону устройства игры.
+                Каждый из параметров может принимать значение от 1 до 5. Мы описали ориентировочные условия каждого из пунктов.
+                На практике градиций намного больше, но мы ограничиваем выбор пятью вариантами, чтобы упростить взаимопонимание игроков и мастеров.
+                Систему оценок можно оценить самостоятельно следующим образом: оценки 1 и 5 - две крайности проявления параметра, 3 - стандартное проявление параметра на играх, 2 и 4 - уровень параметра на игре ниже среднее или выше среднего соответсвенно.
+            </p>
+
+            <hr/>
+
+            <h5> I. {{  constant('App\\Form\\MixDesk::RuntimeGM').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::RuntimeGM').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::RuntimeGM').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> II. {{  constant('App\\Form\\MixDesk::Openness').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::Openness').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::Openness').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> III. {{  constant('App\\Form\\MixDesk::PlayerPressure').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::PlayerPressure').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::PlayerPressure').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> IV. {{  constant('App\\Form\\MixDesk::CharCreation').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::CharCreation').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::CharCreation').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> V. {{  constant('App\\Form\\MixDesk::Metatechniques').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::Metatechniques').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::Metatechniques').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> VI. {{  constant('App\\Form\\MixDesk::StoryEngine').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::StoryEngine').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::StoryEngine').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> VII. {{  constant('App\\Form\\MixDesk::CommunicationStyle').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::CommunicationStyle').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::CommunicationStyle').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> VIII. {{  constant('App\\Form\\MixDesk::BleedIn').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::BleedIn').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::BleedIn').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> IX. {{  constant('App\\Form\\MixDesk::LoyaltyToSetting').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::LoyaltyToSetting').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::LoyaltyToSetting').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> X. {{  constant('App\\Form\\MixDesk::RepresentaionOfTheme').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::RepresentaionOfTheme').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::RepresentaionOfTheme').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+            <hr/>
+
+            <h5> XI. {{  constant('App\\Form\\MixDesk::Scenography').title  }} </h5>
+
+            <p> <i> {{  constant('App\\Form\\MixDesk::Scenography').description }} </i> </p>
+
+            {% for key in constant('App\\Form\\MixDesk::Scenography').values|keys %}
+                <p> {{ key}} </p>
+            {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock %}

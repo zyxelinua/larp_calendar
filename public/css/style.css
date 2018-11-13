@@ -42,6 +42,10 @@ body {
     width: 18rem;
 }
 
+.contact-img {
+    height: 18rem;
+}
+
 label.required:after {
     content: "* ";
     color: red;

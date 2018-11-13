@@ -13,7 +13,7 @@
                 {{ form_row(form.endDate) }}
                 {{ form_row(form.location) }}
                 {{ form_row(form.region) }}
-                <a href="#"> О жанрах и поджанрах</a>
+                <a href="{{ path('genres_guide') }}"> О жанрах и поджанрах</a>
                 {{ form_row(form.subgenre) }}
                 {{ form_row(form.organizers) }}
                 {{ form_row(form.organizerContact) }}
@@ -34,7 +34,7 @@
         <div class="row py-3" >
             <div class="col" >
                 <h5> <input type="checkbox" id="mixDeskChecker" value="0"> Я хочу заполнить "эквалайзер" </h5>
-                <a href="#"> Описание</a>
+                <a href="{{ path('mixDesk_guide') }}"> Описание</a>
                 <div id="mixDesk" style="display:none">
                     <hr/>
                     <h5> {{ constant('App\\Form\\MixDesk::RuntimeGM').title }}</h5>
