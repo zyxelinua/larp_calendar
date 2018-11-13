@@ -578,4 +578,79 @@ class Event extends News
             return true;
         }
     }
+
+    /**
+     * @return string
+     */
+    public function createGoogleLocation()
+    {
+        if ($this->location) {
+            return sprintf('%s, %s', $this->getLocation(), $this->getRegion()->getName());
+        }
+        else {
+            return $this->getRegion()->getName();
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function createGoogleDescription()
+    {
+        $googleDescription =
+            'Формат: ' . $this->getType()->getName() . PHP_EOL .
+            'Жанр: ' . $this->getSubgenre()->getGenre()->getName() . PHP_EOL .
+            'Поджанр: ' . $this->getSubgenre()->getName() . PHP_EOL . PHP_EOL .
+            'Организаторы: ' . $this->getOrganizers() . PHP_EOL. PHP_EOL;
+
+        if ($this->settlement) {
+            $googleDescription = $googleDescription .'Тип поселения: ' . $this->getSettlement()->getName() . PHP_EOL. PHP_EOL;
+        }
+
+        if (count ($this->weapons) >0) {
+            $weaponCollection = [];
+            foreach ($this->weapons as $weapon){
+                $weaponString [] = $weapon->getName();
+            }
+            $googleDescription = $googleDescription .'Материал оружия: ' . implode(", ", $weaponCollection) . PHP_EOL. PHP_EOL;
+        }
+
+        if ($this->priceMin || $this->priceMax) {
+            $googleDescription = $googleDescription .'Взнос: ';
+            if ($this->priceMin) {
+                $googleDescription = $googleDescription . $this->getPriceMin();
+
+                if ($this->priceMax && $this->priceMax!= $this->priceMin) {
+                    $googleDescription = $googleDescription . ' - ' .$this->getPriceMax();
+                }
+            } else {
+                    $googleDescription = $googleDescription . $this->getPriceMax();
+                }
+            $googleDescription = $googleDescription . 'грн.' . PHP_EOL . PHP_EOL;
+        }
+
+        if ($this->contactSite || $this->contactFB || $this->contactVK || $this->contactTelegram || $this->contactOther) {
+            $googleDescription = $googleDescription .'Ссылки: '. PHP_EOL;
+            if ($this->contactSite) {
+                $googleDescription = $googleDescription . 'Сайт: ' . $this->contactSite . PHP_EOL;
+            }
+            if ($this->contactFB) {
+                $googleDescription = $googleDescription . 'Facebook: ' . $this->contactFB . PHP_EOL;
+            }
+            if ($this->contactVK) {
+                $googleDescription = $googleDescription . 'Вконтакте: ' . $this->contactVK . PHP_EOL;
+            }
+            if ($this->contactTelegram) {
+                $googleDescription = $googleDescription . 'Телеграм: ' . $this->contactTelegram . PHP_EOL;
+            }
+            if ($this->contactOther) {
+                $googleDescription = $googleDescription . $this->contactOther . PHP_EOL;
+            }
+        }
+
+        $googleDescription = $googleDescription . PHP_EOL . 'Описание: ' . PHP_EOL . $this->getDescription();
+
+        return $googleDescription;
+
+    }
 }

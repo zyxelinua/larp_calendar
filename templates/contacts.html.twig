@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block page_heading %}
+    <div class="row justify-content-center" >
+        <div class="col-11">
+            <h2 class="sub-header text-center brand-txt">
+                {% block heading %}
+
+                {% endblock %}
+            </h2>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col">
+            <div class="card-deck">
+                <div class="col">
+                    <div class="card my-2">
+                        <h4 class="card-header text-left bg-white brand-txt">О проекте</h4>
+                        <div class="row no-gutters">
+                            <div class="col-auto">
+                                <img class="img-fluid event-img my-2 ml-2" src="{{ asset( "images/rolendar-1.jpg") }}" alt="rolendar">
+                            </div>
+                            <div class="col ">
+                                <div class="card-body px-2 d-flex flex-column">
+                                    <p class="card-text m-2">
+                                    <p>
+                                        Ролендарь - это прежде всего календарь ролевых проектов Украины. Он создавался как для себя и впоследствии стал открытым для ролевого сообщества.
+                                    </p>
+                                    <p>
+                                        Мы добавляем игры, фестивали, ролевые балы, конвенты и стараемся, чтобы информация о проектах была наиболее актуальной и полной.<br>
+                                        Мы за открытость и доступность информации, за расширении аудитории, которой интересны живые ролевые проекты во всех их проявлениях, поэтому если вы знаете о каком-то проекте, которого нет у нас в календаре, пишите нам, мы все исправим.<br>
+                                    </p>
+                                    <p>
+                                        Ролендарь проект некоммерческий, но если вам здесь нравится, вы можете нам помочь:<br>
+                                        Карта Приватбанка Ковалева Диана 4731 1856 1575 9690
+                                    </p>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card my-2">
+                        <h4 class="card-header text-left bg-white brand-txt">Контакты</h4>
+                        <div class="row no-gutters">
+                            <div class="col ">
+                                <div class="card-body px-2 d-flex flex-column">
+                                    <p class="card-text m-2">
+                                    <h5>Руководитель проекта и редактор </h5>
+                                    <h4> Диана Ковалева </h4>
+                                    <a href="mailto:mirnavii@gmail.com"> <span class="fa fa-envelope fa-2x brand-txt mx-2" ></span>  </a>
+                                    <a href="https://www.facebook.com/diana.milanskaya/"> <span class="fa fa-facebook-square fa-2x brand-txt mx-2" ></span>  </a>
+                                    <a> <span class="fa fa-skype fa-2x brand-txt mx-2" ></span> sirius_nalivat </a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <img class="img-fluid contact-img my-2 mr-2" src="{{ asset( "images/Diana.jpg") }}" alt="rolendar">
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row no-gutters">
+                                <div class="col-auto">
+                                    <img class="img-fluid event-img my-2 mr-2" src="{{ asset( "images/Romashka.jpg") }}" alt="rolendar">
+                                </div>
+                                <div class="col">
+                                    <p class="card-text m-2">
+                                    <h5> Соучредитель проекта Роман Гаврилов </h5>
+                                    <p> (более известный в ролевом сообществе как Роман Миланский ака Ромашка). </p>
+                                    <p> Без его идей, многомесячного труда и аналитики этого проекта просто бы не было. </p>
+                                    </p>
+                                </div>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

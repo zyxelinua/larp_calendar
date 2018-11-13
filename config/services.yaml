@@ -34,3 +34,10 @@ services:
     App\Service\FileUploader:
       arguments:
         $targetDirectory: '%pictures_directory%'
+
+    App\Service\GoogleEvent:
+        tags:
+        - { name: doctrine.event_listener, event: preUpdate }
+        calls:
+        - [setTokenPath, ['%env(GOOGLE_TOKEN_PATH)%']]
+        - [setCalendarId, ['%env(GOOGLE_CALENDAR_ID)%']]

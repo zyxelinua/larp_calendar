@@ -20,3 +20,6 @@
 
 /src/Migrations/
 /.php_cs.cache
+
+credentials.json
+token.json

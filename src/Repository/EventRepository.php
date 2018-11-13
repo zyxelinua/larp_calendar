@@ -62,12 +62,13 @@ class EventRepository extends ServiceEntityRepository
     /**
      * @return integer
      */
-    public function countItems()
+    public function countFutureItems()
     {
         return $this->createQueryBuilder('event')
             ->select('count(event.id)')
+            ->andWhere('event.startDate >= :today')
             ->andWhere('event.status = :val')
-            ->setParameter('val', Event::STATUS_APPROVED)
+            ->setParameters(array('today'=> date('Y-m-d'), 'val' => Event::STATUS_APPROVED))
             ->getQuery()
             ->getSingleScalarResult();
     }
