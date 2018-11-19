@@ -50,6 +50,6 @@ class RegionRepository extends AdminEntityRepository
 
     public function createFormQueryBuilder()
     {
-        return $this->createQueryBuilder('region')->innerJoin('region.events', 'event');
+        return $this->createQueryBuilder('region')->innerJoin('region.events', 'event')->orderBy('region.name');
     }
 }

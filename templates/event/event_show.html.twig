@@ -38,7 +38,9 @@
                     {% if event.location %}
                         {{ event.location }},
                     {% endif %}
-                    {{ event.region.name }}
+                    {% if event.region %}
+                        {{ event.region.name }}
+                    {% endif %}
                 </h4>
 
                 {% if event.type %}
