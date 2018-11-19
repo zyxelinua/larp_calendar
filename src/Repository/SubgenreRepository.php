@@ -50,6 +50,6 @@ class SubgenreRepository extends AdminEntityRepository
 
     public function createFormQueryBuilder()
     {
-        return $this->createQueryBuilder('subgenre')->innerJoin('subgenre.events', 'event');
+        return $this->createQueryBuilder('subgenre')->innerJoin('subgenre.events', 'event')->orderBy('subgenre.name');
     }
 }
