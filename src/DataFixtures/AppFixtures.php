@@ -17,283 +17,178 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        // create regions
-        $poland = new Region();
-        $poland->setName('Poland');
-        $manager->persist($poland);
+        //create types
+        $typeList = [
+            'Полигонная игра',
+            'Полигонная игра на турбазе',
+            'Конвент',
+            'Фестиваль',
+            'Турнир',
+            'Камеральная игра',
+            'Городская игра',
+            'Игровой турнир',
+            'Полигонная игра-фестиваль',
+            'Полигонная страйкбольно-ролевая игра',
+            'Бал'
+        ];
 
-        $ukraine = new Region();
-        $ukraine->setName('Ukraine');
-        $manager->persist($ukraine);
-        
-        //create settlements
-        $tent = new Settlement();
-        $tent->setName('палатки');
-        $manager->persist($tent);
-
-        $cottage = new Settlement();
-        $cottage->setName('база отдыха');
-        $manager->persist($cottage);
-
-        //create weapons
-        $pw = new Weapon();
-        $pw->setName('ПО');
-        $manager->persist($pw);
-
-        $wood = new Weapon();
-        $wood->setName('дерево');
-        $manager->persist($wood);
+        foreach ($typeList as $value) {
+            $type = new EventType();
+            $type->setName($value);
+            $manager->persist($type);
+        }
 
         //create genres
         $history = new Genre;
-        $history->setName('historical');
+        $history->setName('Исторический/Псевдоисторический');
         $manager->persist($history);
 
         $fantasy = new Genre;
-        $fantasy->setName('fantasy');
+        $fantasy->setName('Фэнтези');
         $manager->persist($fantasy);
 
         $sciFi = new Genre;
-        $sciFi->setName('science fiction');
+        $sciFi->setName('Научная фантастика');
         $manager->persist($sciFi);
 
+        $na = new Genre;
+        $na->setName('-');
+        $manager->persist($na);
+
         //create subgenres
-        $alt_historical = new Subgenre;
-        $alt_historical->setName('alternative history');
-        $alt_historical->setGenre($history);
-        $manager->persist($alt_historical);
+        $naSub = new Subgenre;
+        $naSub->setName('-');
+        $naSub->setGenre($na);
+        $manager->persist($naSub);
 
-        $postapoc = new Subgenre;
-        $postapoc->setName('post apocalypse');
-        $postapoc->setGenre($sciFi);
-        $manager->persist($postapoc);
+        $subgenreSciFiList = [
+            'Научная фантастика',
+            'Киберпанк',
+            'Постапокалипсис',
+            'Киберпанк',
+            'Стимпанк',
+            'Космическая сага',
+        ];
 
-        //create types
-        $larp = new EventType();
-        $larp->setName('larp');
-        $manager->persist($larp);
+        foreach ($subgenreSciFiList as $value) {
+            $subgenre = new Subgenre();
+            $subgenre->setName($value);
+            $subgenre->setGenre($sciFi);
+            $manager->persist($subgenre);
+        }
 
-        $convent = new EventType();
-        $convent->setName('convent');
-        $manager->persist($convent);
+        $subgenreFantasyList = [
+            'Высокое фэнтези',
+            'Тёмное фэнтези',
+            'Мифологическое фэнтези',
+            'Историческое фэнтези',
+            'Городское фэнтези',
+            'Супергеройское фэнтези',
+            'Научное фэнтези',
+            'Фэнтези',
+        ];
 
-        $chamber = new EventType();
-        $chamber->setName('chamber larp');
-        $manager->persist($chamber);
+        foreach ($subgenreFantasyList as $value) {
+            $subgenre = new Subgenre();
+            $subgenre->setName($value);
+            $subgenre->setGenre($fantasy);
+            $manager->persist($subgenre);
+        }
 
-        //create article author
-        $author = new Author();
-        $author->setName('Ghostwriter');
-        $manager->persist($author);
+        $subgenreHistList = [
+            'Первобытность',
+            'Античность',
+            'Средневековье',
+            '17 век',
+            '18 век',
+            '19 век',
+            '20 век',
+            'Псевдоисторический-Первобытность',
+            'Псевдоисторический-Античность',
+            'Псевдоисторический-Средневековье',
+            'Псевдоисторический-17 век',
+            'Псевдоисторический-18 век',
+            'Псевдоисторический-19 век',
+            'Псевдоисторический-20 век',
+        ];
 
-        //create articles
-        $article1 = new Article();
-        $article1 -> setName("Article 1");
-        $article1 -> setDescription("This is some abstract larp overview");
-        $article1->setPublishDate(new \DateTime("October 01, 2018"));
-        $article1->setAuthor($author);
-        $article1->setCategory(Article::CATEGORY_ARTICLE);
-        $manager->persist($article1);
+        foreach ($subgenreHistList as $value) {
+            $subgenre = new Subgenre();
+            $subgenre->setName($value);
+            $subgenre->setGenre($history);
+            $manager->persist($subgenre);
+        }
 
-        $article2 = new Article();
-        $article2 -> setName("Article 2");
-        $article2 -> setDescription("This is some abstract larp overview");
-        $article2->setPublishDate(new \DateTime("October 10, 2018"));
-        $article2->setAuthor($author);
-        $article2->setCategory(Article::CATEGORY_OVERVIEW);
-        $manager->persist($article2);
+        //create settlements
+        $settlementList = [
+            'Самостоятельное/Палатки',
+            'Турбаза',
+            'Гостиница/пансионат',
+            'На квартирах',
+            'Не требуется',
+        ];
 
-        $article3 = new Article();
-        $article3 -> setName("Article 3");
-        $article3 -> setDescription("This is some abstract larp overview");
-        $article3->setPublishDate(new \DateTime("October 01, 2018"));
-        $article3->setAuthor($author);
-        $article3->setCategory(Article::CATEGORY_ANNOUNCEMENT);
-        $manager->persist($article3);
+        foreach ($settlementList as $value) {
+            $settlement = new Settlement();
+            $settlement->setName($value);
+            $manager->persist($settlement);
+        }
 
-        //create events
-        $run1 = new Event;
-        $run1->setName('Cool larp run 1');
-        $run1->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $run1->setStartDate((new \DateTime("November 01, 2018")));
-        $run1->setEndDate(new \DateTime("November 04, 2018"));
-        $run1->setLocation('beautiful castle');
-        $run1->setRegion($poland);
-        $run1->setSubgenre($alt_historical);
-        $run1->setType($larp);
-        $run1->setStatus('approved');
-        $run1->setOrganizers('cool MG');
-        $run1->setOrganizerContact('cool_mg@gmail.com');
-        $run1->setPublishDate(new \DateTime("October 01, 2018"));
-        $run1->setPriceMin(100);
-        $run1->setPriceMax(200);
-        $run1->setContactSite('www.google.com');
-        $run1->setContactFB('www.google.com');
-        $run1->setContactVK('www.google.com');
-        $run1->setContactTelegram('www.google.com');
-        $run1->setContactOther('telegram channel @coollarp');
-        $run1->setToken('a');
-        $manager->persist($run1);
+        //create weapons
+        $weaponList = [
+            'Резина',
+            'Дерево',
+            'Текстолит',
+            'LARP',
+            'Сталь/дюраль',
+            'Edison/резиновые пульки',
+            'Аирсофт',
+            'Модели огнестрела',
+        ];
 
-        $run2 = new Event;
-        $run2->setName('Cool larp run 2');
-        $run2->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $run2->setStartDate((new \DateTime("December 01, 2018")));
-        $run2->setEndDate(new \DateTime("December 04, 2018"));
-        $run2->setLocation('beautiful castle');
-        $run2->setRegion($poland);
-        $run2->setSubgenre($alt_historical);
-        $run2->setType($chamber);
-        $run2->setStatus('approved');
-        $run2->setOrganizers('cool MG');
-        $run2->setOrganizerContact('cool_mg@gmail.com');
-        $run2->setPublishDate(new \DateTime("October 02, 2018"));
-        $run2->setPriceMin(100);
-        $run2->setContactSite('www.google.com');
-        $run2->setContactOther('telegram channel @coollarp');
-        $run2->setToken('b');
-        $manager->persist($run2);
+        foreach ($weaponList as $value) {
+            $weapon = new Weapon();
+            $weapon->setName($value);
+            $manager->persist($weapon);
+        }
 
-        $run3 = new Event;
-        $run3->setName('Cool larp run 3');
-        $run3->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $run3->setStartDate((new \DateTime("December 01, 2018")));
-        $run3->setEndDate(new \DateTime("December 04, 2018"));
-        $run3->setLocation('beautiful castle');
-        $run3->setRegion($poland);
-        $run3->setSubgenre($postapoc);
-        $run3->setType($larp);
-        $run3->setStatus('approved');
-        $run3->setOrganizers('cool MG');
-        $run3->setOrganizerContact('cool_mg@gmail.com');
-        $run3->setPublishDate(new \DateTime("October 04, 2018"));
-        $run3->setPriceMax(200);
-        $run3->setContactFB('www.google.com');
-        $run3->setContactOther('telegram channel @coollarp');
-        $run3->setPicture('default-event-picture.jpg');
-        $run3->setToken('c');
-        $manager->persist($run3);
+        // create regions
+        $regionList = [
+            'Винницкая',
+            'Волынская',
+            'Днепропетровская',
+            'Донецкая',
+            'Житомирская',
+            'Закарпатская',
+            'Запорожская',
+            'Ивано-Франковская',
+            'Киевская',
+            'Кировоградская',
+            'Луганская',
+            'Львовская',
+            'Николаевская',
+            'Одесская',
+            'Полтавская',
+            'Ровненская',
+            'Сумская',
+            'Тернопольская',
+            'Харьковская',
+            'Херсонская',
+            'Хмельницкая',
+            'Черкасская',
+            'Черниговская',
+            'Черновицкая',
+        ];
 
-        $run4 = new Event;
-        $run4->setName('Cool larp run 4');
-        $run4->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $run4->setStartDate((new \DateTime("December 01, 2018")));
-        $run4->setEndDate(new \DateTime("December 04, 2018"));
-        $run4->setLocation('beautiful castle');
-        $run4->setRegion($poland);
-        $run4->setSubgenre($alt_historical);
-        $run4->setType($convent);
-        $run4->setStatus('approved');
-        $run4->setOrganizers('cool MG');
-        $run4->setOrganizerContact('cool_mg@gmail.com');
-        $run4->setPublishDate(new \DateTime("October 01, 2018"));
-        $run4->setPriceMin(100);
-        $run4->setPriceMax(100);
-        $run4->setContactSite('www.google.com');
-        $run4->setContactFB('www.google.com');
-        $run4->setToken('d');
-        $manager->persist($run4);
+        foreach ($regionList as $value) {
+            $region = new Region();
+            $region->setName($value. ' область');
+            $manager->persist($region);
+        }
 
-        $run5 = new Event;
-        $run5->setName('Cool larp run 5');
-        $run5->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $run5->setStartDate((new \DateTime("December 01, 2018")));
-        $run5->setEndDate(new \DateTime("December 04, 2018"));
-        $run5->setLocation('beautiful castle');
-        $run5->setRegion($ukraine);
-        $run5->setSubgenre($alt_historical);
-        $run5->setType($larp);
-        $run5->setStatus('approved');
-        $run5->setOrganizers('cool MG');
-        $run5->setOrganizerContact('cool_mg@gmail.com');
-        $run5->setPublishDate(new \DateTime("October 01, 2018"));
-        $run5->setContactSite('www.google.com');
-        $run5->setToken('e');
-        $manager->persist($run5);
-
-        $run6 = new Event;
-        $run6->setName('Классная игра 6');
-        $run6->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $run6->setStartDate((new \DateTime("December 01, 2018")));
-        $run6->setEndDate(new \DateTime("December 04, 2018"));
-        $run6->setLocation('beautiful castle');
-        $run6->setRegion($poland);
-        $run6->setSubgenre($alt_historical);
-        $run6->setType($larp);
-        $run6->setStatus('approved');
-        $run6->setOrganizers('cool MG');
-        $run6->setOrganizerContact('cool_mg@gmail.com');
-        $run6->setPublishDate(new \DateTime("October 01, 2018"));
-        $run6->setContactFB('www.google.com');
-        $run6->setToken('f');
-        $manager->persist($run6);
-
-        $run7 = new Event;
-        $run7->setName('Cool larp run 7');
-        $run7->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $run7->setStartDate((new \DateTime("December 01, 2018")));
-        $run7->setEndDate(new \DateTime("December 04, 2018"));
-        $run7->setLocation('beautiful castle');
-        $run7->setRegion($poland);
-        $run7->setSubgenre($alt_historical);
-        $run7->setType($larp);
-        $run7->setStatus('cancelled');
-        $run7->setOrganizers('cool MG');
-        $run7->setOrganizerContact('cool_mg@gmail.com');
-        $run7->setPublishDate(new \DateTime("October 01, 2018"));
-        $run7->setContactOther('telegram channel @coollarp');
-        $run7->setToken('g');
-        $manager->persist($run7);
-
-        $run8 = new Event;
-        $run8->setName(' run 8');
-        $run8->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $run8->setStartDate((new \DateTime("December 01, 2018")));
-        $run8->setEndDate(new \DateTime("December 04, 2018"));
-        $run8->setLocation('beautiful castle');
-        $run8->setRegion($poland);
-        $run8->setSubgenre($alt_historical);
-        $run8->setType($larp);
-        $run8->setStatus('pending');
-        $run8->setOrganizers('cool MG');
-        $run8->setOrganizerContact('cool_mg@gmail.com');
-        $run8->setPublishDate(new \DateTime("October 01, 2018"));
-        $run8->setToken('h');
-        $manager->persist($run8);
-
-        $runPast = new Event;
-        $runPast->setName('Cool larp run past');
-        $runPast->setDescription('You are the rot in the state of Denmark. Your country is aflame with the fires of revolution. The court of King Claudius is isolated in a bunker beneath the castle-fortress of Elsinore and you refuse to let go of power.
-                Anyone could see that the days of the Kingdom are numbered. But not you. You linger on the edge of action, escaping deeper into decadent madness and murderous paranoia. Your folly is the curse of Hamlet - a numbing fear of decisive action. It will kill you in the end.
-                All of you.');
-        $runPast->setStartDate((new \DateTime("May 01, 2018")));
-        $runPast->setEndDate(new \DateTime("May 04, 2018"));
-        $runPast->setLocation('beautiful castle');
-        $runPast->setRegion($poland);
-        $runPast->setSubgenre($alt_historical);
-        $runPast->setType($larp);
-        $runPast->setStatus('approved');
-        $runPast->setOrganizers('cool MG');
-        $runPast->setOrganizerContact('cool_mg@gmail.com');
-        $runPast->setPublishDate(new \DateTime("April 01, 2018"));
-        $runPast->setToken('ii');
-        $manager->persist($runPast);
+        $kiev = new Region();
+        $kiev->setName('Киев');
+        $manager->persist($kiev);
 
         $manager->flush();
     }

@@ -80,7 +80,7 @@ class Event extends News
     private $weapons;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
     private $organizers;
@@ -117,7 +117,7 @@ class Event extends News
     private $contactTelegram;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     private $contactOther;
 
@@ -586,8 +586,7 @@ class Event extends News
     {
         if ($this->location) {
             return sprintf('%s, %s', $this->getLocation(), $this->getRegion()->getName());
-        }
-        else {
+        } else {
             return $this->getRegion()->getName();
         }
     }
@@ -607,9 +606,9 @@ class Event extends News
             $googleDescription = $googleDescription .'Тип поселения: ' . $this->getSettlement()->getName() . PHP_EOL. PHP_EOL;
         }
 
-        if (count ($this->weapons) >0) {
+        if (count($this->weapons) >0) {
             $weaponCollection = [];
-            foreach ($this->weapons as $weapon){
+            foreach ($this->weapons as $weapon) {
                 $weaponString [] = $weapon->getName();
             }
             $googleDescription = $googleDescription .'Материал оружия: ' . implode(", ", $weaponCollection) . PHP_EOL. PHP_EOL;
@@ -624,8 +623,8 @@ class Event extends News
                     $googleDescription = $googleDescription . ' - ' .$this->getPriceMax();
                 }
             } else {
-                    $googleDescription = $googleDescription . $this->getPriceMax();
-                }
+                $googleDescription = $googleDescription . $this->getPriceMax();
+            }
             $googleDescription = $googleDescription . 'грн.' . PHP_EOL . PHP_EOL;
         }
 
@@ -651,6 +650,5 @@ class Event extends News
         $googleDescription = $googleDescription . PHP_EOL . 'Описание: ' . PHP_EOL . $this->getDescription();
 
         return $googleDescription;
-
     }
 }

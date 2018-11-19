@@ -18,7 +18,7 @@ use App\Service\FileUploader;
 class EventController extends BaseController
 {
     const ITEMS_PER_PAGE = 5;
-    const FIRST_YEAR = 2017;
+    const FIRST_YEAR = 2013;
 
     /**
      * @Route("/event/calendar", name="calendar")

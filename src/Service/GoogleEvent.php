@@ -1,5 +1,6 @@
 <?php
 namespace App\Service;
+
 use App\Entity\Event;
 use Doctrine\ORM\Event\PreUpdateEventArgs;
 
@@ -39,7 +40,7 @@ class GoogleEvent
 
         $changeSet = $args->getEntityChangeSet();
         if (key_exists('status', $changeSet)) {
-            if ($changeSet['status'][0] == 'pending' && $changeSet['status'][1] == 'approved') {
+            if ($changeSet['status'][0] == Event::STATUS_PENDING && $changeSet['status'][1] == Event::STATUS_APPROVED) {
                 $this->createGoogleEvent($entity);
             }
         }
@@ -69,7 +70,8 @@ class GoogleEvent
         $service->events->insert($calendarId, $googleEvent);
     }
 
-    private function getService() {
+    private function getService()
+    {
         $client = $this->googleClient;
         $service = new \Google_Service_Calendar($client);
 
@@ -80,8 +82,7 @@ class GoogleEvent
         if (file_exists($this->tokenPath)) {
             $accessToken = json_decode(file_get_contents($this->tokenPath), true);
             $client->setAccessToken($accessToken);
-        }
-        else {
+        } else {
             throw new \Exception("Token file doesn't exist");
         }
 

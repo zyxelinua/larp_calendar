@@ -97,7 +97,7 @@ class EventRepository extends ServiceEntityRepository
     public function findListAdmin($limit, $offset)
     {
         return $this->createQueryBuilder('event')
-            ->orderBy('event.created', 'DESC')
+            ->orderBy('event.startDate', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery()
