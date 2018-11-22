@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Form\MixDesk;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -650,5 +651,24 @@ class Event extends News
         $googleDescription = $googleDescription . PHP_EOL . 'Описание: ' . PHP_EOL . $this->getDescription();
 
         return $googleDescription;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMixDeskDescription()
+    {
+        $description[] = substr(array_search($this->getMixDeskRuntimeGM(), MixDesk::RuntimeGM['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskOpenness(), MixDesk::Openness['values']), 3);
+        $description[] = substr(array_search($this->getMixdeskPlayerPressure(), MixDesk::PlayerPressure['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskCharCreation(), MixDesk::CharCreation['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskMetatechniques(), MixDesk::Metatechniques['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskStoryEngine(), MixDesk::StoryEngine['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskCommunicationStyle(), MixDesk::CommunicationStyle['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskBleedIn(), MixDesk::BleedIn['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskLoyaltyToSetting(), MixDesk::LoyaltyToSetting['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskRepresentaionOfTheme(), MixDesk::RepresentaionOfTheme['values']), 3);
+        $description[] = substr(array_search($this->getMixDeskScenography(), MixDesk::Scenography['values']), 3);
+        return $description;
     }
 }

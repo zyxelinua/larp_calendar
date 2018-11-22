@@ -1,0 +1,5 @@
+services:
+    Google_Client:
+        class: Google_Client
+        calls:
+            - [setAuthConfig, ['%env(GOOGLE_AUTHCONFIG)%']]
