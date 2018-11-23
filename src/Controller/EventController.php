@@ -67,6 +67,7 @@ class EventController extends BaseController
                 'events' => $eventRepository->findListByCriterias($params),
                 'form' => $form->createView(),
                 'years' => $years,
+                'showResult' => true,
             ];
         }
 
@@ -75,6 +76,7 @@ class EventController extends BaseController
                 'events' => [],
                 'form' => $form->createView(),
                 'years' => $years,
+                'showResult' => false,
             ];
     }
 

@@ -71,7 +71,9 @@ abstract class News
     /**
      * @ORM\Column(type="string", length=1000, nullable=true)
      * @Assert\NotBlank()
-     * @Assert\Image()
+     * @Assert\Image(
+     *     maxSize = "2M"
+     * )
      */
     private $picture;
 

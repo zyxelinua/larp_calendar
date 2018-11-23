@@ -53,3 +53,8 @@
         </ul>
     </nav>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/add_picture_fix_script.js"></script>
+{% endblock %}

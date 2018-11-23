@@ -49,12 +49,13 @@
                 {{ form_row(form.priceMax) }}
             </div>
         </div>
+        <a href="{{ path('search_events') }}" class="btn btn-rounded btn-primary float-right" >  Сбросить критерии</a>
         {{ form_row(form.search) }}
         {{ form_end(form) }}
     </div>
 
     <hr/>
-    {#<div class="col-11 justify-content-center ml-3">#}
+    {% if showResult %}
         {% if events %}
             <div class="row">
                 {% for event in events %}
@@ -73,8 +74,10 @@
                     </div>
                 {% endfor %}
             </div>
+            {% else %}
+                По заданным критериям ничего не найдено.
         {% endif %}
-    {#</div>#}
+    {% endif %}
 {% endblock %}
 
 {% block javascripts %}
