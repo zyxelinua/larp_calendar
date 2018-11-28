@@ -163,13 +163,12 @@ class EventFormType extends AbstractType
                 ]
             )
             ->add('description', TextareaType::class, ['label' => 'Описание'])
-//            todo: actual demands for image attachment
             ->add(
                 'picture',
                 FileType::class,
                 [
                     'label' => 'Загрузить картинку',
-                    'help' => 'Формат/размер/соотношение сторон',
+                    'help' => 'Размер файла до 2М',
                     'required' => false
                 ]
             )

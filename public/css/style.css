@@ -59,3 +59,8 @@ legend.required:after {
 .btn-primary.brand-bg {
     border-color: #00005a;
 }
+
+.bordered {
+    border-style: solid;
+    padding: 5px;
+}

@@ -56,7 +56,7 @@
                 {% endif %}
 
                 {% if event.organizers %}
-                    <p class="pl-1"> <strong> Организаторы:</strong> {{ event.organizers }} </p>
+                    <p class="pl-1"> <strong> Организаторы:</strong> {{ event.organizers | link |raw }} </p>
                 {% endif %}
 
                 {% if event.settlement %}
@@ -99,7 +99,7 @@
                             <a href="{{ event.contactTelegram }}" class="text-dark"> <span class="fa fa-telegram mx-3" ></span></a>
                         {% endif %}
                         {% if event.contactOther %}
-                            <p>{{ event.contactOther }}</p>
+                            <p>{{ event.contactOther | link |raw}}</p>
                         {% endif %}
                 {% endif %}
 
