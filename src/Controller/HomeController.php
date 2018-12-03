@@ -15,7 +15,7 @@ class HomeController extends BaseController
     const ITEMS_ON_HOMEPAGE = 12;
 
     /**
-     * @Route("/home", name="home")
+     * @Route("/", name="home")
      * @Template("home.html.twig")
      *
      */
