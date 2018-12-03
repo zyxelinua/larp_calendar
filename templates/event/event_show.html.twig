@@ -106,7 +106,64 @@
                 {% if event.description %}
                     <p class="p-1">{{event.description}}</p>
                 {% endif %}
+                {% if event.isMixDesk() %}
+                    <p class="p-1"> <strong> Эквалайзер: </strong>
+                    <div id="wrapper-top-axis">
+                    </div>
+                    <div id="wrapper-main">
+                    </div>
+                    <div id="wrapper-bottom-axis">
+                    </div>
+                {% endif %}
+
             </div>
         </div>
     {% endif %}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        var RuntimeGM = {{event.mixDeskRuntimeGM}}
+        var Openness = {{event.mixDeskOpenness}}
+        var PlayerPressure = {{event.mixDeskPlayerPressure}}
+        var CharCreation = {{event.mixDeskCharCreation}}
+        var Metatechniques = {{event.mixDeskMetatechniques}}
+        var StoryEngine = {{event.mixDeskStoryEngine}}
+        var CommunicationStyle = {{event.mixDeskCommunicationStyle}}
+        var BleedIn = {{event.mixDeskBleedIn}}
+        var LoyaltyToSetting = {{event.mixDeskLoyaltyToSetting}}
+        var RepresentaionOfTheme = {{event.mixDeskRepresentaionOfTheme}}
+        var Scenography = {{event.mixDeskScenography}}
+
+        var tickHeight = 0.2
+        var barTickOffset = tickHeight/2
+
+        var x_top_axis_list = ['Активное', 'Доступность', 'Хардкор', 'Игрок', 'Пожизненные', 'Командная игра', 'Физическое', 'Дистанцированное', 'Повторение', 'Симуляция', '360 градусов']
+        var x_bottom_axis_list = ['Вмешательство мастера во время игры', 'Открытость внутриигровой информации',
+            'Физиологическо- психологическое давление на игрока', 'Создание персонажа',
+            'Способы ввода информации (метатехники)', 'Командность игры', 'Взаимодействие между игроками',
+            'Отношение игрока к персонажу', 'Реконструкция поведения персонажей', 'Реконструкция окружения', 'Сценография']
+
+        var data = [
+            { cat: "Пассивное", score: RuntimeGM-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[0] }}'},
+            { cat: "Секретность", score: Openness-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[1] }}' },
+            { cat: "Условность", score: PlayerPressure-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[2] }}'},
+            { cat: "Мастер", score: CharCreation-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[3] }}' },
+            { cat: "Игровые", score: Metatechniques-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[4] }}' },
+            { cat: "Соперничество", score: StoryEngine-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[5] }}' },
+            { cat: "Вербальное", score: CommunicationStyle-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[6] }}' },
+            { cat: "Личное", score: BleedIn-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[7] }}' },
+            { cat: "Отыгрыш", score: LoyaltyToSetting-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[8] }}' },
+            { cat: "Условность ", score: RepresentaionOfTheme-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[9] }}' },
+            { cat: "Минимализм", score: Scenography-barTickOffset, tick: tickHeight, tooltip: '{{ event.getMixDeskDescription()[10] }}' },
+        ];
+    </script>
+
+    <script src="/js/show_event_mixDesk_main_script.js"></script>
+    <script src="/js/show_event_mixDesk_top-axis_script.js"></script>
+    <script src="/js/show_event_mixDesk_bottom-axis__script.js"></script>
+{% endblock %}
+
+

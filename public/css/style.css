@@ -64,3 +64,39 @@ legend.required:after {
     border-style: solid;
     padding: 5px;
 }
+
+svg {
+    font: 10px Helvetica;
+    shape-rendering: crispEdges;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+}
+
+path.domain {
+    stroke: none;
+}
+
+.y .tick line {
+    stroke: #ddd;
+}
+
+.x.axis text {
+    font-size: 14px;
+}
+
+#xaxis text {
+    font-weight: bold;
+}
+
+#yaxis text {
+    font-size: 18px;
+}
+
+.tooltip-text {
+    font-size: 13px;
+    font-weight: bold;
+}
