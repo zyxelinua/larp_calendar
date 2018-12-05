@@ -179,7 +179,6 @@ class Event extends News
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\NotBlank()
      */
     private $token;
 
