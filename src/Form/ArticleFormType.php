@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class ArticleFormType extends AbstractType
 {
@@ -37,7 +38,7 @@ class ArticleFormType extends AbstractType
                 ]
             )
             ->add('name', TextType::class, array('label' => 'Название'))
-            ->add('description', TextareaType::class, array('label' => 'Текст'))
+            ->add('description', CKEditorType::class, array('label' => 'Текст'))
             ->add(
                 'picture',
                 FileType::class,

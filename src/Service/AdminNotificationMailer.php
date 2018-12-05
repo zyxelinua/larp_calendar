@@ -11,6 +11,13 @@ class AdminNotificationMailer
     private $mailer;
     private $templating;
 
+    /**
+     * AdminNotificationMailer constructor.
+     * @param \Swift_Mailer $mailer
+     * @param \Twig_Environment $templating
+     * @param $adminMail
+     * @param $senderMail
+     */
     public function __construct(\Swift_Mailer $mailer, \Twig_Environment $templating, $adminMail, $senderMail)
     {
         $this->mailer = $mailer;
@@ -24,6 +31,9 @@ class AdminNotificationMailer
         return $this->adminMail;
     }
 
+    /**
+     * @param Event $event
+     */
     public function sendEventCreatedNotification(Event $event)
     {
         $message = (new \Swift_Message(sprintf('В Ролендарь добавлено новое событие "%s"', $event->getName())))
@@ -39,6 +49,11 @@ class AdminNotificationMailer
         $this->mailer->send($message);
     }
 
+    /**
+     * @param Event $initialEvent
+     * @param Event $event
+     * @return array
+     */
     public function sendEventEditedNotification(Event $initialEvent, Event $event)
     {
         $difference = $this->compareEvents($initialEvent, $event);
@@ -63,6 +78,11 @@ class AdminNotificationMailer
         return $difference;
     }
 
+    /**
+     * @param Event $initialEvent
+     * @param Event $event
+     * @return array
+     */
     public function compareEvents(Event $initialEvent, Event $event)
     {
         $difference=[];
@@ -102,7 +122,7 @@ class AdminNotificationMailer
         if (
             array_diff ($initialEvent->getWeapons()->toArray(), $event->getWeapons()->toArray()) ||
             array_diff ($event->getWeapons()->toArray(), $initialEvent->getWeapons()->toArray())){
-                $difference['Тип оружия'] = [implode(',', $initialEvent->getWeapons()), implode(',', $event->getWeapons())];
+                $difference['Тип оружия'] = [$initialEvent->getWeapons()->toArray(), $event->getWeapons()->toArray()];
         }
         if ($initialEvent->getOrganizers() != $event->getOrganizers()){
             $difference['Организаторы'] = [$initialEvent->getOrganizers(), $event->getOrganizers()];
