@@ -1,0 +1,36 @@
+<h3>В Ролендаре отредактировано событие "{{ initialName }}"</h3>
+{% if difference %}
+    <h4>Изменения:</h4>
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Было</th>
+                    <th>Стало</th>
+                </tr>
+            <tbody>
+                {% for key, change in difference %}
+                    <tr>
+                        <td>{{key}} </td>
+                        <td>{{change.0}} </td>
+                        <td>{{change.1}} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endif %}
+
+{% if event %}
+    <p>
+        <a href="{{ url('show_event', {'id': event.id}) }}">Посмотреть</a>
+    </p>
+
+    <p>
+        <a href="{{ url('admin_edit_event', {'id': event.id}) }}">Отредактировать</a>
+    </p>
+
+    <p>
+        <a href="{{ url('admin_list_events') }}">Все события</a>
+    </p>
+{% endif %}
+

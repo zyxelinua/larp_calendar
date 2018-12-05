@@ -1,0 +1,15 @@
+<h3>В Ролендарь добавлено новое событие "{{ event.name }}"</h3>
+
+{% if event %}
+    <p>
+        <a href="{{ url('show_event', {'id': event.id}) }}">Посмотреть</a>
+    </p>
+
+    <p>
+        <a href="{{ url('admin_edit_event', {'id': event.id}) }}">Отредактировать</a>
+    </p>
+
+    <p>
+        <a href="{{ url('admin_list_events_approve') }}">Все события, ожидающие утверждения.</a>
+    </p>
+{% endif %}

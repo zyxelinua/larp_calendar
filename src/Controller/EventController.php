@@ -5,6 +5,7 @@ use App\Entity\Event;
 use App\Form\EventFormType;
 use App\Form\EventSearchFormType;
 use App\Repository\EventRepository;
+use App\Service\AdminNotificationMailer;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -84,7 +85,7 @@ class EventController extends BaseController
      * @Route("event/add", name="new_event")
      * @Template("event/event_add.html.twig")
      */
-    public function addEvent(Request $request, FileUploader $fileUploader)
+    public function addEvent(Request $request, FileUploader $fileUploader, AdminNotificationMailer $notificationMailer)
     {
         $event = new Event;
         $form = $this->createForm(EventFormType::class, $event);
@@ -102,6 +103,8 @@ class EventController extends BaseController
             $event->setStatus(Event::STATUS_PENDING);
 
             $this->saveEntity($event);
+
+            $notificationMailer->sendEventCreatedNotification($event);
 
             $url = $this->generateUrl(
                 'edit_event',
@@ -133,15 +136,16 @@ class EventController extends BaseController
 
     /**
      * @Route("/event/edit/{id}/{token}", name="edit_event", requirements={"id"="\d+"})
-     * @Template("/admin/event/edit.html.twig")
+     * @Template("/event/event_edit.html.twig")
      */
-    public function editEvent(Request $request, Event $event, $token, FileUploader $fileUploader)
+    public function editEvent(Request $request, Event $event, $token, FileUploader $fileUploader, AdminNotificationMailer $notificationMailer)
     {
         if ($event->getToken() != $token) {
             throw $this->createNotFoundException('Возможно, вы пытаетесь отредактировать ранее созданное событие, но это неправильная ссылка. 
             В таком случае обратитесь к администратору.');
         }
 
+        $initialEvent = clone $event;
         $initialPicture = $event->getPicture();
         if ($initialPicture) {
             $event->setPicture(
@@ -164,6 +168,8 @@ class EventController extends BaseController
             }
 
             $this->saveEntity($event);
+
+            $notificationMailer->sendEventEditedNotification($initialEvent, $event);
 
             $this->addSuccessFlash(sprintf('Событие "%s" отредактировано.', $event->getName()));
             $this->addNoticeFlash('Вы редактируете ранее созданное событие. <br>

@@ -6,6 +6,8 @@
 parameters:
     locale: 'ru'
     pictures_directory: '%kernel.project_dir%/public/images/pictures'
+    events_log_mail_to: '%env(EVENTS_LOG_MAIL_TO)%'
+    events_log_mail_from: '%env(MAIL_FROM)%'
 
 services:
     # default configuration for services in *this* file
@@ -41,3 +43,8 @@ services:
         calls:
         - [setTokenPath, ['%env(GOOGLE_TOKEN_PATH)%']]
         - [setCalendarId, ['%env(GOOGLE_CALENDAR_ID)%']]
+
+    App\Service\AdminNotificationMailer:
+      arguments:
+        $adminMail: '%events_log_mail_to%'
+        $senderMail: '%events_log_mail_from%'

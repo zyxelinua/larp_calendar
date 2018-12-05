@@ -16,7 +16,7 @@ monolog:
             handler: swift
         swift:
             type:       swift_mailer
-            from_email: '%env(ERROR_MAIL_FROM)%'
+            from_email: '%env(MAIL_FROM)%'
             to_email:   '%env(ERROR_MAIL_TO)%'
             subject:    'An Error Occurred! %%message%%'
             level:      debug
