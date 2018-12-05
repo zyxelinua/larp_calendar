@@ -8,6 +8,8 @@ parameters:
     pictures_directory: '%kernel.project_dir%/public/images/pictures'
     events_log_mail_to: '%env(EVENTS_LOG_MAIL_TO)%'
     events_log_mail_from: '%env(MAIL_FROM)%'
+    google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+    google_recaptcha_secret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
 
 services:
     # default configuration for services in *this* file
@@ -54,3 +56,7 @@ fos_ck_editor:
     configs:
         my_config:
             toolbar: basic
+
+ewz_recaptcha:
+    public_key:  '%google_recaptcha_site_key%'
+    private_key: '%google_recaptcha_secret%'

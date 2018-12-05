@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints as CustomAssert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -182,6 +183,10 @@ class Event extends News
      */
     private $token;
 
+    /**
+     * @Recaptcha\IsTrue
+     */
+    public $recaptcha;
 
     public function __construct()
     {
