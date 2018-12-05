@@ -27,7 +27,7 @@
                 <h6 class="text-muted p-2">
                     Опубликовано: {{ article.publishDate|date("d/m/Y") }}
                 </h6>
-                <p class="p-2">{{article.description}}</p>
+                <p class="p-2">{{article.description | raw }}</p>
             </div>
         </div>
     {% endif %}

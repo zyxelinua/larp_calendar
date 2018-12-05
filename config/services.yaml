@@ -48,3 +48,9 @@ services:
       arguments:
         $adminMail: '%events_log_mail_to%'
         $senderMail: '%events_log_mail_from%'
+
+
+fos_ck_editor:
+    configs:
+        my_config:
+            toolbar: basic
