@@ -86,69 +86,69 @@ class AdminNotificationMailer
     public function compareEvents(Event $initialEvent, Event $event)
     {
         $difference=[];
-        if ($initialEvent->getName() != $event->getName()){
+        if ($initialEvent->getName() != $event->getName()) {
             $difference['Название'] = [$initialEvent->getName(), $event->getName()];
         }
-        if ($initialEvent->getStartDate()->format('Y-m-d') != $event->getStartDate()->format('Y-m-d')){
+        if ($initialEvent->getStartDate()->format('Y-m-d') != $event->getStartDate()->format('Y-m-d')) {
             $difference['Дата начала'] = [$initialEvent->getStartDate()->format('Y-m-d'), $event->getStartDate()->format('Y-m-d')];
         }
-        if ($initialEvent->getEndDate()->format('Y-m-d') != $event->getEndDate()->format('Y-m-d')){
+        if ($initialEvent->getEndDate()->format('Y-m-d') != $event->getEndDate()->format('Y-m-d')) {
             $difference['Дата окончания'] = [$initialEvent->getEndDate()->format('Y-m-d'), $event->getEndDate()->format('Y-m-d')];
         }
-        if ($initialEvent->getLocation() != $event->getLocation()){
+        if ($initialEvent->getLocation() != $event->getLocation()) {
             $difference['Место проведения'] = [$initialEvent->getLocation(), $event->getLocation()];
         }
-        if ($initialEvent->getRegion()->getName() != $event->getRegion()->getName()){
+        if ($initialEvent->getRegion()->getName() != $event->getRegion()->getName()) {
             $difference['Область'] = [$initialEvent->getRegion()->getName(), $event->getRegion()->getName()];
         }
-        if ($initialEvent->getPriceMin() != $event->getPriceMin()){
+        if ($initialEvent->getPriceMin() != $event->getPriceMin()) {
             $difference['Размер денежного взноса от'] = [$initialEvent->getPriceMin(), $event->getPriceMin()];
         }
-        if ($initialEvent->getPriceMax() != $event->getPriceMax()){
+        if ($initialEvent->getPriceMax() != $event->getPriceMax()) {
             $difference['Размер денежного взноса до'] = [$initialEvent->getPriceMax(), $event->getPriceMax()];
         }
-        if ($initialEvent->getType()->getName() != $event->getType()->getName()){
+        if ($initialEvent->getType()->getName() != $event->getType()->getName()) {
             $difference['Формат'] = [$initialEvent->getType()->getName(), $event->getType()->getName()];
         }
-        if ($initialEvent->getSubgenre()->getGenre()->getName() != $event->getSubgenre()->getGenre()->getName()){
+        if ($initialEvent->getSubgenre()->getGenre()->getName() != $event->getSubgenre()->getGenre()->getName()) {
             $difference['Жанр'] = [$initialEvent->getSubgenre()->getGenre()->getName(), $event->getSubgenre()->getGenre()->getName()];
         }
-        if ($initialEvent->getSubgenre()->getName() != $event->getSubgenre()->getName()){
+        if ($initialEvent->getSubgenre()->getName() != $event->getSubgenre()->getName()) {
             $difference['Поджанр'] = [$initialEvent->getSubgenre()->getName(), $event->getSubgenre()->getName()];
         }
-        if ($initialEvent->getSettlement()->getName() != $event->getSettlement()->getName()){
+        if ($initialEvent->getSettlement()->getName() != $event->getSettlement()->getName()) {
             $difference['Тип поселения'] = [$initialEvent->getSettlement()->getName(), $event->getSettlement()->getName()];
         }
         if (
-            array_diff ($initialEvent->getWeapons()->toArray(), $event->getWeapons()->toArray()) ||
-            array_diff ($event->getWeapons()->toArray(), $initialEvent->getWeapons()->toArray())){
-                $difference['Тип оружия'] = [$initialEvent->getWeapons()->toArray(), $event->getWeapons()->toArray()];
+            array_diff($initialEvent->getWeapons()->toArray(), $event->getWeapons()->toArray()) ||
+            array_diff($event->getWeapons()->toArray(), $initialEvent->getWeapons()->toArray())) {
+            $difference['Тип оружия'] = [$initialEvent->getWeapons()->toArray(), $event->getWeapons()->toArray()];
         }
-        if ($initialEvent->getOrganizers() != $event->getOrganizers()){
+        if ($initialEvent->getOrganizers() != $event->getOrganizers()) {
             $difference['Организаторы'] = [$initialEvent->getOrganizers(), $event->getOrganizers()];
         }
-        if ($initialEvent->getOrganizerContact() != $event->getOrganizerContact()){
+        if ($initialEvent->getOrganizerContact() != $event->getOrganizerContact()) {
             $difference['Контакты организаторов'] = [$initialEvent->getOrganizerContact(), $event->getOrganizerContact()];
         }
-        if ($initialEvent->getContactSite() != $event->getContactSite()){
+        if ($initialEvent->getContactSite() != $event->getContactSite()) {
             $difference['Сайт'] = [$initialEvent->getContactSite(), $event->getContactSite()];
         }
-        if ($initialEvent->getContactFB() != $event->getContactFB()){
+        if ($initialEvent->getContactFB() != $event->getContactFB()) {
             $difference['Группа в Facebook'] = [$initialEvent->getContactFB(), $event->getContactFB()];
         }
-        if ($initialEvent->getContactVK() != $event->getContactVK()){
+        if ($initialEvent->getContactVK() != $event->getContactVK()) {
             $difference['Группа в Вконтакте'] = [$initialEvent->getContactVK(), $event->getContactVK()];
         }
-        if ($initialEvent->getContactTelegram() != $event->getContactTelegram()){
+        if ($initialEvent->getContactTelegram() != $event->getContactTelegram()) {
             $difference['Телеграм'] = [$initialEvent->getContactTelegram(), $event->getContactTelegram()];
         }
-        if ($initialEvent->getContactOther() != $event->getContactOther()){
+        if ($initialEvent->getContactOther() != $event->getContactOther()) {
             $difference['Другие ссылки и контакты'] = [$initialEvent->getContactOther(), $event->getContactOther()];
         }
-        if ($initialEvent->getDescription() != $event->getDescription()){
+        if ($initialEvent->getDescription() != $event->getDescription()) {
             $difference['Описание'] = [$initialEvent->getDescription(), $event->getDescription()];
         }
-        if ($initialEvent->isMixDesk() != $event->isMixDesk()){
+        if ($initialEvent->isMixDesk() != $event->isMixDesk()) {
             $difference['Заполнена форма эквалайзера'] =
                 [
                     $initialEvent->isMixDesk()?'да':'нет',
@@ -167,7 +167,7 @@ class AdminNotificationMailer
                 $initialEvent->getMixDeskScenography() != $event->getMixDeskScenography() ||
                 $initialEvent->getMixDeskStoryEngine() != $event->getMixDeskStoryEngine() ||
                 $initialEvent->getMixdeskPlayerPressure() != $event->getMixdeskPlayerPressure()
-            )){
+            )) {
             $difference['Форма эквалайзера'] = ['заполнена', 'изменена'];
         }
 

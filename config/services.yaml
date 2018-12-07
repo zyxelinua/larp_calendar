@@ -10,6 +10,7 @@ parameters:
     events_log_mail_from: '%env(MAIL_FROM)%'
     google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
     google_recaptcha_secret: '%env(GOOGLE_RECAPTCHA_SECRET)%'
+    ifttt_telegram_key: '%env(IFTTT_TELEGRAM_KEY)%'
 
 services:
     # default configuration for services in *this* file
@@ -50,6 +51,12 @@ services:
       arguments:
         $adminMail: '%events_log_mail_to%'
         $senderMail: '%events_log_mail_from%'
+
+    App\Service\IftttHandlerTelegram:
+        tags:
+            - { name: doctrine.event_listener, event: preUpdate }
+        arguments:
+            $key: '%ifttt_telegram_key%'
 
 
 fos_ck_editor:
