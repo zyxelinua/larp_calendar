@@ -10,20 +10,24 @@
             </span>
         </h4>
         <div class="row no-gutters">
-            <div class="col-auto">
-                {%  if post.picture %}
-                    <img class="img-fluid event-img my-2 ml-2" src="{{ asset( 'images/pictures/' ~ post.picture) }}" alt="{{ post.name }}">
-                {% else %}
-                    <img class="img-fluid event-img my-2 ml-2"  src="{{ asset("images/rolendar-1.jpg") }}" alt="{{ post.name }}">
-                {% endif %}
-            </div>
-            <div class="col ">
-                <div class="card-body px-2 d-flex flex-column">
-                    <p class="card-text m-2">{{post.description | cut}}</p>
-                    {% if constant('NEWS_TYPE', post) == 'event' %}
-                        <a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}" class="btn btn-primary brand-bg align-self-end">Подробнее</a>
+            <div class="col">
+                <div class="card-body px-2 ">
+                    {%  if post.picture %}
+                        <img class="img-fluid float-left event-img my-2 ml-2 mr-3" src="{{ asset( 'images/pictures/' ~ post.picture) }}" alt="{{ post.name }}">
                     {% else %}
-                        <a href="{{ path('show_article_by_slug', {'slug': post.slug}) }}" class="btn btn-primary brand-bg align-self-end">Подробнее</a>
+                        <img class="img-fluid float-left event-img my-2 ml-2 mr-3"  src="{{ asset("images/rolendar-1.jpg") }}" alt="{{ post.name }}">
+                    {% endif %}
+                    <p class="card-text m-2">
+                        {% if constant('NEWS_TYPE', post) == 'article' %}
+                            {{post.description | cut | raw }}
+                        {% else %}
+                            {{post.description | cut}}
+                        {% endif %}
+                    </p>
+                    {% if constant('NEWS_TYPE', post) == 'event' %}
+                        <a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}" class="btn btn-primary brand-bg align-self-end float-right mb-3">Подробнее</a>
+                    {% else %}
+                        <a href="{{ path('show_article_by_slug', {'slug': post.slug}) }}" class="btn btn-primary brand-bg align-self-end float-right mb-3">Подробнее</a>
                     {% endif %}
                 </div>
             </div>
