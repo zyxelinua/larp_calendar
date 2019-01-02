@@ -18,7 +18,7 @@ use App\Service\FileUploader;
 
 class EventController extends BaseController
 {
-    const ITEMS_PER_PAGE = 5;
+    const ITEMS_PER_PAGE = 8;
     const FIRST_YEAR = 2013;
 
     /**

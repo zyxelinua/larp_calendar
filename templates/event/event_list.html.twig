@@ -10,23 +10,63 @@
 
 {% block content %}
     {% if events %}
-        <div class="col-11 justify-content-center ml-3">
-            {% for event in events %}
-                <div class="card my-2">
-                    <h4 class="card-title p-2 brand-txt">
-                        {{event.name}} <br>
-                        <span class="h5 text-muted"> {{event.startDate|date("d/m/Y")}}-{{event.endDate|date("d/m/Y")}} </span>
-                        <span class="badge badge-light badge-pill float-right p-2 brand-txt"> {{ event.type.name }} </span>
-                    </h4>
-                    <div class="card-body px-1 py-0 d-flex flex-column">
-                        <p class="card-text m-2">{{event.description | cut}}</p>
-                        <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-primary brand-bg align-self-end mb-2">Подробнее</a>
-                    </div>
-                </div>
-            {% endfor %}
+        <div class="col-11 justify-content-center" >
+            <div class="accordion my-3" id="accordion" >
+                {% for event in events %}
+                    <div class="card ">
+                        <div class="card-header bg-white    " id="{{ event.id }}">
+                            <div class="row " >
+                                <div class="col-3" >
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link collapsed brand-txt" type="button" data-toggle="collapse" data-target="#collapse{{ event.id }}" aria-expanded="false" aria-controls="collapse{{ event.id }}">
+                                            <span class="fa fa-angle-right " aria-hidden="true"></span>
+                                        </button>
+                                        {{ event.startDate|date("d.m.Y") }}
+                                        {% if event.startDate != event.endDate %}
+                                            - {{ event.endDate | date("d.m.Y") }}
+                                        {% endif %}
+                                    </h5>
+                                </div>
+                                <div class="col-4" >
+                                    <h5 class="mb-0">
+                                        {{event.name}}
+                                    </h5>
+                                </div>
+                                <div class="col-3" >
+                                    <h5 class="mb-0 text-muted">
+                                        {{event.type.name}}
+                                    </h5>
+                                </div>
+                                <div class="col-2" >
+                                    <ul class="nav nav-pills card-header-pills justify-content-end">
+                                        <li class="nav-item">
+                                            <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-primary brand-bg mx-2" role="button">Подробнее</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
 
-        {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+
+                        <div id="collapse{{ event.id }}" class="collapse" aria-labelledby="{{ event.id }}" data-parent="#accordion">
+                            <div class="card-body">
+                                <div class="col">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            {{event.description}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
+
         </div>
+
     {% else %}
         Сейчас в этом разделе ничего нет.
     {% endif %}
