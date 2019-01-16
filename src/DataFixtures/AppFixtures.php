@@ -154,7 +154,6 @@ class AppFixtures extends Fixture
 
         // create regions
         $regionList = [
-            'АР Крым',
             'Винницкая',
             'Волынская',
             'Днепропетровская',
@@ -190,6 +189,10 @@ class AppFixtures extends Fixture
         $kiev = new Region();
         $kiev->setName('Киев');
         $manager->persist($kiev);
+
+        $crimea = new Region();
+        $crimea->setName('АР Крым');
+        $manager->persist($crimea);
 
         $manager->flush();
     }
