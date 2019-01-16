@@ -23,11 +23,20 @@
                         <div class="card ">
                             <div class="card-header bg-white    " id="{{ entity.id }}">
                                 <div class="row " >
-                                    <div class="col" >
-                                        <h5 class="mb-0 mr-5">
+
+                                    <div class="col-3" >
+                                        <h5 class="mb-0">
                                             <button class="btn btn-link collapsed brand-txt" type="button" data-toggle="collapse" data-target="#collapse{{ entity.id }}" aria-expanded="false" aria-controls="collapse{{ entity.id }}">
-                                                <span class="fa fa-angle-right " aria-hidden="true">
+                                                <span class="fa fa-angle-right " aria-hidden="true"></span>
                                             </button>
+                                            {{ entity.startDate|date("d.m.Y") }}
+                                            {% if entity.startDate != entity.endDate %}
+                                                - {{ entity.endDate | date("d.m.Y") }}
+                                            {% endif %}
+                                        </h5>
+                                    </div>
+                                    <div class="col-4" >
+                                        <h5 class="mb-0">
                                             {{entity.name}}
                                         </h5>
                                     </div>
