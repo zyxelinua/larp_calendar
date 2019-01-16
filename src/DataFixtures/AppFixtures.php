@@ -154,6 +154,7 @@ class AppFixtures extends Fixture
 
         // create regions
         $regionList = [
+            'АР Крым',
             'Винницкая',
             'Волынская',
             'Днепропетровская',
