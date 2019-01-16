@@ -190,6 +190,10 @@ class AppFixtures extends Fixture
         $kiev->setName('Киев');
         $manager->persist($kiev);
 
+        $crimea = new Region();
+        $crimea->setName('АР Крым');
+        $manager->persist($crimea);
+
         $manager->flush();
     }
 }
