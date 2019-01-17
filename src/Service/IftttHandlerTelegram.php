@@ -135,6 +135,8 @@ class IftttHandlerTelegram
 
         $announcement = $announcement . PHP_EOL . $event->getDescription();
 
+        $announcement = $announcement . PHP_EOL . 'Добавить свое мероприятие в Ролендарь можно здесь: http://rolendar.info/event/add';
+
         return $announcement;
     }
 
