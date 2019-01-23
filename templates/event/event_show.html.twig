@@ -104,7 +104,7 @@
                 {% endif %}
 
                 {% if event.description %}
-                    <p class="p-1">{{event.description}}</p>
+                    <p class="p-1">{{event.description | raw }}</p>
                 {% endif %}
                 {% if event.isMixDesk() %}
                     <p class="p-1"> <strong> Эквалайзер: </strong>

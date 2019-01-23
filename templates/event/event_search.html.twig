@@ -67,7 +67,7 @@
                                 <span class="badge badge-light badge-pill float-right p-2 brand-txt badge-wrap"> {{ event.type.name }} </span>
                             </h4>
                             <div class="card-body px-1 py-0 d-flex flex-column">
-                                <p class="card-text m-2">{{event.description | cut}}</p>
+                                <p class="card-text m-2">{{event.description | cut | raw }}</p>
                                 <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-primary brand-bg align-self-end mb-2">Подробнее</a>
                             </div>
                         </div>
