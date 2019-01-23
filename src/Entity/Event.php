@@ -672,4 +672,83 @@ class Event extends News
         $description[] = substr(array_search($this->getMixDeskScenography(), MixDesk::Scenography['values']), 3);
         return $description;
     }
+
+    public function createAnnouncement()
+    {
+        $announcement =
+            sprintf(
+                "В Ролендарь добавлено новое событие: %s '%s'",
+                mb_strtolower($this->getType()->getName()),
+                $this->getName()
+            );
+
+        $announcement = $announcement . PHP_EOL . 'Организаторы: ' . $this->getOrganizers() . PHP_EOL;
+
+        if ($this->getStartDate()->format('Y-m-d') != $this->getEndDate()->format('Y-m-d')) {
+            $announcement = $announcement .'Дата: ' . $this->getStartDate()->format('Y-m-d') . ' - ' . $this->getEndDate()->format('Y-m-d')  . PHP_EOL;
+        } else {
+            $announcement = $announcement .'Дата: ' . $this->getStartDate()->format('Y-m-d') . PHP_EOL;
+        }
+
+        if ($this->getLocation() && $this->getRegion()) {
+            $announcement = $announcement .'Место проведения: ' . $this->getLocation() . ', ' . $this->getRegion()->getName()  . PHP_EOL;
+        } else {
+            if ($this->getRegion()) {
+                $announcement = $announcement .'Место проведения: ' . $this->getRegion()->getName() . PHP_EOL;
+            } elseif ($this->getLocation()) {
+                $announcement = $announcement .'Место проведения: ' . $this->getLocation() . PHP_EOL;
+            }
+        }
+
+        if ($this->getSettlement()) {
+            $announcement = $announcement .'Тип поселения: ' . mb_strtolower($this->getSettlement()->getName()) . PHP_EOL;
+        }
+
+        if (count($this->getWeapons()) >0) {
+            $weaponCollection = [];
+            foreach ($this->getWeapons() as $weapon) {
+                $weaponCollection [] = $weapon->getName();
+            }
+            $announcement = $announcement .'Материал оружия: ' . implode(", ", $weaponCollection) . PHP_EOL;
+        }
+
+        if ($this->getPriceMin() || $this->getPriceMax()) {
+            $announcement = $announcement .'Взнос: ';
+            if ($this->getPriceMin()) {
+                $announcement = $announcement . $this->getPriceMin();
+
+                if ($this->getPriceMax() && $this->getPriceMax()!= $this->getPriceMin()) {
+                    $announcement = $announcement . ' - ' . $this->getPriceMax();
+                }
+            } else {
+                $announcement = $announcement . $this->getPriceMax();
+            }
+            $announcement = $announcement . 'грн.' . PHP_EOL;
+        }
+
+        if ($this->getContactSite() || $this->getContactFB() || $this->getContactVK() || $this->getContactTelegram() || $this->getContactOther()) {
+            $announcement = $announcement .'Ссылки: '. PHP_EOL;
+            if ($this->getContactSite()) {
+                $announcement = $announcement . 'Сайт: ' . $this->getContactSite() . PHP_EOL;
+            }
+            if ($this->getContactFB()) {
+                $announcement = $announcement . 'Facebook: ' . $this->getContactFB() . PHP_EOL;
+            }
+            if ($this->getContactVK()) {
+                $announcement = $announcement . 'Вконтакте: ' . $this->getContactVK() . PHP_EOL;
+            }
+            if ($this->getContactTelegram()) {
+                $announcement = $announcement . 'Телеграм: ' . $this->getContactTelegram() . PHP_EOL;
+            }
+            if ($this->getContactOther()) {
+                $announcement = $announcement . $this->getContactOther() . PHP_EOL;
+            }
+        }
+
+        $announcement = $announcement . PHP_EOL . strip_tags($this->getDescription()) . PHP_EOL;
+
+        $announcement = $announcement . PHP_EOL . 'Добавить свое мероприятие в Ролендарь можно здесь: http://rolendar.info/event/add';
+
+        return $announcement;
+    }
 }

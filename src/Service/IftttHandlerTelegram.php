@@ -54,7 +54,7 @@ class IftttHandlerTelegram
         $imgUrl = $this->generateImageUrl($event);
         $body = json_encode(
             [
-                "value1" => nl2br($this->createEventAnnouncement($event)),
+                "value1" => nl2br($event->createAnnouncement()),
                 "value2" => $imgUrl],
             JSON_UNESCAPED_UNICODE
         );
@@ -63,81 +63,6 @@ class IftttHandlerTelegram
         $response = curl_exec($ch);
         $this->logger->info(sprintf('Got response: %s', $response));
         curl_close($ch);
-    }
-
-    public function createEventAnnouncement(Event $event)
-    {
-        $announcement =
-            sprintf("В Ролендарь добавлено новое событие: %s '%s'",
-                mb_strtolower($event->getType()->getName()),
-                $event->getName());
-
-        $announcement = $announcement . PHP_EOL . 'Организаторы: ' . $event->getOrganizers() . PHP_EOL;
-
-        if ($event->getStartDate()->format('Y-m-d') != $event->getEndDate()->format('Y-m-d')) {
-            $announcement = $announcement .'Дата: ' . $event->getStartDate()->format('Y-m-d') . ' - ' . $event->getEndDate()->format('Y-m-d')  . PHP_EOL;
-        } else {
-            $announcement = $announcement .'Дата: ' . $event->getStartDate()->format('Y-m-d') . PHP_EOL;
-        }
-
-        if ($event->getLocation()) {
-            $announcement = $announcement .'Место проведения: ' . $event->getLocation() . ', ' . $event->getRegion()->getName()  . PHP_EOL;
-        } else {
-            if ($event->getRegion()) {
-                $announcement = $announcement .'Место проведения: ' . $event->getRegion()->getName()  . PHP_EOL;
-            }
-        }
-
-        if ($event->getSettlement()) {
-            $announcement = $announcement .'Тип поселения: ' . mb_strtolower($event->getSettlement()->getName()) . PHP_EOL;
-        }
-
-        if (count($event->getWeapons()) >0) {
-            $weaponCollection = [];
-            foreach ($event->getWeapons() as $weapon) {
-                $weaponCollection [] = $weapon->getName();
-            }
-            $announcement = $announcement .'Материал оружия: ' . implode(", ", $weaponCollection) . PHP_EOL;
-        }
-
-        if ($event->getPriceMin() || $event->getPriceMax()) {
-            $announcement = $announcement .'Взнос: ';
-            if ($event->getPriceMin()) {
-                $announcement = $announcement . $event->getPriceMin();
-
-                if ($event->getPriceMax() && $event->getPriceMax()!= $event->getPriceMin()) {
-                    $announcement = $announcement . ' - ' .$event->getPriceMax();
-                }
-            } else {
-                $announcement = $announcement . $event->getPriceMax();
-            }
-            $announcement = $announcement . 'грн.' . PHP_EOL;
-        }
-
-        if ($event->getContactSite() || $event->getContactFB() || $event->getContactVK() || $event->getContactTelegram() || $event->getContactOther()) {
-            $announcement = $announcement .'Ссылки: '. PHP_EOL;
-            if ($event->getContactSite()) {
-                $announcement = $announcement . 'Сайт: ' . $event->getContactSite() . PHP_EOL;
-            }
-            if ($event->getContactFB()) {
-                $announcement = $announcement . 'Facebook: ' . $event->getContactFB() . PHP_EOL;
-            }
-            if ($event->getContactVK()) {
-                $announcement = $announcement . 'Вконтакте: ' . $event->getContactVK() . PHP_EOL;
-            }
-            if ($event->getContactTelegram()) {
-                $announcement = $announcement . 'Телеграм: ' . $event->getContactTelegram() . PHP_EOL;
-            }
-            if ($event->getContactOther()) {
-                $announcement = $announcement . $event->getContactOther() . PHP_EOL;
-            }
-        }
-
-        $announcement = $announcement . PHP_EOL . $event->getDescription();
-
-        $announcement = $announcement . PHP_EOL . 'Добавить свое мероприятие в Ролендарь можно здесь: http://rolendar.info/event/add';
-
-        return $announcement;
     }
 
     public function generateImageUrl(Event $event)

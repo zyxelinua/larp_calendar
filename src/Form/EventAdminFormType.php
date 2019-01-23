@@ -21,6 +21,7 @@ use App\Entity\Settlement;
 use App\Entity\Weapon;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class EventAdminFormType extends AbstractType
 {
@@ -163,7 +164,7 @@ class EventAdminFormType extends AbstractType
                     'required' => false
                 ]
             )
-            ->add('description', TextareaType::class, ['label' => 'Описание'])
+            ->add('description', CKEditorType::class, ['label' => 'Описание'])
             ->add(
                 'picture',
                 FileType::class,
