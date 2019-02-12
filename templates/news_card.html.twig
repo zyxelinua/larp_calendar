@@ -18,7 +18,9 @@
                         <img class="img-fluid float-left event-img my-2 ml-2 mr-3"  src="{{ asset("images/rolendar-1.jpg") }}" alt="{{ post.name }}">
                     {% endif %}
                     <p class="card-text m-2">
-                        {{post.description | cut | raw }}
+                        {% autoescape false %}
+                            {{ post.description | striptags('<br><p>') | cut }}
+                        {% endautoescape %}
                     </p>
                     {% if constant('NEWS_TYPE', post) == 'event' %}
                         <a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}" class="btn btn-primary brand-bg align-self-end float-right mb-3">Подробнее</a>
