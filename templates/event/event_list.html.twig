@@ -2,72 +2,74 @@
 
 {% block page_heading %}
     <div class="row " >
-        <div class="col-11 justify-content-center ml-3">
+        <div class="col-sm-12 col-lg-11 justify-content-center">
         <h2 class="sub-header  brand-txt">{% block heading %}  Предстоящие события  {% endblock %}</h2>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-    {% if events %}
-        <div class="col-11 justify-content-center" >
-            <div class="accordion my-3" id="accordion" >
-                {% for event in events %}
-                    <div class="card ">
-                        <div class="card-header bg-white    " id="{{ event.id }}">
-                            <div class="row " >
-                                <div class="col-3" >
-                                    <h5 class="mb-0">
-                                        <button class="btn btn-link collapsed brand-txt" type="button" data-toggle="collapse" data-target="#collapse{{ event.id }}" aria-expanded="false" aria-controls="collapse{{ event.id }}">
-                                            <span class="fa fa-angle-right " aria-hidden="true"></span>
-                                        </button>
-                                        {{ event.startDate|date("d.m.Y") }}
-                                        {% if event.startDate != event.endDate %}
-                                            - {{ event.endDate | date("d.m.Y") }}
-                                        {% endif %}
-                                    </h5>
-                                </div>
-                                <div class="col-4" >
-                                    <h5 class="mb-0">
-                                        {{event.name}}
-                                    </h5>
-                                </div>
-                                <div class="col-3" >
-                                    <h5 class="mb-0 text-muted">
-                                        {{event.type.name}}
-                                    </h5>
-                                </div>
-                                <div class="col-2" >
-                                    <ul class="nav nav-pills card-header-pills justify-content-end">
-                                        <li class="nav-item">
-                                            <a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-primary brand-bg mx-2" role="button">Подробнее</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+	<div class="row">
+		{% if events %}
+			<div class="col-sm-12 col-lg-11 justify-content-center" >
+				<div class="accordion my-3" id="accordion" >
+					{% for event in events %}
+						<div class="card ">
+							<div class="card-header bg-white " id="{{ event.id }}">
+								<div class="row event-list-wrapper" >
+									<div class="col-sm-12 col-lg-3" >
+										<h5 class="mb-0">
+											<button class="btn btn-link collapsed brand-txt" type="button" data-toggle="collapse" data-target="#collapse{{ event.id }}" aria-expanded="false" aria-controls="collapse{{ event.id }}">
+												<span class="fa fa-angle-right " aria-hidden="true"></span>
+											</button>
+											{{ event.startDate|date("d.m.Y") }}
+											{% if event.startDate != event.endDate %}
+												- {{ event.endDate | date("d.m.Y") }}
+											{% endif %}
+										</h5>
+									</div>
+									<div class="col-sm-12 col-lg-4" >
+										<h5 class="mb-0">
+											{{event.name}}
+										</h5>
+									</div>
+									<div class="col-sm-12 col-lg-3" >
+										<h5 class="mb-0 text-muted">
+											{{event.type.name}}
+										</h5>
+									</div>
+									<div class="col-sm-12 col-lg-2" >
+										<ul class="nav nav-pills card-header-pills justify-content-end">
+											<li class="nav-item">
+												<a href="{{ path('show_event_by_slug', {'slug': event.slug}) }}" class="btn btn-primary brand-bg mx-2" role="button">Подробнее</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div id="collapse{{ event.id }}" class="collapse" aria-labelledby="{{ event.id }}" data-parent="#accordion">
+								<div class="card-body">
+									<div class="col">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item">
+												{{event.description | raw }}
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
 
+				{{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
 
-                        <div id="collapse{{ event.id }}" class="collapse" aria-labelledby="{{ event.id }}" data-parent="#accordion">
-                            <div class="card-body">
-                                <div class="col">
-                                    <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">
-                                            {{event.description | raw }}
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
+			</div>
 
-            {{ include('pagination.html.twig', { 'pageCount' : pageCount, 'page' : page }) }}
-
-        </div>
-
-    {% else %}
-        Сейчас в этом разделе ничего нет.
+		{% else %}
+		<div class="col-11 justify-content-center" >
+			Сейчас в этом разделе ничего нет.
+		</div>
     {% endif %}
+	</div>
 {% endblock %}

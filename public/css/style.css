@@ -1,16 +1,57 @@
 body {
-    padding-top: 80px;
-    padding-bottom: 70px;
+	padding-top: 80px;
+	padding-bottom: 70px;
+}
+header .header-h1-name {
+	font-size: 2.5rem;
+    color: #00005a;
+}
+header .header-title {
+	font-style:italic;
 }
 
-.navbar {
-    margin: 0 -15px;
+header .h4 {
+	font-size:0.75em;
+	display: block;
+}
+header .h4:first-letter {
+    text-transform: uppercase;
 }
 
-.sub-header {
-    padding: 10px;
-    margin: 5px;
+@media (min-width:992px) {
+	header .header-h1-name {
+		font-size: 1.75rem;
+		color: #00005a;
+	}
+	header .h4 {
+		font-size:1.25rem;
+	}
+	header .h4:first-letter {
+		text-transform: inherit;
+	}
+	.navbar-expand-lg .navbar-nav .nav-link {
+		padding-right: 1rem;
+		padding-left: 1rem;
+	}
+	.sub-header {
+		padding: 10px;
+		margin: 5px;
+	}
 }
+
+@media (min-width:1600px) {
+	header .header-h1-name { 
+		font-size:2.5rem
+	}
+	header .h4 {
+		font-size:1.5rem;
+		display: inline-block;
+	}
+	header .h4:first-letter {
+		text-transform: inherit;
+	}
+}
+
 
 .page-footer{
     margin: 0 -15px;
@@ -39,7 +80,7 @@ body {
 }
 
 .event-img {
-    width: 18rem;
+    min-width:100%;
 }
 
 .contact-img {
@@ -68,6 +109,9 @@ legend.required:after {
 
 .badge-wrap.badge {
     white-space: normal;
+}
+.badge-news-type {
+	text-transform: capitalize;
 }
 
 svg {
@@ -104,4 +148,35 @@ path.domain {
 .tooltip-text {
     font-size: 13px;
     font-weight: bold;
+}
+
+
+
+
+.event-list-wrapper {
+	display:flex;
+	align-items:center;
+}
+
+
+.google-calendar-container {
+	position: relative;
+	height: 0;
+	width: 100%;
+	padding-bottom: 100%;
+}
+.google-calendar-container iframe {
+	position: absolute;
+	top:0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+	
+
+@media (min-width:992px) {
+	.google-calendar-container {
+		padding-bottom: 37%;
+	}
+
 }

@@ -2,64 +2,65 @@
 
 {% block page_heading %}
     <div class="row " >
-        <div class="col-11 justify-content-center ml-3">
+        <div class="col-sm-12 col-lg-11 justify-content-center">
         <h2 class="sub-header  brand-txt">{% block heading %}  Укажите критерии поиска  {% endblock %}</h2>
         </div>
     </div>
 {% endblock %}
 
 {% block content %}
-
-    <div class="col-11 justify-content-center ml-3 mt-2" >
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-        <div class="card-columns">
-            <div class="card pt-2 px-2">
-                {% for year in years if years %}
-                    <button type="button" class="btn btn-primary mb-3 mt-1.5 mr-1 year-choice" data-year="{{year}}">
-                        {{ year }}
-                    </button>
-                {%  endfor %}
-                <h6>Период</h6>
-                {{ form_row(form.periodStart) }}
-                {{ form_row(form.periodEnd) }}
-            </div>
-            <div class="card pt-2 px-2">
-                {{ form_row(form.keywords) }}
-            </div>
-            <div class="card pt-2 px-2">
-                {{ form_row(form.type) }}
-            </div>
-            <div class="card pt-2 px-2">
-                {{ form_row(form.region) }}
-            </div>
-            <div class="card pt-2 px-2">
-                {{ form_row(form.genre) }}
-            </div>
-            <div class="card pt-2 px-2">
-                {{ form_row(form.subgenre) }}
-            </div>
-            <div class="card pt-2 px-2">
-                {{ form_row(form.settlement) }}
-            </div>
-            <div class="card pt-2 px-2">
-                {{ form_row(form.weapons) }}
-            </div>
-            <div class="card pt-2 px-2">
-                {{ form_row(form.priceMax) }}
-            </div>
-        </div>
-        <a href="{{ path('search_events') }}" class="btn btn-rounded btn-primary float-right" >  Сбросить критерии</a>
-        {{ form_row(form.search) }}
-        {{ form_end(form) }}
-    </div>
+	<div class="row">
+		<div class="col-sm-12 col-lg-11 justify-content-center " >
+			{{ form_start(form) }}
+			{{ form_errors(form) }}
+			<div class="card-columns">
+				<div class="card pt-2 px-2">
+					{% for year in years if years %}
+						<button type="button" class="btn btn-primary mb-3 mt-1.5 mr-1 year-choice" data-year="{{year}}">
+							{{ year }}
+						</button>
+					{%  endfor %}
+					<h6>Период</h6>
+					{{ form_row(form.periodStart) }}
+					{{ form_row(form.periodEnd) }}
+				</div>
+				<div class="card pt-2 px-2">
+					{{ form_row(form.keywords) }}
+				</div>
+				<div class="card pt-2 px-2">
+					{{ form_row(form.type) }}
+				</div>
+				<div class="card pt-2 px-2">
+					{{ form_row(form.region) }}
+				</div>
+				<div class="card pt-2 px-2">
+					{{ form_row(form.genre) }}
+				</div>
+				<div class="card pt-2 px-2">
+					{{ form_row(form.subgenre) }}
+				</div>
+				<div class="card pt-2 px-2">
+					{{ form_row(form.settlement) }}
+				</div>
+				<div class="card pt-2 px-2">
+					{{ form_row(form.weapons) }}
+				</div>
+				<div class="card pt-2 px-2">
+					{{ form_row(form.priceMax) }}
+				</div>
+			</div>
+			<a href="{{ path('search_events') }}" class="btn btn-rounded btn-primary float-right" >  Сбросить критерии</a>
+			{{ form_row(form.search) }}
+			{{ form_end(form) }}
+		</div>
+	</div>
 
     <hr/>
     {% if showResult %}
         {% if events %}
             <div class="row">
                 {% for event in events %}
-                    <div class="col-4">
+                    <div class="col-sm-12 col-md-6 col-lg-4">
                         <div class="card my-2">
                             <h4 class="card-title p-2 brand-txt">
                                 {{event.name}} <br>
