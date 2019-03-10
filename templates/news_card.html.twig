@@ -1,6 +1,7 @@
 <div class="col-sm-12 col-lg-6">
 	<div class="card my-2">
-		<h4 class="card-header text-left bg-white brand-txt">{{post.name}}
+		<h4 class="card-header text-left bg-white brand-txt">
+			<a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}">{{post.name}}</a>
 			<span class="badge badge-light badge-pill float-right brand-txt badge-news-type">
 				{% if constant('NEWS_TYPE', post) == 'event' %}
 					анонс
@@ -14,9 +15,9 @@
 				<div class="row card-body px-2">
 					<div class="col-sm-12 col-md-6 col-lg-4">
 						{%  if post.picture %}
-							<img class="img-fluid event-img" src="{{ asset( 'images/pictures/' ~ post.picture) }}" alt="{{ post.name }}">
+							<a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}"><img class="img-fluid event-img" src="{{ asset( 'images/pictures/' ~ post.picture) }}" alt="{{ post.name }}"></a>
 						{% else %}
-							<img class="img-fluid event-img"  src="{{ asset('images/rolendar-1.jpg') }}" alt="{{ post.name }}">
+							<a href="{{ path('show_event_by_slug', {'slug': post.slug}) }}"><img class="img-fluid event-img"  src="{{ asset('images/rolendar-1.jpg') }}" alt="{{ post.name }}"></a>
 						{% endif %}
 					</div>
 					<div class="col-sm-12 col-md-6 col-lg-8">
