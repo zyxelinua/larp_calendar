@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block page_heading %}
-    <div class="row justify-content-center" >
+    <div class="row justify-content-center">
         <div class="col-11">
             <h2 class="sub-header text-center brand-txt">
                 {% block heading %}
@@ -14,79 +14,109 @@
 
 {% block content %}
     <div class="row justify-content-center">
-        <div class="col">
+        <div class="col-sm-12">
             <div class="card-deck">
-                <div class="col">
-                    <div class="card ">
-                        <h4 class="card-header text-left bg-white brand-txt">О проекте</h4>
-                        <div class="row no-gutters">
-                            <div class="col ">
-                                <div class="card-body px-2 flex-column">
-                                        <img class="img-fluid float-left event-img  my-2 ml-2 mr-3" src="{{ asset( "images/rolendar-1.jpg") }}" alt="rolendar">
-                                    <p class="card-text m-2">
-                                    <p>
-                                        Ролендарь - это прежде всего календарь ролевых проектов Украины. Он создавался как для себя и впоследствии стал открытым для ролевого сообщества.
-                                    </p>
-                                    <p>
-                                        Мы добавляем игры, фестивали, ролевые балы, конвенты и стараемся, чтобы информация о проектах была наиболее актуальной и полной.<br>
-                                        Мы за открытость и доступность информации, за расширение аудитории, которой интересны живые ролевые проекты во всех их проявлениях, поэтому если вы знаете о каком-то проекте, которого нет у нас в календаре, пишите нам, мы все исправим.<br>
-                                    </p>
-                                    <p>
-                                        Ролендарь проект некоммерческий, но если вам здесь нравится, вы можете нам помочь:<br>
-                                        Карта Приватбанка Ковалева Диана 4731 1856 1575 9690
-                                    </p>
-                                    </p>
-                                </div>
+                <div class="card">
+                    <h4 class="card-header text-left bg-white brand-txt">О проекте</h4>
+                    <div class="card-body flex-column">
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-4">
+                                <img class="img-fluid float-left event-img  my-2 ml-2 mr-3" src="{{ asset( "images/rolendar-1.jpg") }}" alt="rolendar" title="rolendar">
+                            </div>
+                            <div class="col-sm-12 col-lg-8 card-text">
+                                <p>
+                                    Ролендарь - это прежде всего календарь ролевых проектов Украины. Он создавался как
+                                    для себя и впоследствии стал открытым для ролевого сообщества.
+                                </p>
+                                <p>
+                                    Мы добавляем игры, фестивали, ролевые балы, конвенты и стараемся, чтобы информация о
+                                    проектах была наиболее актуальной и полной.<br>
+                                    Мы за открытость и доступность информации, за расширение аудитории, которой
+                                    интересны живые ролевые проекты во всех их проявлениях, поэтому если вы знаете о
+                                    каком-то проекте, которого нет у нас в календаре, пишите нам, мы все исправим.<br>
+                                </p>
+                                <p>Ролендарь проект некоммерческий, но если вам здесь нравится, вы можете нам
+                                    помочь:<br>
+                                    Карта Приватбанка Ковалева Диана 4731 1856 1575 9690
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card">
-                        <h4 class="card-header text-left bg-white brand-txt">Контакты</h4>
-                        <div class="row no-gutters">
-                            <div class="col ">
-                                <div class="card-body px-2 pl-3 d-flex flex-column">
-                                    <p class="card-text m-2 ml-4">
+                <div class="card">
+                    <h4 class="card-header text-left bg-white brand-txt">Контакты</h4>
+                    <div class="card-body px-2 pl-3 d-flex flex-column">
+                        <div class="row">
+                            <div class="col-sm-12 col-lg-8">
+                                <p class="card-text m-2 ml-4">
+                                <h5> Ролендарь в соцсетях</h5>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="https://www.facebook.com/rolendar/">
+                                            <span class="fa fa-facebook-square brand-txt mx-2 fa-2x"></span>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="https://vk.com/rolendar">
+                                            <span class="fa fa-vk brand-txt mx-2 fa-2x"></span>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item mb-5">
+                                        <a href="https://t.me/rolendar">
+                                            <span class="fa fa-telegram brand-txt mx-2 fa-2x"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <h5>Руководитель проекта и редактор </h5>
+                                <h4> Диана Ковалева </h4>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <a href="mailto:mirnavii@gmail.com">
+                                            <span class="fa fa-envelope fa-2x brand-txt mx-2"></span>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="https://www.facebook.com/diana.milanskaya/">
+                                            <span class="fa fa-facebook-square fa-2x brand-txt mx-2"></span>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a>
+                                            <span class="fa fa-skype fa-2x brand-txt mx-2"></span>
+                                            sirius_nalivat
+                                        </a>
+                                    </li>
+                                </ul>
 
-                                        <h5> Ролендарь в соцсетях</h5>
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item"> <a href="https://www.facebook.com/rolendar/"> <span class="fa fa-facebook-square brand-txt mx-2 fa-2x" ></span>  </a> </li>
-                                            <li class="list-inline-item"> <a href="https://vk.com/rolendar"> <span class="fa fa-vk brand-txt mx-2 fa-2x" ></span>  </a> </li>
-                                            <li class="list-inline-item mb-5"> <a href="https://t.me/rolendar"> <span class="fa fa-telegram brand-txt mx-2 fa-2x" ></span>  </a> </li>
-                                        </ul>
-
-                                        <h5>Руководитель проекта и редактор </h5>
-                                        <h4> Диана Ковалева </h4>
-
-                                        <ul class="list-inline">
-                                            <li class="list-inline-item"> <a href="mailto:mirnavii@gmail.com"> <span class="fa fa-envelope fa-2x brand-txt mx-2" ></span>  </a> </li>
-                                            <li class="list-inline-item"> <a href="https://www.facebook.com/diana.milanskaya/"> <span class="fa fa-facebook-square fa-2x brand-txt mx-2" ></span>  </a> </li>
-                                            <li class="list-inline-item"> <a><span class="fa fa-skype fa-2x brand-txt mx-2" ></span> sirius_nalivat </a> </li>
-                                        </ul>
-
-                                    </p>
-                                </div>
+                                </p>
                             </div>
-                            <div class="col-auto">
+                            <div class="col-sm-12 col-lg-4">
                                 <img class="img-fluid contact-img my-2 mr-2" src="{{ asset( "images/Diana.jpg") }}" alt="rolendar">
                             </div>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <div class="row no-gutters">
-                                    <div class="col">
-                                        <p class="card-text m-2">
-                                        <h5 > Соучредитель проекта <span class="bordered"> Роман&nbspГаврилов </span></h5>
-                                        <img class="img-fluid float-left event-img my-2 mr-2" src="{{ asset( "images/Romashka.jpg") }}" alt="rolendar">
-                                        <p class="mt-4"> (более известный в ролевом сообществе как Роман Миланский ака Ромашка). </p>
-                                        <p> Без его идей, многомесячного труда и аналитики этого проекта просто бы не было. </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text m-2">
+                              <div class="row">
+                                    <div class="col-sm-12">
+                                        <h5> Соучредитель проекта <span class="bordered d-inline-block"> Роман Гаврилов </span></h5>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-4">
+                                        <img class="img-fluid float-left event-img my-2 mr-2"  src="{{ asset( "images/Romashka.jpg") }}" alt="rolendar">
+                                    </div>
+                                    <div class="col-sm-12 col-lg-8">
+                                        <p class="mt-4">
+                                            (более известный в ролевом сообществе как Роман Миланский ака Ромашка).
+                                        </p>
+                                        <p>
+                                            Без его идей, многомесячного труда и аналитики этого проекта просто бы не было.
                                         </p>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>
+                            </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

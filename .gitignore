@@ -29,6 +29,8 @@ archive_edit.txt
 mix-desk.csv
 .env
 
+/templates/.idea/
+
 /public/images/Diana.jpg
 /public/images/Romashka.jpg
 /public/images/pictures
